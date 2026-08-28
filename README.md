@@ -12,6 +12,149 @@ Lee los tres documentos antes de empezar a trabajar.
 
 ---
 
+## Identificación del equipo
+
+**Curso:** Bases de Datos — Pontificia Universidad Javeriana
+**Docente:** Ing. Luis Gabriel Moreno Sandoval, PhD.
+**Monitora:** Viviana Gómez — [gomezlv@javeriana.edu.co](mailto:gomezlv@javeriana.edu.co)
+**Grupo:** G3 — repositorio `puj-course/BD_2630_1010_G3`
+
+| Integrante | GitHub | Usuario Oracle |
+|---|---|---|
+| Nicolás Esteban Mamian Palacios | [@Nicolukazzz](https://github.com/Nicolukazzz) | `IS101009` |
+| Santiago P. | [@hsantiagopf](https://github.com/hsantiagopf) | _(completar)_ |
+| Nick_07 | [@Nivk-Debug](https://github.com/Nivk-Debug) | _(completar)_ |
+| _(completar nombre)_ | [@laulesmes04](https://github.com/laulesmes04) | _(completar)_ |
+
+---
+
+## Información técnica de conexión al servidor
+
+El modelo genérico inicial está montado en el servidor Oracle dispuesto por el curso. La guía
+completa está en [`README_GUIA_SERVIDOR.md`](README_GUIA_SERVIDOR.md); lo esencial es:
+
+| Parámetro | Valor |
+|---|---|
+| Motor | Oracle Database **19c** (19.3.0.0.0) |
+| Host | `orion.javeriana.edu.co` |
+| Puerto | `1521` |
+| Service Name | `LAB` |
+| Usuario | El usuario Oracle asignado individualmente (p. ej. `IS101009`) |
+| Contraseña | La asignada individualmente — **nunca se versiona en este repositorio** |
+| Juego de caracteres | `AL32UTF8` |
+| Requisito de red | **VPN de la Universidad Javeriana** |
+
+**Cadena de conexión (SQLcl / SQL Developer):**
+
+```
+usuario/contraseña@orion.javeriana.edu.co:1521/LAB
+```
+
+**Guardar la conexión en SQLcl:**
+
+```bash
+conn -save "BD Javeriana" -savepwd IS101009/<contraseña>@orion.javeriana.edu.co:1521/LAB
+```
+
+### Dos esquemas, dos propósitos
+
+| Esquema | Contenido | Permisos | Para qué se usa |
+|---|---|---|---|
+| `MORENOLUIS` | Tablas de referencia `FIFA_*` | **Solo lectura** | Desarrollar y validar las consultas SQL sobre un dataset común |
+| Esquema propio (p. ej. `IS101009`) | Tablas del proyecto + datos propios | Control total | DDL, DML, vistas, roles, índices y pruebas de la implementación propia |
+
+Las tablas de `MORENOLUIS` **no se deben modificar** (`INSERT`/`UPDATE`/`DELETE`/`DROP`/`ALTER`/`TRUNCATE`).
+Los datos de la implementación propia deben ser **distintos** de los de referencia.
+
+**Prueba rápida de acceso:**
+
+```sql
+SELECT COUNT(*) FROM MORENOLUIS.FIFA_EDICION_MUNDIAL;   -- 3
+SELECT COUNT(*) FROM MORENOLUIS.FIFA_ESTADIO;           -- 6
+SELECT COUNT(*) FROM MORENOLUIS.FIFA_SELECCION;         -- 14
+SELECT COUNT(*) FROM MORENOLUIS.FIFA_PARTIDO;           -- 23
+SELECT COUNT(*) FROM MORENOLUIS.FIFA_PARTICIPACION_PARTIDO; -- 46
+```
+
+> **Nota sobre las columnas de referencia:** además de las listadas en `README_GUIA_SERVIDOR.md`,
+> las tablas de referencia incluyen `FIFA_PARTIDO.ASISTENCIA_REGISTRADA` y `FIFA_SELECCION.GRUPO`,
+> necesarias para las consultas de ocupación de estadio y de tabla de posiciones por grupo.
+
+---
+
+## Cronograma del equipo
+
+Ventana de aporte semanal: **lunes 00:00 — domingo 23:59 (hora Colombia, UTC-5)**.
+
+### Entrega 1 — Modelo Relacional, SQL e Integridad
+
+| Semana | Fechas | Entregables principales |
+|---|---|---|
+| 1 | 24–30 ago 2026 | Estructura del repositorio; documento técnico (secc. 1–3) + diagrama ER; consultas 2 y 6; consultas 1, 3, 4, 5, 9, 12 y 13 |
+| 2 | 31 ago – 6 sep 2026 | Consultas 7, 8, 10 y 11; vistas + justificación; consulta 15 sobre vista; DML del ciclo de vida del partido |
+| 3 | 7–13 sep 2026 | DDL del modelo inicial; operaciones inválidas y pruebas `ON DELETE`; consulta 14; roles y privilegios |
+| 4 | 14–20 sep 2026 | Álgebra relacional; evaluación crítica del modelo inicial + boceto ampliado; documento técnico (secc. 4–5) y diccionario de datos; merge de todas las ramas |
+
+### Entrega 2 — Consultas Avanzadas, Perfección del Modelo y Roles
+
+| Semana | Entregables principales |
+|---|---|
+| 1 | Modelo lógico ampliado (12–16 tablas) + diccionario de datos ampliado |
+| 2 | DDL del modelo ampliado; modelo físico; carga de datos de prueba |
+| 3 | Normalización (1FN–3FN); consultas avanzadas parte 1 |
+| 4 | Consultas avanzadas parte 2; roles y privilegios diferenciados; casos de prueba |
+
+### Entrega 3 — Programación en Base de Datos y Aplicación
+
+| Semana | Entregables principales |
+|---|---|
+| 1 | Funciones, procedimientos y los 4 triggers obligatorios + pruebas |
+| 2 | Aplicación funcional (base + catálogos) y arquitectura |
+| 3 | Aplicación completa, módulo de reportes y cierre |
+
+### Reparto de responsabilidades — Entrega 1
+
+| Integrante | Bloque asignado |
+|---|---|
+| [@Nicolukazzz](https://github.com/Nicolukazzz) | DDL, restricciones de negocio e índices; coordinación e integración de ramas |
+| [@hsantiagopf](https://github.com/hsantiagopf) | Las 15 consultas SQL |
+| [@Nivk-Debug](https://github.com/Nivk-Debug) | Datos de prueba, vistas y modificadores de datos (DML) |
+| [@laulesmes04](https://github.com/laulesmes04) | Documento técnico, diccionario de datos, evaluación crítica y álgebra relacional |
+
+---
+
+## Estado de la Entrega 1
+
+| Entregable | Archivo | Estado |
+|---|---|---|
+| Documento técnico | `docs/entrega1/documento_tecnico.md` | ⬜ Pendiente |
+| Diagrama ER del modelo inicial | `docs/entrega1/modelo_er_inicial.png` | ⬜ Pendiente |
+| Diccionario de datos | `docs/entrega1/diccionario_datos.md` | ⬜ Pendiente |
+| Justificación de vistas | `docs/entrega1/vistas.md` | ⬜ Pendiente |
+| Evaluación crítica del modelo inicial | `docs/entrega1/evaluacion_critica_modelo_inicial.md` | ⬜ Pendiente |
+| Boceto del modelo ampliado | `docs/entrega1/boceto_modelo_ampliado.png` | ⬜ Pendiente |
+| DDL del modelo inicial | `sql/entrega1/ddl/ddl_modelo_inicial.sql` | ⬜ Pendiente |
+| Datos de prueba | `sql/entrega1/dml/carga_datos_prueba.sql` | ⬜ Pendiente |
+| DML — ciclo de vida del partido | `sql/entrega1/dml/dml_ciclo_vida_partido.sql` | ⬜ Pendiente |
+| Vistas | `sql/entrega1/vistas/vistas.sql` | ⬜ Pendiente |
+| Consultas — joins | `sql/entrega1/consultas/semana1_joins.sql` | ⬜ Pendiente |
+| Consultas — agregaciones | `sql/entrega1/consultas/semana2_agregaciones.sql` | ⬜ Pendiente |
+| Consultas — subconsultas | `sql/entrega1/consultas/semana3_subconsultas.sql` | ⬜ Pendiente |
+| Consulta sobre vista | `sql/entrega1/consultas/semana3_consulta_vista.sql` | ⬜ Pendiente |
+| Consulta de verificación de integridad | `sql/entrega1/consultas/semana4_verificacion_integridad.sql` | ⬜ Pendiente |
+| Roles y privilegios | `sql/entrega1/roles/roles_privilegios.sql` | ⬜ Pendiente |
+| Álgebra relacional | `sql/entrega1/algebra_relacional/algebra_relacional.md` | ⬜ Pendiente |
+| Pruebas de DML | `tests/entrega1/pruebas_dml.md` | ⬜ Pendiente |
+| Pruebas de privilegios | `tests/entrega1/pruebas_privilegios.md` | ⬜ Pendiente |
+
+---
+
+# Lineamientos del curso
+
+> A partir de aquí, el contenido corresponde a los lineamientos entregados por el curso en la plantilla oficial del repositorio.
+
+---
+
 ## Contexto académico
 
 El proyecto se basa en el enunciado "Sistema de Información para la Gestión Integral de la Copa Mundial de la FIFA" (Ing. Luis Gabriel Moreno Sandoval, PhD. — Bases de Datos, PUJ). El trabajo se organiza según el siguiente cronograma académico del curso:

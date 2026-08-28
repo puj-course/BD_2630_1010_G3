@@ -1,0 +1,33 @@
+# ---- Credenciales y configuracion local de conexion (NUNCA versionar) ----
+login.sql
+tnsnames.ora
+sqlnet.ora
+wallet/
+*.pwd
+.env
+.env.*
+credenciales*.txt
+conexion_local.*
+
+# ---- Salidas y temporales de SQLcl / SQL Developer ----
+*.log
+*.lst
+*.trc
+sqlcl-history.txt
+.sqlcl/
+.sqldeveloper/
+
+# ---- Sistema operativo ----
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# ---- Editores ----
+.vscode/
+.idea/
+*.swp
+*~
+
+# ---- Node (solo para render de diagramas y app de la Entrega 3) ----
+node_modules/
+package-lock.json
