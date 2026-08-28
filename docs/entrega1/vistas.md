@@ -11,7 +11,7 @@ visibles**. Se implementaron cuatro vistas, cubriendo los tres criterios.
 Las vistas se diseñaron **antes** que las consultas SQL, no después. Esa decisión es
 deliberada: si las vistas se escriben al final, la "reutilización" acaba siendo cosmética —
 una vista creada para cumplir el requisito y una consulta que la ignora. Aquí ocurre al
-revés: las consultas 1, 2, 3, 6, 7, 8, 9, 11 y 15 se apoyan en estas vistas porque sin ellas
+revés: las consultas 1, 3, 6, 8, 9, 11 y 15 se apoyan en estas vistas porque sin ellas
 tendrían que repetir la misma lógica compleja.
 
 ---
@@ -21,9 +21,15 @@ tendrían que repetir la misma lógica compleja.
 | Vista | Criterio que justifica su existencia | Consultas que la reutilizan |
 |---|---|---|
 | `V_RESUMEN_PARTIDO` | Simplificación de la lógica | 6, 9 |
-| `V_RENDIMIENTO_SELECCION` | Reutilización de consulta frecuente | 1, 3, 7, 11 |
-| `V_OCUPACION_ESTADIO` | Reutilización + centralización de una fórmula | 2, 8 |
+| `V_RENDIMIENTO_SELECCION` | Reutilización de consulta frecuente | 1, 3, 11 |
+| `V_OCUPACION_ESTADIO` | Reutilización + centralización de una fórmula | 8 |
 | `V_TABLA_POSICIONES` | Simplificación + restricción del subconjunto visible | 15 |
+
+Dos consultas que podrían haber usado una vista se escribieron a propósito sin ella, porque el
+enunciado exige en ellas una técnica concreta que la vista ocultaría: la **consulta 2** se
+resuelve con `LEFT JOIN` explícito (el archivo `semana1_joins.sql` está destinado a demostrar
+la técnica de junta) y la **consulta 7** con `NOT EXISTS`, que el enunciado pide de forma
+literal. En ambos casos el comentario del script señala la vista equivalente.
 
 ---
 
@@ -64,7 +70,7 @@ JOIN participacion_partido riv ON riv.id_partido    = pp.id_partido
                               AND riv.id_seleccion <> pp.id_seleccion
 ```
 
-Esa auto-junta es exactamente el tipo de lógica que no conviene repetir: aparecería en cuatro
+Esa auto-junta es exactamente el tipo de lógica que no conviene repetir: aparecería en varias
 consultas distintas y basta equivocarse en la condición `<>` una vez para que una selección
 compute como su propio rival y todos los números salgan en cero. Encapsularla aquí la escribe
 —y la depura— una sola vez.
@@ -88,10 +94,10 @@ Se toma la **asistencia promedio** de los partidos disputados en el estadio, no 
 porque la capacidad es una cota *por partido*: sumar la asistencia de seis partidos y
 dividirla entre el aforo daría porcentajes de varios cientos, sin significado.
 
-Centralizar la fórmula tiene una consecuencia práctica: las consultas 2 y 8 usan
-necesariamente el mismo criterio de cálculo. La consulta 8 compara cada estadio contra el
-promedio general de ocupación, así que si las dos consultas calcularan la ocupación de forma
-ligeramente distinta, la comparación sería inválida y el error pasaría desapercibido.
+Centralizar la fórmula tiene una consecuencia práctica: la consulta 8 compara cada estadio
+contra el promedio general de ocupación. Si el porcentaje individual y el promedio se
+calcularan con criterios ligeramente distintos, la comparación sería inválida y el error
+pasaría desapercibido. Al salir ambos de la misma vista, eso no puede ocurrir.
 
 **Decisión de diseño relevante:** se usa `LEFT JOIN` hacia `PARTIDO` a propósito. Un estadio
 inscrito en la edición que todavía no ha albergado ningún partido debe aparecer con cero
