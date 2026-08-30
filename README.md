@@ -28,7 +28,7 @@ Lee los tres documentos antes de empezar a trabajar.
 | Laura Sofia Lesmes Ocampo | [@laulesmes04](https://github.com/laulesmes04) | `IS101007` |
 |  | [@hsantiagopf](https://github.com/hsantiagopf) |  |
 |  | [@Nivk-Debug](https://github.com/Nivk-Debug) |  |
-|  | [@daniellrzz](https://github.com/daniellrzz) |  |
+| Daniel Enrique Rozo Tarache| [@daniellrzz](https://github.com/daniellrzz) | `IS101016` |
 
 ---
 
