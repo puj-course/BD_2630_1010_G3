@@ -78,7 +78,7 @@ CREATE TABLE seleccion (
     id_edicion     NUMBER(10)     NOT NULL,
     pais           VARCHAR2(100)  NOT NULL,
     confederacion  VARCHAR2(50)   NOT NULL,
-    grupo          VARCHAR2(5),
+    grupo          VARCHAR2(1),
     CONSTRAINT pk_seleccion PRIMARY KEY (id_seleccion),
     CONSTRAINT fk_seleccion_edicion FOREIGN KEY (id_edicion)
         REFERENCES edicion_mundial (id_edicion),
@@ -88,7 +88,10 @@ CREATE TABLE seleccion (
     CONSTRAINT ck_seleccion_confederacion CHECK
         (confederacion IN ('CONMEBOL','UEFA','CAF','AFC','CONCACAF','OFC')),
     -- Los grupos van de la A a la L. Puede ser nulo si aun no hay sorteo.
-    CONSTRAINT ck_seleccion_grupo CHECK (grupo IS NULL OR grupo BETWEEN 'A' AND 'L')
+    -- Se usa una lista y no BETWEEN: sobre texto, BETWEEN compara alfabeticamente,
+    -- asi que 'AB' o 'Kansas' pasarian el filtro por empezar entre la A y la L.
+    CONSTRAINT ck_seleccion_grupo CHECK
+        (grupo IS NULL OR grupo IN ('A','B','C','D','E','F','G','H','I','J','K','L'))
 );
 
 
@@ -146,8 +149,10 @@ CREATE TABLE participacion_partido (
     -- Un partido tiene un solo local y un solo visitante
     CONSTRAINT uq_participacion_condicion UNIQUE (id_partido, condicion),
     CONSTRAINT ck_participacion_condicion CHECK (condicion IN ('LOCAL','VISITANTE')),
-    -- No hay goles negativos
-    CONSTRAINT ck_participacion_goles CHECK (goles_marcados BETWEEN 0 AND 30)
+    -- No hay goles negativos. El tope de 15 sale del reglamento: la mayor
+    -- goleada de un equipo en un Mundial fue Hungria 10-1 a El Salvador en
+    -- 1982, asi que 15 deja margen y a la vez detecta errores de digitacion.
+    CONSTRAINT ck_participacion_goles CHECK (goles_marcados BETWEEN 0 AND 15)
 );
 
 
@@ -177,6 +182,8 @@ CREATE INDEX ix_participacion_seleccion ON participacion_partido (id_seleccion);
 --   2. La fecha del partido debe estar dentro del rango de su edicion.
 --   3. El estadio del partido debe ser de la misma edicion del partido.
 --   4. Las dos selecciones del partido deben ser de esa misma edicion.
+--   5. Cada grupo debe tener exactamente 4 selecciones.
+--      Tambien exige contar filas, asi que tampoco se puede poner como CHECK.
 -- ------------------------------------------------------------
 
 EXIT;

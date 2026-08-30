@@ -37,6 +37,7 @@ Ventana de aporte semanal: **lunes 00:00 — domingo 23:59 (hora Colombia, UTC-5
 | Script DDL del modelo inicial | Nicolás Mamian | `feature/ddl-modelo-inicial` | Creación de las 5 tablas con sus llaves primarias, foráneas, restricciones CHECK y UNIQUE, y 2 índices |
 | Datos de prueba | Nicolás Mamian | `feature/datos-prueba` | 7 ediciones completas: 112 estadios, 224 selecciones, 448 partidos y 896 participaciones |
 | Diagrama entidad-relación | Nicolás Mamian | `feature/diagrama-er` | Diagrama del modelo inicial con atributos, llaves y relaciones |
+| Corrección de la restricción de grupo | Nicolás Mamian | `fix/restriccion-grupo` | Se cambió BETWEEN por una lista de valores y la columna a un solo carácter |
 
 ### Cambios principales
 
@@ -46,11 +47,13 @@ Ventana de aporte semanal: **lunes 00:00 — domingo 23:59 (hora Colombia, UTC-5
 - Se crearon las 5 tablas del modelo inicial y se probó el script contra el servidor.
 - Se cargaron los datos de prueba: 1.687 filas en total.
 - Se generó el diagrama entidad-relación a partir de la base de datos.
+- Se corrigió la restricción del grupo de las selecciones, que dejaba pasar valores inválidos.
 
 ### Problemas encontrados
 
 - La cuenta Oracle asignada a cada estudiante **no tiene el privilegio `CREATE USER`**, por lo que el punto de "Privilegios Básicos" se resuelve con **roles** (`CREATE ROLE` sí está disponible), alternativa contemplada por el enunciado.
 - El `README_GUIA_SERVIDOR.md` lista de forma incompleta las columnas de referencia: `FIFA_PARTIDO` incluye además `ASISTENCIA_REGISTRADA` y `FIFA_SELECCION` incluye además `GRUPO`. Ambas son necesarias para las consultas de ocupación de estadio y de tabla de posiciones.
 - La tabla `EDICION_MUNDIAL` queda con 7 filas y no con las 100 que pide el enunciado, porque cada fila es un Mundial completo y solo se han disputado 22 en la historia. Se le consultó a la monitora si aplica la salvedad de "cuando aplique según la naturaleza de la tabla". Las otras cuatro tablas sí superan las 100 filas.
+- La restricción `grupo BETWEEN 'A' AND 'L'` no servía: sobre texto, `BETWEEN` compara alfabéticamente, así que aceptaba valores como `'AB'` o `'Kansas'` por empezar entre la A y la L. Se reemplazó por una lista explícita de las 12 letras y se bajó la columna a `VARCHAR2(1)`.
 
 ---
