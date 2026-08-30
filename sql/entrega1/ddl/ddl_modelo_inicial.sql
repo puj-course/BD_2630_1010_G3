@@ -18,11 +18,13 @@ SET SQLBLANKLINES ON
 -- La primera vez dan error ORA-00942 porque las tablas aun no existen.
 -- ------------------------------------------------------------
 
-DROP TABLE participacion_partido;
-DROP TABLE partido;
-DROP TABLE seleccion;
-DROP TABLE estadio;
-DROP TABLE edicion_mundial;
+-- PURGE evita que las tablas borradas se queden en la papelera de Oracle,
+-- que va acumulando basura cada vez que se re-ejecuta el script.
+DROP TABLE participacion_partido PURGE;
+DROP TABLE partido PURGE;
+DROP TABLE seleccion PURGE;
+DROP TABLE estadio PURGE;
+DROP TABLE edicion_mundial PURGE;
 
 
 -- ------------------------------------------------------------
@@ -43,7 +45,11 @@ CREATE TABLE edicion_mundial (
     -- El primer Mundial fue en 1930
     CONSTRAINT ck_edicion_anio CHECK (anio BETWEEN 1930 AND 2100),
     -- No puede terminar antes de empezar
-    CONSTRAINT ck_edicion_fechas CHECK (fecha_fin > fecha_inicio)
+    CONSTRAINT ck_edicion_fechas CHECK (fecha_fin > fecha_inicio),
+    -- Un Mundial dura semanas, no un dia. Esto atrapa fechas mal digitadas.
+    CONSTRAINT ck_edicion_duracion CHECK (fecha_fin - fecha_inicio >= 7),
+    -- NOT NULL no impide que metan puros espacios en blanco. TRIM si.
+    CONSTRAINT ck_edicion_pais_sede CHECK (TRIM(pais_sede) IS NOT NULL)
 );
 
 
@@ -65,7 +71,10 @@ CREATE TABLE estadio (
     -- Dos estadios de la misma edicion no pueden llamarse igual
     CONSTRAINT uq_estadio_nombre UNIQUE (id_edicion, nombre),
     -- Aforo razonable para un estadio de Mundial
-    CONSTRAINT ck_estadio_capacidad CHECK (capacidad BETWEEN 20000 AND 150000)
+    CONSTRAINT ck_estadio_capacidad CHECK (capacidad BETWEEN 20000 AND 150000),
+    -- NOT NULL no impide que metan puros espacios en blanco. TRIM si.
+    CONSTRAINT ck_estadio_nombre CHECK (TRIM(nombre) IS NOT NULL),
+    CONSTRAINT ck_estadio_ciudad CHECK (TRIM(ciudad) IS NOT NULL)
 );
 
 
@@ -91,7 +100,9 @@ CREATE TABLE seleccion (
     -- Se usa una lista y no BETWEEN: sobre texto, BETWEEN compara alfabeticamente,
     -- asi que 'AB' o 'Kansas' pasarian el filtro por empezar entre la A y la L.
     CONSTRAINT ck_seleccion_grupo CHECK
-        (grupo IS NULL OR grupo IN ('A','B','C','D','E','F','G','H','I','J','K','L'))
+        (grupo IS NULL OR grupo IN ('A','B','C','D','E','F','G','H','I','J','K','L')),
+    -- NOT NULL no impide que metan puros espacios en blanco. TRIM si.
+    CONSTRAINT ck_seleccion_pais CHECK (TRIM(pais) IS NOT NULL)
 );
 
 
@@ -184,6 +195,12 @@ CREATE INDEX ix_participacion_seleccion ON participacion_partido (id_seleccion);
 --   4. Las dos selecciones del partido deben ser de esa misma edicion.
 --   5. Cada grupo debe tener exactamente 4 selecciones.
 --      Tambien exige contar filas, asi que tampoco se puede poner como CHECK.
+--   6. La asistencia de un partido no puede superar el aforo de su estadio.
+--      El aforo esta en otra tabla, y un CHECK no puede consultarla.
+--   7. Una seleccion no puede jugar dos partidos a la misma fecha y hora.
+--      Exige comparar unas filas con otras.
+--   8. En fase eliminatoria no puede haber empate: siempre avanza alguien.
+--      Exige comparar las dos participaciones del mismo partido entre si.
 -- ------------------------------------------------------------
 
 EXIT;

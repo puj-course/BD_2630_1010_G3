@@ -38,6 +38,7 @@ Ventana de aporte semanal: **lunes 00:00 — domingo 23:59 (hora Colombia, UTC-5
 | Datos de prueba | Nicolás Mamian | `feature/datos-prueba` | 7 ediciones completas: 112 estadios, 224 selecciones, 448 partidos y 896 participaciones |
 | Diagrama entidad-relación | Nicolás Mamian | `feature/diagrama-er` | Diagrama del modelo inicial con atributos, llaves y relaciones |
 | Corrección de la restricción de grupo | Nicolás Mamian | `fix/restriccion-grupo` | Se cambió BETWEEN por una lista de valores y la columna a un solo carácter |
+| Auditoría del DDL | Nicolás Mamian | `fix/auditoria-ddl` | Se cerraron 4 huecos con nuevas restricciones CHECK y se documentaron 3 reglas más que no se pueden declarar |
 
 ### Cambios principales
 
@@ -48,6 +49,7 @@ Ventana de aporte semanal: **lunes 00:00 — domingo 23:59 (hora Colombia, UTC-5
 - Se cargaron los datos de prueba: 1.687 filas en total.
 - Se generó el diagrama entidad-relación a partir de la base de datos.
 - Se corrigió la restricción del grupo de las selecciones, que dejaba pasar valores inválidos.
+- Se auditó el DDL probando datos inválidos contra el servidor. Se cerraron 4 huecos y se documentaron 3 reglas nuevas.
 
 ### Problemas encontrados
 
@@ -55,5 +57,6 @@ Ventana de aporte semanal: **lunes 00:00 — domingo 23:59 (hora Colombia, UTC-5
 - El `README_GUIA_SERVIDOR.md` lista de forma incompleta las columnas de referencia: `FIFA_PARTIDO` incluye además `ASISTENCIA_REGISTRADA` y `FIFA_SELECCION` incluye además `GRUPO`. Ambas son necesarias para las consultas de ocupación de estadio y de tabla de posiciones.
 - La tabla `EDICION_MUNDIAL` queda con 7 filas y no con las 100 que pide el enunciado, porque cada fila es un Mundial completo y solo se han disputado 22 en la historia. Se le consultó a la monitora si aplica la salvedad de "cuando aplique según la naturaleza de la tabla". Las otras cuatro tablas sí superan las 100 filas.
 - La restricción `grupo BETWEEN 'A' AND 'L'` no servía: sobre texto, `BETWEEN` compara alfabéticamente, así que aceptaba valores como `'AB'` o `'Kansas'` por empezar entre la A y la L. Se reemplazó por una lista explícita de las 12 letras y se bajó la columna a `VARCHAR2(1)`.
+- La auditoría encontró que la base aceptaba asistencias mayores que el aforo del estadio, campos de texto con solo espacios en blanco y ediciones de un solo día. Los dos últimos se cerraron con restricciones `CHECK`; el primero no se puede, porque el aforo está en otra tabla y un `CHECK` no puede consultarla.
 
 ---
