@@ -24,7 +24,7 @@ Lee los tres documentos antes de empezar a trabajar.
 | Nicolás Esteban Mamian Palacios | [@Nicolukazzz](https://github.com/Nicolukazzz) | `IS101009` |
 | Santiago P. | [@hsantiagopf](https://github.com/hsantiagopf) | _(completar)_ |
 | Nick_07 | [@Nivk-Debug](https://github.com/Nivk-Debug) | _(completar)_ |
-| Laura Sofia Lesmes Ocampo | [@laulesmes04](https://github.com/laulesmes04) | _(completar)_ |
+| Laura Sofia Lesmes Ocampo | [@laulesmes04](https://github.com/laulesmes04) | is101007 |
 
 ---
 
