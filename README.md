@@ -19,12 +19,16 @@ Lee los tres documentos antes de empezar a trabajar.
 **Monitora:** Viviana Gómez — [gomezlv@javeriana.edu.co](mailto:gomezlv@javeriana.edu.co)
 **Grupo:** G3 — repositorio `puj-course/BD_2630_1010_G3`
 
+> Cada integrante completa su propia fila con su nombre completo, como aparece en la lista
+> de la clase, y su usuario Oracle. Hacerlo desde tu propia rama y abrir un Pull Request.
+
 | Integrante | GitHub | Usuario Oracle |
 |---|---|---|
 | Nicolás Esteban Mamian Palacios | [@Nicolukazzz](https://github.com/Nicolukazzz) | `IS101009` |
-| Santiago P. | [@hsantiagopf](https://github.com/hsantiagopf) | _(completar)_ |
-| Nick_07 | [@Nivk-Debug](https://github.com/Nivk-Debug) | _(completar)_ |
-| _(completar nombre)_ | [@laulesmes04](https://github.com/laulesmes04) | _(completar)_ |
+| Laura Sofia Lesmes Ocampo | [@laulesmes04](https://github.com/laulesmes04) | `IS101007` |
+|  | [@hsantiagopf](https://github.com/hsantiagopf) |  |
+| Nicholas Ruiz Zhilkin | [@Nivk-Debug](https://github.com/Nivk-Debug) | `IS101017` |
+| Daniel Enrique Rozo Tarache| [@daniellrzz](https://github.com/daniellrzz) | `IS101016` |
 
 ---
 
@@ -116,10 +120,11 @@ Ventana de aporte semanal: **lunes 00:00 — domingo 23:59 (hora Colombia, UTC-5
 
 | Integrante | Bloque asignado |
 |---|---|
-| [@Nicolukazzz](https://github.com/Nicolukazzz) | DDL, restricciones de negocio e índices; coordinación e integración de ramas |
+| [@Nicolukazzz](https://github.com/Nicolukazzz) | DDL y restricciones; datos de prueba; integración de ramas |
 | [@hsantiagopf](https://github.com/hsantiagopf) | Las 15 consultas SQL |
-| [@Nivk-Debug](https://github.com/Nivk-Debug) | Datos de prueba, vistas y modificadores de datos (DML) |
-| [@laulesmes04](https://github.com/laulesmes04) | Documento técnico, diccionario de datos, evaluación crítica y álgebra relacional |
+| [@Nivk-Debug](https://github.com/Nivk-Debug) | Vistas, modificadores de datos (DML), roles y privilegios |
+| [@laulesmes04](https://github.com/laulesmes04) | Documento técnico y diccionario de datos |
+| [@daniellrzz](https://github.com/daniellrzz) | Álgebra relacional y evaluación crítica del modelo inicial |
 
 ---
 
