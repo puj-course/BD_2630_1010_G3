@@ -25,11 +25,7 @@ boletería, medios de comunicación ni incidencias operativas. Estos elementos, 
 expansión del modelo, se incorporarán en las Entregas 2 y 3 del proyecto, de acuerdo con el
 análisis presentado en la Sección 8 (Evaluación Crítica) de este documento.
 
-El sistema busca resolver, sobre este alcance reducido, necesidades reales de un organismo
-deportivo: identificar qué selecciones han marcado más goles, calcular la ocupación de los
-estadios, construir tablas de posiciones parciales, y garantizar la integridad de la información
-de cada partido (por ejemplo, que un partido no quede con más de un local o más de un
-visitante).
+El sistema busca resolver, sobre este alcance reducido, necesidades reales de un organismo deportivo: identificar qué selecciones han marcado más goles, calcular la ocupación de los estadios, construir tablas de posiciones parciales, y garantizar la integridad de la información de cada partido (por ejemplo, que un partido no quede con más de un local o más de un visitante).
 
 ---
 
@@ -37,7 +33,7 @@ visitante).
 
 1. **Cada partido debe tener exactamente dos participaciones asociadas** (una local, una visitante). Esta regla no puede garantizarse con una restricción `CHECK` simple en Oracle, ya que un `CHECK` solo puede evaluar la fila que se está insertando y no puede contar filas relacionadas en otra tabla. Por esta razón, la regla se controla parcialmente mediante restricciones `UNIQUE` (que impiden más de dos participaciones con la misma condición) y se verificará de forma completa mediante consultas de validación y, en entregas posteriores, mediante un trigger.
 
-2. **Un registro de `ESTADIO` pertenece a una única edición.** Si el mismo estadio físico se usa en dos ediciones distintas del Mundial, se modela como dos registros distintos, uno por edición. Esta es una limitación reconocida del modelo inicial de 5 entidades, discutida en la Sección 8 (Evaluación Crítica).
+2. **Un registro de `ESTADIO` pertenece a una única edición.** Si el mismo estadio físico se usa en dos ediciones distintas del Mundial, se modela como dos registros distintos, uno por edición. 
 
 3. **El atributo `fase` de `PARTIDO` es un valor controlado**, restringido mediante `CHECK` a una lista fija: Fase de Grupos, Dieciseisavos, Octavos, Cuartos, Semifinal, Tercer Puesto, Final.
 
@@ -72,7 +68,7 @@ erDiagram
   EDICION_MUNDIAL ||--o{ SELECCION : convoca
   EDICION_MUNDIAL ||--o{ PARTIDO : programa
   ESTADIO ||--o{ PARTIDO : aloja
-  PARTIDO ||--o{ PARTICIPACION_PARTIDO : registra
+  PARTIDO ||--|{ PARTICIPACION_PARTIDO : registra
   SELECCION ||--o{ PARTICIPACION_PARTIDO : participa_en
 
   EDICION_MUNDIAL {
