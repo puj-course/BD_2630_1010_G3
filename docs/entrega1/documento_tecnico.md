@@ -23,7 +23,7 @@ Esta entrega se desarrolla  a partir del modelo genérico inicial propuesto comp
 No se incluyen en esta etapa jugadores, cuerpo técnico, árbitros, estadísticas individuales,
 boletería, medios de comunicación ni incidencias operativas. Estos elementos, junto con la
 expansión del modelo, se incorporarán en las Entregas 2 y 3 del proyecto, de acuerdo con el
-análisis presentado en la Sección 8 (Evaluación Crítica) de este documento.
+análisis del documento de Evaluación Crítica del Modelo Inicial.
 
 El sistema busca resolver, sobre este alcance reducido, necesidades reales de un organismo deportivo: identificar qué selecciones han marcado más goles, calcular la ocupación de los estadios, construir tablas de posiciones parciales, y garantizar la integridad de la información de cada partido (por ejemplo, que un partido no quede con más de un local o más de un visitante).
 
@@ -59,6 +59,8 @@ El sistema busca resolver, sobre este alcance reducido, necesidades reales de un
 
 ## 3. Diagrama Entidad-Relación (ERD)
 "Respecto al modelo base el equipo decidió añadir dos atributos: grupo en SELECCION y asistencia_registrada en PARTIDO, esto se justifica porque se consideran necesarios para resolver consultas explícitamente pedidas en el enunciado, sin alterar la estructura de entidades ni relaciones del modelo original."
+
+![Modelo Entidad-Relación del modelo inicial](modelo_er_inicial.png)
 
 
 
