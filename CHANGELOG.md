@@ -15,7 +15,7 @@ Ventana de aporte semanal: **lunes 00:00 — domingo 23:59 (hora Colombia, UTC-5
 | Santiago P. | [github.com/hsantiagopf](https://github.com/hsantiagopf) |
 | Nick_07 | [github.com/Nivk-Debug](https://github.com/Nivk-Debug) |
 | _(completar nombre)_ | [github.com/laulesmes04](https://github.com/laulesmes04) |
-
+| Daniel Rozo | [github.com/daniellrzz](https://github.com/daniellrzz) |
 ---
 
 # Registro real del proyecto
