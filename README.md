@@ -26,7 +26,7 @@ Lee los tres documentos antes de empezar a trabajar.
 |---|---|---|
 | Nicolás Esteban Mamian Palacios | [@Nicolukazzz](https://github.com/Nicolukazzz) | `IS101009` |
 | Laura Sofia Lesmes Ocampo | [@laulesmes04](https://github.com/laulesmes04) | `IS101007` |
-|  | [@hsantiagopf](https://github.com/hsantiagopf) |  |
+| Harold Santiago Pereira Fuentes | [@hsantiagopf](https://github.com/hsantiagopf) | `IS101013` |
 | Nicholas Ruiz Zhilkin | [@Nivk-Debug](https://github.com/Nivk-Debug) | `IS101017` |
 | Daniel Enrique Rozo Tarache| [@daniellrzz](https://github.com/daniellrzz) | `IS101016` |
 
