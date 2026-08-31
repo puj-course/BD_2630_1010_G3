@@ -1,0 +1,35 @@
+# Vistas del Modelo Inicial — Justificación
+
+**Entrega 1 — Grupo G3**
+Implementación: [`sql/entrega1/vistas/vistas.sql`](../../sql/entrega1/vistas/vistas.sql)
+
+
+## 1. Tabla de Posiciones por Selección
+
+Tabla de selecciones con sus partidos mediante LEFT JOIN para incluir a los equipos sin partidos, los agrupa por edición, país y grupo con GROUP BY, y usa DISTINCT junto con COUNT y SUM para calcular los partidos jugados y el total de goles anotados por cada selección, guardando la consulta como una tabla usando CREATE VIEW.
+
+## 2. Goleadores (Total de goles por selección y edición)
+
+Esta vista muestra el total de goles anotados por cada selección en las distintas ediciones del mundial, uniendo mediante JOIN la participación de cada equipo con sus datos de selección y la edición del torneo, agrupándolos con GROUP BY por año, país sede y país participante, y calculando la suma total de sus goles mediante la función SUM.
+
+## 3. Ocupación y Promedio de Asistencia en Estadios
+
+Esta vista combina mediante LEFT JOIN la tabla de estadios con la de partidos incluso los recintos sin partidos, los agrupa con GROUP BY por estadio y calcula con COUNT, AVG y ROUND la cantidad de partidos jugados, el promedio de asistencia y el porcentaje medio de ocupación respecto a su capacidad total.
+
+## 4. Resumen General de Ediciones del Mundial
+
+Esta vista une mediante LEFT JOIN la tabla de ediciones del mundial con las de estadios, selecciones y partidos, las agrupa con GROUP BY por año y sede, y utiliza COUNT para calcular el total de estadios utilizados, selecciones participantes y partidos Jugados en cada torneo.
+
+-- ------------------------------------------------------------
+-- PARTE 2: Intentos Fallidos a Proposito (Anotar el ORA- resultante)
+-- ------------------------------------------------------------
+
+-- Intento Fallido 1: Insertar un tercer equipo en el mismo partido con la misma condicion (Falla por Unique Key / Restriccion)
+-- Error : ORA-00001: unique constraint (SYSTEM.UQ_PARTICIPACION_CONDICION) violated
+
+-- Intento Fallido 2: Insertar goles negativos (Falla si existe Check Constraint) o FK invalida de seleccion inexistente
+-- Error : ORA-02290: check constraint (SYSTEM.CK_PARTICIPACION_GOLES) violated
+
+-- Intento Fallido 3: Insertar un partido apuntando a una Edicion que no existe
+-- Error : ORA-02290: check constraint (SYSTEM.CK_PARTIDO_FASE) violated
+

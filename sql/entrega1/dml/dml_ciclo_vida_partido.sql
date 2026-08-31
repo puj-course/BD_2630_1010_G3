@@ -21,27 +21,30 @@ UPDATE participacion_partido SET goles_marcados = 3 WHERE id_participacion = 999
 UPDATE participacion_partido SET goles_marcados = 0 WHERE id_participacion = 99992;
 UPDATE partido SET asistencia_registrada = 80000 WHERE id_partido = 9999;
 
-COMMIT;
-
 
 -- ------------------------------------------------------------
 -- PARTE 2: Intentos Fallidos a Proposito (Anotar el ORA- resultante)
 -- ------------------------------------------------------------
 
 -- Intento Fallido 1: Insertar un tercer equipo en el mismo partido con la misma condicion (Falla por Unique Key / Restriccion)
--- Error : ORA-00001: unique constraint (SYSTEM.UQ_PARTICIPACION_CONDICION) violated
+-- Error : ORA-00001: unique constraint (IS101009.UQ_PARTICIPACION_CONDICION) violated
 INSERT INTO participacion_partido (id_participacion, id_partido, id_seleccion, condicion, goles_marcados)
 VALUES (99993, 9999, 12, 'LOCAL', 1);
 
--- Intento Fallido 2: Insertar goles negativos (Falla si existe Check Constraint) o FK invalida de seleccion inexistente
--- Error : ORA-02290: check constraint (SYSTEM.CK_PARTICIPACION_GOLES) violated
+-- Intento Fallido 2: Goles negativos
+-- Error : ORA-02290: check constraint (IS101009.CK_PARTICIPACION_GOLES) violated
 INSERT INTO participacion_partido (id_participacion, id_partido, id_seleccion, condicion, goles_marcados)
-VALUES (99994, 9999, 999999, 'VISITANTE', -5);
+VALUES (99994, 9999, 12, 'VISITANTE', -5);
 
--- Intento Fallido 3: Insertar un partido apuntando a una Edicion que no existe
--- Error : ORA-02290: check constraint (SYSTEM.CK_PARTIDO_FASE) violated
+-- Intento Fallido 3: Partido apuntando a una Edicion que no existe
+-- Error : ORA-02291: integrity constraint (IS101009.FK_PARTIDO_EDICION) violated
 INSERT INTO partido (id_partido, id_edicion, id_estadio, fecha_hora, fase, asistencia_registrada)
-VALUES (8888, 675, 1, TO_TIMESTAMP('2026-06-11 15:00:00', 'YYYY-MM-DD HH24:MI:SS'), 'Grupos', 40000);
+VALUES (8888, 675, 1, TO_TIMESTAMP('1998-06-15 09:00:00', 'YYYY-MM-DD HH24:MI:SS'), 'Final', 40000);
+
+-- Intento Fallido 4: Fase que no esta en la lista permitida
+-- Error : ORA-02290: check constraint (IS101009.CK_PARTIDO_FASE) violated
+INSERT INTO partido (id_partido, id_edicion, id_estadio, fecha_hora, fase, asistencia_registrada)
+VALUES (8887, 1, 1, TO_TIMESTAMP('1998-06-15 10:00:00', 'YYYY-MM-DD HH24:MI:SS'), 'Grupos', 40000);
 
 
 -- ------------------------------------------------------------
@@ -56,3 +59,19 @@ DELETE FROM partido WHERE id_partido = 9999;
 -- Intenta borrar la seleccion 1 que tiene partidos/participaciones asociadas.
 -- Error: ORA-02292: integrity constraint (SCHEMA.FK_NAME) violated - child record found
 DELETE FROM seleccion WHERE id_seleccion = 1;
+
+
+-- ------------------------------------------------------------
+-- PARTE 4: Reversion
+-- ------------------------------------------------------------
+-- Se deshace todo. El script no persiste nada y se puede volver a ejecutar
+-- cuantas veces se quiera sin ensuciar los datos de prueba.
+
+ROLLBACK;
+
+SELECT 'TRAS EL ROLLBACK' AS momento,
+       (SELECT COUNT(*) FROM partido)               AS partidos,
+       (SELECT COUNT(*) FROM participacion_partido) AS participaciones
+FROM dual;
+
+EXIT;
