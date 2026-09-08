@@ -16,12 +16,12 @@ FROM (
 WHERE ROWNUM <= 5;
 
 -- 2. Porcentaje de ocupacion estimado por estadio
-SELECT 
+SELECT
     e.nombre AS estadio,
     e.ciudad AS ciudad,
     e.capacidad AS capacidad,
     COUNT(p.id_partido) AS partidos_jugados,
-    ROUND((COUNT(p.id_partido) * 100.0) / e.capacidad, 2) AS ocupacion_pct
+    ROUND(AVG(p.asistencia_registrada) / e.capacidad * 100, 2) AS ocupacion_pct
 FROM estadio e
 LEFT JOIN partido p ON e.id_estadio = p.id_estadio
 GROUP BY e.nombre, e.ciudad, e.capacidad
@@ -91,26 +91,24 @@ WHERE NOT EXISTS (
 );
 
 -- 8. Estadios sobre el promedio de ocupacion (subconsulta correlacionada)
-SELECT estadio, ciudad, ocupacion_pct
-FROM (
-    SELECT 
+WITH ocupacion_estadio AS (
+    SELECT
+        e.id_estadio,
         e.nombre AS estadio,
-        e.ciudad AS ciudad,
-        ROUND((COUNT(p.id_partido) * 100.0) / e.capacidad, 2) AS ocupacion_pct
+        e.ciudad,
+        ROUND(AVG(p.asistencia_registrada) / e.capacidad * 100, 2) AS ocupacion_pct
     FROM estadio e
     JOIN partido p ON e.id_estadio = p.id_estadio
-    GROUP BY e.nombre, e.ciudad, e.capacidad
-) t
-WHERE ocupacion_pct > (
-    SELECT AVG(ocupacion_pct)
-    FROM (
-        SELECT (COUNT(p2.id_partido) * 100.0) / e2.capacidad AS ocupacion_pct
-        FROM estadio e2
-        JOIN partido p2 ON e2.id_estadio = p2.id_estadio
-        GROUP BY e2.id_estadio, e2.capacidad
-    )
+    GROUP BY e.id_estadio, e.nombre, e.ciudad, e.capacidad
 )
-ORDER BY ocupacion_pct DESC;
+SELECT t.estadio, t.ciudad, t.ocupacion_pct
+FROM ocupacion_estadio t
+WHERE t.ocupacion_pct > (
+    SELECT AVG(o2.ocupacion_pct)
+    FROM ocupacion_estadio o2
+    WHERE o2.id_estadio <> t.id_estadio
+)
+ORDER BY t.ocupacion_pct DESC;
 
 -- 9. Partido con mayor marcador combinado por estadio
 SELECT e.nombre AS estadio, pg.id_partido, pg.fase, pg.goles_totales
