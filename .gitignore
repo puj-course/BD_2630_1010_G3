@@ -31,3 +31,4 @@ desktop.ini
 # ---- Node (solo para render de diagramas y app de la Entrega 3) ----
 node_modules/
 package-lock.json
+docsreferencia/
