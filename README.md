@@ -134,23 +134,23 @@ Ventana de aporte semanal: **lunes 00:00 — domingo 23:59 (hora Colombia, UTC-5
 |---|---|---|
 | Documento técnico | `docs/entrega1/documento_tecnico.md` | ✅ Hecho |
 | Diagrama ER del modelo inicial | `docs/entrega1/modelo_er_inicial.png` | ✅ Hecho |
-| Diccionario de datos | `docs/entrega1/diccionario_datos.md` | ⬜ Pendiente |
-| Justificación de vistas | `docs/entrega1/vistas.md` | ⬜ Pendiente |
+| Diccionario de datos | `docs/entrega1/diccionario_datos.md` | ⬜ Pendiente (por ahora dentro del documento técnico, falta el archivo aparte) |
+| Justificación de vistas | `docs/entrega1/vistas.md` | ✅ Hecho |
 | Evaluación crítica del modelo inicial | `docs/entrega1/evaluacion_critica_modelo_inicial.md` | ⬜ Pendiente |
 | Boceto del modelo ampliado | `docs/entrega1/boceto_modelo_ampliado.png` | ⬜ Pendiente |
 | DDL del modelo inicial | `sql/entrega1/ddl/ddl_modelo_inicial.sql` | ✅ Hecho |
 | Datos de prueba | `sql/entrega1/dml/carga_datos_prueba.sql` | ✅ Hecho |
-| DML — ciclo de vida del partido | `sql/entrega1/dml/dml_ciclo_vida_partido.sql` | ⬜ Pendiente |
-| Vistas | `sql/entrega1/vistas/vistas.sql` | ⬜ Pendiente |
-| Consultas — joins | `sql/entrega1/consultas/semana1_joins.sql` | ⬜ Pendiente |
-| Consultas — agregaciones | `sql/entrega1/consultas/semana2_agregaciones.sql` | ⬜ Pendiente |
-| Consultas — subconsultas | `sql/entrega1/consultas/semana3_subconsultas.sql` | ⬜ Pendiente |
-| Consulta sobre vista | `sql/entrega1/consultas/semana3_consulta_vista.sql` | ⬜ Pendiente |
-| Consulta de verificación de integridad | `sql/entrega1/consultas/semana4_verificacion_integridad.sql` | ⬜ Pendiente |
-| Roles y privilegios | `sql/entrega1/roles/roles_privilegios.sql` | ⬜ Pendiente |
+| DML — ciclo de vida del partido | `sql/entrega1/dml/dml_ciclo_vida_partido.sql` | ✅ Hecho |
+| Vistas | `sql/entrega1/vistas/vistas.sql` | ✅ Hecho |
+| Consultas — joins | `sql/entrega1/consultas/semana1_joins.sql` | ⬜ Pendiente (contenido en `consultas.sql`, falta dividir) |
+| Consultas — agregaciones | `sql/entrega1/consultas/semana2_agregaciones.sql` | ⬜ Pendiente (contenido en `consultas.sql`, falta dividir) |
+| Consultas — subconsultas | `sql/entrega1/consultas/semana3_subconsultas.sql` | ⬜ Pendiente (contenido en `consultas.sql`, falta dividir) |
+| Consulta sobre vista | `sql/entrega1/consultas/semana3_consulta_vista.sql` | ⬜ Pendiente (contenido en `consultas.sql`, falta dividir) |
+| Consulta de verificación de integridad | `sql/entrega1/consultas/semana4_verificacion_integridad.sql` | ⬜ Pendiente (contenido en `consultas.sql`, falta dividir) |
+| Roles y privilegios | `sql/entrega1/roles/roles_privilegios.sql` | ✅ Hecho |
 | Álgebra relacional | `sql/entrega1/algebra_relacional/algebra_relacional.md` | ✅ Hecho |
 | Pruebas de DML | `tests/entrega1/pruebas_dml.md` | ⬜ Pendiente |
-| Pruebas de privilegios | `tests/entrega1/pruebas_privilegios.md` | ⬜ Pendiente |
+| Pruebas de privilegios | `tests/entrega1/pruebas_privilegios.md` | ⬜ Pendiente (archivo creado, falta corregir la vista del diccionario que se consulta) |
 
 ---
 
