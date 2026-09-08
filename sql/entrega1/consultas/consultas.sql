@@ -93,20 +93,22 @@ WHERE NOT EXISTS (
 -- 8. Estadios sobre el promedio de ocupacion (subconsulta correlacionada)
 SELECT estadio, ciudad, ocupacion_pct
 FROM (
-    SELECT 
+    SELECT
+        e.id_estadio,
         e.nombre AS estadio,
         e.ciudad AS ciudad,
         ROUND((COUNT(p.id_partido) * 100.0) / e.capacidad, 2) AS ocupacion_pct
     FROM estadio e
     JOIN partido p ON e.id_estadio = p.id_estadio
-    GROUP BY e.nombre, e.ciudad, e.capacidad
+    GROUP BY e.id_estadio, e.nombre, e.ciudad, e.capacidad
 ) t
-WHERE ocupacion_pct > (
+WHERE t.ocupacion_pct > (
     SELECT AVG(ocupacion_pct)
     FROM (
         SELECT (COUNT(p2.id_partido) * 100.0) / e2.capacidad AS ocupacion_pct
         FROM estadio e2
         JOIN partido p2 ON e2.id_estadio = p2.id_estadio
+        WHERE e2.id_estadio <> t.id_estadio
         GROUP BY e2.id_estadio, e2.capacidad
     )
 )
