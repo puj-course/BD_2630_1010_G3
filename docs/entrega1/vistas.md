@@ -3,33 +3,43 @@
 **Entrega 1 — Grupo G3**
 Implementación: [`sql/entrega1/vistas/vistas.sql`](../../sql/entrega1/vistas/vistas.sql)
 
+Cada vista guarda una consulta que se repite en varios puntos del proyecto,
+para no reescribir los mismos JOIN y GROUP BY cada vez y para que el resto
+del equipo trabaje contra un resultado ya interpretado.
 
-## 1. Tabla de Posiciones por Selección
+## 1. `vista_tabla_posiciones`
 
-Tabla de selecciones con sus partidos mediante LEFT JOIN para incluir a los equipos sin partidos, los agrupa por edición, país y grupo con GROUP BY, y usa DISTINCT junto con COUNT y SUM para calcular los partidos jugados y el total de goles anotados por cada selección, guardando la consulta como una tabla usando CREATE VIEW.
+Da una fila por selección con sus partidos jugados y sus goles a favor,
+agrupada por edición, país y grupo. Usa `LEFT JOIN` para que las selecciones
+sin partidos también aparezcan (con conteo en cero).
 
-## 2. Goleadores (Total de goles por selección y edición)
+Sirve como base de la tabla de posiciones por grupo: en vez de repetir el
+`LEFT JOIN` a `participacion_partido` y el `GROUP BY` en cada consulta que
+necesite posiciones, se consulta la vista. **Se reutiliza en la Consulta 15**
+(líder de cada grupo).
 
-Esta vista muestra el total de goles anotados por cada selección en las distintas ediciones del mundial, uniendo mediante JOIN la participación de cada equipo con sus datos de selección y la edición del torneo, agrupándolos con GROUP BY por año, país sede y país participante, y calculando la suma total de sus goles mediante la función SUM.
+## 2. `vista_goleadores`
 
-## 3. Ocupación y Promedio de Asistencia en Estadios
+Total de goles marcados por cada selección en cada edición, ya cruzado con el
+año y el país sede del torneo.
 
-Esta vista combina mediante LEFT JOIN la tabla de estadios con la de partidos incluso los recintos sin partidos, los agrupa con GROUP BY por estadio y calcula con COUNT, AVG y ROUND la cantidad de partidos jugados, el promedio de asistencia y el porcentaje medio de ocupación respecto a su capacidad total.
+Concentra el doble JOIN `participacion_partido → seleccion → edicion_mundial`
+que necesita cualquier consulta de goleadores por edición, para que esa lógica
+quede en un solo lugar.
 
-## 4. Resumen General de Ediciones del Mundial
+## 3. `vista_ocupacion_estadios`
 
-Esta vista une mediante LEFT JOIN la tabla de ediciones del mundial con las de estadios, selecciones y partidos, las agrupa con GROUP BY por año y sede, y utiliza COUNT para calcular el total de estadios utilizados, selecciones participantes y partidos Jugados en cada torneo.
+Una fila por estadio con los partidos jugados, el promedio de asistencia y el
+porcentaje de ocupación (`AVG(asistencia_registrada) / capacidad * 100`).
 
--- ------------------------------------------------------------
--- PARTE 2: Intentos Fallidos a Proposito (Anotar el ORA- resultante)
--- ------------------------------------------------------------
+Deja precalculada la ocupación, que si no habría que volver a escribir en cada
+consulta que la use, y aplica el redondeo una sola vez. El `LEFT JOIN` mantiene
+en el resultado los estadios que todavía no tienen partidos.
 
--- Intento Fallido 1: Insertar un tercer equipo en el mismo partido con la misma condicion (Falla por Unique Key / Restriccion)
--- Error : ORA-00001: unique constraint (SYSTEM.UQ_PARTICIPACION_CONDICION) violated
+## 4. `vista_resumen_ediciones`
 
--- Intento Fallido 2: Insertar goles negativos (Falla si existe Check Constraint) o FK invalida de seleccion inexistente
--- Error : ORA-02290: check constraint (SYSTEM.CK_PARTICIPACION_GOLES) violated
+Una fila por edición con el total de estadios, selecciones y partidos de ese
+Mundial (`COUNT(DISTINCT ...)` sobre tres `LEFT JOIN`).
 
--- Intento Fallido 3: Insertar un partido apuntando a una Edicion que no existe
--- Error : ORA-02290: check constraint (SYSTEM.CK_PARTIDO_FASE) violated
-
+Pensada para un panel de resumen: entrega los tres totales por edición sin que
+quien consulta tenga que armar los tres conteos con junta externa cada vez.
