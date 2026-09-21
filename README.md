@@ -136,8 +136,8 @@ Ventana de aporte semanal: **lunes 00:00 — domingo 23:59 (hora Colombia, UTC-5
 | Diagrama ER del modelo inicial | `docs/entrega1/modelo_er_inicial.png` | ✅ Hecho |
 | Diccionario de datos | `docs/entrega1/diccionario_datos.md` | ⬜ Pendiente (por ahora dentro del documento técnico, falta el archivo aparte) |
 | Justificación de vistas | `docs/entrega1/vistas.md` | ✅ Hecho |
-| Evaluación crítica del modelo inicial | `docs/entrega1/evaluacion_critica_modelo_inicial.md` | ⬜ Pendiente |
-| Boceto del modelo ampliado | `docs/entrega1/boceto_modelo_ampliado.png` | ⬜ Pendiente |
+| Evaluación crítica del modelo inicial | `docs/entrega1/evaluacion_critica_modelo_inicial.md` | ✅ Hecho |
+| Boceto del modelo ampliado | `docs/entrega1/boceto_modelo_ampliado.png` | ✅ Hecho |
 | DDL del modelo inicial | `sql/entrega1/ddl/ddl_modelo_inicial.sql` | ✅ Hecho |
 | Datos de prueba | `sql/entrega1/dml/carga_datos_prueba.sql` | ✅ Hecho |
 | DML — ciclo de vida del partido | `sql/entrega1/dml/dml_ciclo_vida_partido.sql` | ✅ Hecho |
