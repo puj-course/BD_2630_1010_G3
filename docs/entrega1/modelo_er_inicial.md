@@ -1,52 +1,68 @@
 ---
-title: Modelo Entidad-Relacion - Mundial FIFA (Entrega 1)
+title: Modelo Entidad-Relación - Mundial FIFA (Entrega 1)
 ---
+
+# Modelo Entidad-Relación — Modelo Inicial
+
+## Sistema de Información para la Gestión Integral de la Copa Mundial de la FIFA
+
+El modelo inicial está compuesto por cinco entidades principales:
+
+- `EDICION_MUNDIAL`
+- `ESTADIO`
+- `SELECCION`
+- `PARTIDO`
+- `PARTICIPACION_PARTIDO`
+
+El siguiente diagrama representa las entidades, sus atributos principales, llaves primarias y llaves foráneas, así como las relaciones entre ellas.
+
+```mermaid
 erDiagram
-    PARTIDO ||--|{ PARTICIPACION_PARTIDO : "tiene 2 (CASCADE)"
-    SELECCION ||--o{ PARTICIPACION_PARTIDO : "juega"
-    EDICION_MUNDIAL ||--o{ ESTADIO : "se juega en"
+    EDICION_MUNDIAL ||--o{ ESTADIO : "tiene"
+    EDICION_MUNDIAL ||--o{ SELECCION : "convoca"
     EDICION_MUNDIAL ||--o{ PARTIDO : "programa"
-    EDICION_MUNDIAL ||--o{ SELECCION : "convoca a"
     ESTADIO ||--o{ PARTIDO : "aloja"
+    PARTIDO ||--o{ PARTICIPACION_PARTIDO : "registra"
+    SELECCION ||--o{ PARTICIPACION_PARTIDO : "participa en"
 
     EDICION_MUNDIAL {
-        NUMBER(10)     id_edicion             PK  ""
-        NUMBER(4)      anio                   UK  ""
-        VARCHAR2(100)  pais_sede                  ""
-        VARCHAR2(200)  lema                       "nulo permitido"
-        DATE           fecha_inicio               ""
-        DATE           fecha_fin                  ""
+        NUMBER id_edicion PK
+        NUMBER anio UK
+        VARCHAR2 pais_sede
+        VARCHAR2 lema
+        DATE fecha_inicio
+        DATE fecha_fin
     }
 
     ESTADIO {
-        NUMBER(10)     id_estadio             PK  ""
-        NUMBER(10)     id_edicion             FK  ""
-        VARCHAR2(150)  nombre                 UK  ""
-        VARCHAR2(100)  ciudad                     ""
-        NUMBER(10)     capacidad                  ""
+        NUMBER id_estadio PK
+        NUMBER id_edicion FK
+        VARCHAR2 nombre
+        VARCHAR2 ciudad
+        NUMBER capacidad
     }
 
     SELECCION {
-        NUMBER(10)     id_seleccion           PK  ""
-        NUMBER(10)     id_edicion             FK  ""
-        VARCHAR2(100)  pais                   UK  ""
-        VARCHAR2(50)   confederacion              ""
-        VARCHAR2(1)    grupo                      "nulo permitido"
+        NUMBER id_seleccion PK
+        NUMBER id_edicion FK
+        VARCHAR2 pais
+        VARCHAR2 confederacion
+        VARCHAR2 grupo
     }
 
     PARTIDO {
-        NUMBER(10)     id_partido             PK  ""
-        NUMBER(10)     id_edicion             FK  ""
-        NUMBER(10)     id_estadio             FK  ""
-        TIMESTAMP(6)   fecha_hora             UK  ""
-        VARCHAR2(50)   fase                       ""
-        NUMBER(10)     asistencia_registrada      "nulo permitido"
+        NUMBER id_partido PK
+        NUMBER id_edicion FK
+        NUMBER id_estadio FK
+        TIMESTAMP fecha_hora
+        VARCHAR2 fase
+        NUMBER asistencia_registrada
     }
 
     PARTICIPACION_PARTIDO {
-        NUMBER(10)     id_participacion       PK  ""
-        NUMBER(10)     id_partido             FK  ""
-        NUMBER(10)     id_seleccion           FK  ""
-        VARCHAR2(20)   condicion              UK  ""
-        NUMBER(3)      goles_marcados             ""
+        NUMBER id_participacion PK
+        NUMBER id_partido FK
+        NUMBER id_seleccion FK
+        VARCHAR2 condicion
+        NUMBER goles_marcados
     }
