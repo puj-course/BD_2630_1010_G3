@@ -145,7 +145,7 @@ Ventana de aporte semanal: **lunes 00:00 — domingo 23:59 (hora Colombia, UTC-5
 | Consultas — joins | `sql/entrega1/consultas/semana1_joins.sql` | ✅ Hecho |
 | Consultas — agregaciones | `sql/entrega1/consultas/semana2_agregaciones.sql` | ✅ Hecho |
 | Consultas — subconsultas | `sql/entrega1/consultas/semana3_subconsultas.sql` | ✅ Hecho |
-| Consulta sobre vista | `sql/entrega1/consultas/semana3_consulta_vista.sql` | ⬜ Pendiente (contenido en `consultas.sql`, falta dividir) |
+| Consulta sobre vista | `sql/entrega1/consultas/semana3_consulta_vista.sql` | ✅ Hecho |
 | Consulta de verificación de integridad | `sql/entrega1/consultas/semana4_verificacion_integridad.sql` | ⬜ Pendiente (contenido en `consultas.sql`, falta dividir) |
 | Roles y privilegios | `sql/entrega1/roles/roles_privilegios.sql` | ✅ Hecho |
 | Álgebra relacional | `sql/entrega1/algebra_relacional/algebra_relacional.md` | ✅ Hecho |
