@@ -40,6 +40,12 @@ Ventana de aporte semanal: **lunes 00:00 — domingo 23:59 (hora Colombia, UTC-5
 | Corrección de la restricción de grupo | Nicolás Mamian | `fix/restriccion-grupo` | Se cambió BETWEEN por una lista de valores y la columna a un solo carácter |
 | Auditoría del DDL | Nicolás Mamian | `fix/auditoria-ddl` | Se cerraron 4 huecos con nuevas restricciones CHECK y se documentaron 3 reglas más que no se pueden declarar |
 
+### Aporte — Consultas SQL
+
+| Tarea | Responsable | Rama utilizada | Descripción |
+|---|---|---|---|
+| Consultas SQL — Semana 1 | Santiago P. | `feature/consultasql-entrega1` | Implementación y validación de las Consultas 2 y 6 del enunciado sobre el modelo inicial |
+
 ### Cambios principales
 
 - Se creó la estructura de carpetas `docs/`, `sql/` y `tests/` separada por entrega, siguiendo exactamente el `README_CRONOGRAMA.md`.
