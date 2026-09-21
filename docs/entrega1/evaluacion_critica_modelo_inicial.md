@@ -47,3 +47,21 @@ que cruza tres tablas a la vez, y por eso queda fuera del alcance de un `CHECK`.
   `ESTADIO.capacidad`, porque viven en tablas distintas y un `CHECK` solo ve la fila que se está
   insertando. Por el momento es técnicamente posible insertar una asistencia mayor a la capacidad
   del estadio sin que nada lo impida.
+
+---
+
+## Boceto del modelo ampliado
+
+Se mantienen las 5 entidades actuales tal como están. Lo que se agrega es lo que salió tanto de
+los problemas de arriba como del resto del dominio que pide la sección 7 del enunciado
+(selecciones y jugadores, arbitraje, logística, público, medios e incidencias).
+
+![Boceto del modelo ampliado](boceto_modelo_ampliado.png)
+
+**Entidades nuevas:** `FASE`, `GRUPO`, `JUGADOR`, `CUERPO_TECNICO`, `CONVOCATORIA_JUGADOR`,
+`ARBITRO`, `ASIGNACION_ARBITRAL`, `ESTADISTICA_JUGADOR_PARTIDO`, `SUSTITUCION`, `ENTRADA`,
+`PERIODISTA`, `ACREDITACION_PRENSA`, `INCIDENCIA`.
+
+`AUDITORIA_EVENTO` queda por fuera de este diagrama a propósito: no depende de una sola entidad,
+sino que registra cambios sobre cualquier tabla crítica del sistema, así que su diseño se define
+mejor cuando ya exista el modelo completo, en la Entrega 2.
