@@ -1,4 +1,4 @@
-# Evaluación Crítica del Modelo Inicial - Entrega 1
+# Evaluación Crítica del Modelo Inicial
 ## Sistema de Información para la Gestión Integral de la Copa Mundial de la FIFA
 
 - Análisis del modelo genérico inicial de 5 tablas: qué se queda corto y qué se va a ajustar.
