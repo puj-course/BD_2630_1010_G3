@@ -102,3 +102,25 @@ Ventana de aporte semanal: **lunes 00:00 — domingo 23:59 (hora Colombia, UTC-5
 ### Problemas encontrados
 
 - La Consulta 15 inicialmente no pudo ejecutarse porque `vista_tabla_posiciones` no estaba creada en el esquema utilizado para las pruebas. Se cargaron las vistas y posteriormente la consulta fue validada correctamente.
+
+---
+
+## Semana 4 — Entrega 1 — (14–20 de septiembre de 2026)
+
+### Objetivos
+
+- Completar y validar la consulta de verificación de integridad.
+- Consolidar la organización de las 15 consultas SQL de la Entrega 1.
+
+### Tareas realizadas
+
+| Tarea | Responsable | Rama utilizada | Descripción |
+|---|---|---|---|
+| Consulta SQL — Semana 4 | Santiago P. | `feature/consultasql-semana4` | Implementación y validación de la Consulta 14 para detectar participaciones duplicadas de una selección en un mismo partido |
+| Corrección de scripts SQL | Santiago P. | `feature/consultasql-semana4` | Recuperación del contenido de los scripts de Semanas 1, 3 y 4 que habían quedado vacíos y posterior validación de los archivos |
+| Limpieza de consultas SQL | Santiago P. | `feature/consultasql-semana4` | Eliminación del archivo obsoleto `sql/entrega1/consultas/consultas.sql` después de distribuir las 15 consultas en los archivos establecidos por el cronograma |
+
+### Problemas encontrados
+
+- La Consulta 14 fue ejecutada correctamente y devolvió 0 filas, sin detectar duplicados.
+- Se detectó que algunos archivos SQL habían quedado guardados como archivos vacíos a pesar de tener el contenido abierto en el IDE. El contenido fue guardado correctamente y recuperado mediante un commit correctivo y el PR correspondiente.
