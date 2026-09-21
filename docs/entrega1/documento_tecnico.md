@@ -170,6 +170,9 @@ El diccionario de datos completo (atributos, tipos, restricciones y descripcione
 tablas del modelo) se encuentra en [`diccionario_datos.md`](diccionario_datos.md), dentro de
 esta misma carpeta.
 
+---
+
+### Notas adicionales sobre restricciones e índices
 
 **Restricciones de unicidad compuesta adicionales**:
 
