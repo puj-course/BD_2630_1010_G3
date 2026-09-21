@@ -170,6 +170,7 @@ El diccionario de datos completo (atributos, tipos, restricciones y descripcione
 tablas del modelo) se encuentra en [`diccionario_datos.md`](diccionario_datos.md), dentro de
 esta misma carpeta.
 
+
 **Restricciones de unicidad compuesta adicionales**:
 
 - `UNIQUE (id_partido, id_seleccion)`: una selección no puede aparecer dos veces en el mismo
