@@ -65,4 +65,23 @@ Ventana de aporte semanal: **lunes 00:00 — domingo 23:59 (hora Colombia, UTC-5
 - La restricción `grupo BETWEEN 'A' AND 'L'` no servía: sobre texto, `BETWEEN` compara alfabéticamente, así que aceptaba valores como `'AB'` o `'Kansas'` por empezar entre la A y la L. Se reemplazó por una lista explícita de las 12 letras y se bajó la columna a `VARCHAR2(1)`.
 - La auditoría encontró que la base aceptaba asistencias mayores que el aforo del estadio, campos de texto con solo espacios en blanco y ediciones de un solo día. Los dos últimos se cerraron con restricciones `CHECK`; el primero no se puede, porque el aforo está en otra tabla y un `CHECK` no puede consultarla.
 
+
+
+
+## Semana 2 — Entrega 1 — (31 de agosto – 6 de septiembre de 2026)
+
+### Objetivos
+
+- Desarrollar y validar las consultas de agregación correspondientes a la Semana 2.
+
+### Tareas realizadas
+
+| Tarea | Responsable | Rama utilizada | Descripción |
+|---|---|---|---|
+| Consultas SQL — Semana 2 | Santiago P. | `feature/consultasql-semana2` | Implementación y validación de las Consultas 1, 3, 4, 5, 9, 12 y 13, manteniendo la separación de resultados por `id_edicion` |
+
+### Problemas encontrados
+
+- La Consulta 9 presentó un error `ORA-00979` relacionado con `GROUP BY`. Se corrigió la consulta y las siete consultas fueron validadas posteriormente en Oracle SQL Developer.
+
 ---
