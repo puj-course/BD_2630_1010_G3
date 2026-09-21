@@ -1,8 +1,6 @@
-# Documento Técnico — Entrega 1
+# Documento Técnico - Entrega 1
 ## Sistema de Información para la Gestión Integral de la Copa Mundial de la FIFA
 
-**Curso:** Bases de Datos — Pontificia Universidad Javeriana
-**Grupo:** G3
 **Alcance:** Modelo genérico inicial (5 entidades), según lo definido en la Sección 6 del enunciado del proyecto.
 
 ---
