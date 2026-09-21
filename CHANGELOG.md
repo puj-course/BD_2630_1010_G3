@@ -65,7 +65,7 @@ Ventana de aporte semanal: **lunes 00:00 — domingo 23:59 (hora Colombia, UTC-5
 - La restricción `grupo BETWEEN 'A' AND 'L'` no servía: sobre texto, `BETWEEN` compara alfabéticamente, así que aceptaba valores como `'AB'` o `'Kansas'` por empezar entre la A y la L. Se reemplazó por una lista explícita de las 12 letras y se bajó la columna a `VARCHAR2(1)`.
 - La auditoría encontró que la base aceptaba asistencias mayores que el aforo del estadio, campos de texto con solo espacios en blanco y ediciones de un solo día. Los dos últimos se cerraron con restricciones `CHECK`; el primero no se puede, porque el aforo está en otra tabla y un `CHECK` no puede consultarla.
 
-
+---
 
 
 ## Semana 2 — Entrega 1 — (31 de agosto – 6 de septiembre de 2026)
@@ -85,3 +85,20 @@ Ventana de aporte semanal: **lunes 00:00 — domingo 23:59 (hora Colombia, UTC-5
 - La Consulta 9 presentó un error `ORA-00979` relacionado con `GROUP BY`. Se corrigió la consulta y las siete consultas fueron validadas posteriormente en Oracle SQL Developer.
 
 ---
+
+## Semana 3 — Entrega 1 — (7–13 de septiembre de 2026)
+
+### Objetivos
+
+- Desarrollar y validar las consultas basadas en subconsultas y la consulta que reutiliza una vista.
+
+### Tareas realizadas
+
+| Tarea | Responsable | Rama utilizada | Descripción |
+|---|---|---|---|
+| Consultas SQL — Subconsultas | Santiago P. | `feature/consultasql-semana3` | Implementación y validación de las Consultas 7, 8, 10 y 11 |
+| Consulta SQL sobre vista | Santiago P. | `feature/consultasql-semana3` | Implementación y validación de la Consulta 15 reutilizando `vista_tabla_posiciones` |
+
+### Problemas encontrados
+
+- La Consulta 15 inicialmente no pudo ejecutarse porque `vista_tabla_posiciones` no estaba creada en el esquema utilizado para las pruebas. Se cargaron las vistas y posteriormente la consulta fue validada correctamente.
