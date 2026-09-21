@@ -1,4 +1,4 @@
-# Álgebra Relacional — Entrega 1
+# Álgebra Relacional - Entrega 1
 ## Sistema de Información para la Gestión Integral de la Copa Mundial de la FIFA
 
 Traducción a notación de álgebra relacional de 4 de las 15 consultas SQL solicitadas en la Sección 8.1.9 del enunciado.
@@ -17,7 +17,7 @@ Traducción a notación de álgebra relacional de 4 de las 15 consultas SQL soli
 
 ---
 
-## Consulta 1 — Top 5 selecciones con más goles marcados por edición
+## Consulta 1 - Top 5 selecciones con más goles marcados por edición
 
 **SQL actual:**
 
@@ -87,7 +87,7 @@ TOP_5_{id_edicion}(R2)
 
 ---
 
-## Consulta 2 — Porcentaje de ocupación estimado por estadio
+## Consulta 2 - Porcentaje de ocupación estimado por estadio
 
 **SQL actual:**
 
@@ -169,7 +169,7 @@ ocupacion_pct =
 
 ---
 
-## Consulta 3 — Selecciones con mayor diferencia de gol
+## Consulta 3 - Selecciones con mayor diferencia de gol
 
 **SQL actual:**
 
@@ -256,7 +256,7 @@ diferencia_gol = goles_favor - goles_contra
 
 ---
 
-## Consulta 4 — Partidos jugados por fase
+## Consulta 4 - Partidos jugados por fase
 
 **SQL actual:**
 
