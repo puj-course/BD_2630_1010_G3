@@ -1,4 +1,4 @@
-## 5. Diccionario de datos
+## Diccionario de datos
 
 ### EDICION_MUNDIAL
 
