@@ -154,6 +154,21 @@ Ventana de aporte semanal: **lunes 00:00 — domingo 23:59 (hora Colombia, UTC-5
 
 ---
 
+## Estado de la Entrega 2
+
+| Entregable | Estado |
+|---|---|
+| Modelo lógico ampliado (12–16 tablas) | ⬜ Pendiente |
+| Diccionario de datos ampliado| ⬜ Pendiente |
+| DDL ampliado | ⬜ Pendiente |
+| Normalizar | ⬜ Pendiente |
+| Consultas avanzadas 1 | ⬜ Pendiente |
+| Consultas avanzadas 2 | ⬜ Pendiente |
+| Roles y privilegios diferenciados | ⬜ Pendiente |
+| Casos de prueba ejecutados | ⬜ Pendiente |
+
+---
+
 # Lineamientos del curso
 
 > A partir de aquí, el contenido corresponde a los lineamientos entregados por el curso en la plantilla oficial del repositorio.
