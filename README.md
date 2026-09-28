@@ -172,7 +172,7 @@ Ventana de aporte semanal: **lunes 00:00 — domingo 23:59 (hora Colombia, UTC-5
 
 | Entregable | Archivo | Estado |
 |---|---|---|
-| Modelo lógico ampliado (12–16 tablas) | `docs/entrega2/modelo_logico.md + diagrama` | ⬜ Pendiente |
+| Modelo lógico ampliado (12–16 tablas) | `docs/entrega2/modelo_logico.md + diagrama` | ✅ Hecho |
 | Diccionario de datos ampliado | `docs/entrega2/diccionario_datos_ampliado.md` | ⬜ Pendiente |
 | DDL ampliado | `sql/entrega2/ddl/ddl_modelo_ampliado.sql` | ⬜ Pendiente |
 | Modelo físico | `docs/entrega2/modelo_fisico.md` | ⬜ Pendiente |
