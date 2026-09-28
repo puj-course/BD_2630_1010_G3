@@ -116,6 +116,8 @@ Ventana de aporte semanal: **lunes 00:00 — domingo 23:59 (hora Colombia, UTC-5
 | 2 | Aplicación funcional (base + catálogos) y arquitectura |
 | 3 | Aplicación completa, módulo de reportes y cierre |
 
+---
+
 ### Reparto de responsabilidades — Entrega 1
 
 | Integrante | Bloque asignado |
@@ -125,6 +127,18 @@ Ventana de aporte semanal: **lunes 00:00 — domingo 23:59 (hora Colombia, UTC-5
 | [@Nivk-Debug](https://github.com/Nivk-Debug) | Vistas, modificadores de datos (DML), roles y privilegios |
 | [@laulesmes04](https://github.com/laulesmes04) | Documento técnico y diccionario de datos |
 | [@daniellrzz](https://github.com/daniellrzz) | Álgebra relacional y evaluación crítica del modelo inicial |
+
+---
+
+### Reparto de responsabilidades — Entrega 2
+
+| Integrante | Bloque asignado |
+|---|---|
+| [@Nicolukazzz](https://github.com/Nicolukazzz) |  |
+| [@hsantiagopf](https://github.com/hsantiagopf) | Modelo de lógico ampliado; roles y privilegios diferenciados |
+| [@Nivk-Debug](https://github.com/Nivk-Debug) |  |
+| [@laulesmes04](https://github.com/laulesmes04) |  |
+| [@daniellrzz](https://github.com/daniellrzz) |  |
 
 ---
 
