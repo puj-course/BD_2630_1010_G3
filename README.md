@@ -156,16 +156,19 @@ Ventana de aporte semanal: **lunes 00:00 — domingo 23:59 (hora Colombia, UTC-5
 
 ## Estado de la Entrega 2
 
-| Entregable | Estado |
-|---|---|
-| Modelo lógico ampliado (12–16 tablas) | ⬜ Pendiente |
-| Diccionario de datos ampliado| ⬜ Pendiente |
-| DDL ampliado | ⬜ Pendiente |
-| Normalizar | ⬜ Pendiente |
-| Consultas avanzadas 1 | ⬜ Pendiente |
-| Consultas avanzadas 2 | ⬜ Pendiente |
-| Roles y privilegios diferenciados | ⬜ Pendiente |
-| Casos de prueba ejecutados | ⬜ Pendiente |
+| Entregable | Archivo | Estado |
+|---|---|---|
+| Modelo lógico ampliado (12–16 tablas) | `docs/entrega2/modelo_logico.md + diagrama` | ⬜ Pendiente |
+| Diccionario de datos ampliado | `docs/entrega2/diccionario_datos_ampliado.md` | ⬜ Pendiente |
+| DDL ampliado | `sql/entrega2/ddl/ddl_modelo_ampliado.sql` | ⬜ Pendiente |
+| Modelo físico | `docs/entrega2/modelo_fisico.md` | ⬜ Pendiente |
+| Carga de datos de prueba | `sql/entrega2/dml/carga_datos_prueba.sql` | ⬜ Pendiente |
+| Normalización (1FN–3FN) | `docs/entrega2/normalizacion.md` | ⬜ Pendiente |
+| Consultas avanzadas - Parte 1 | `sql/entrega2/consultas/consultas_avanzadas_parte1.sql` | ⬜ Pendiente |
+| Consultas avanzadas - Parte 2 | `sql/entrega2/consultas/consultas_avanzadas_parte2.sql` | ⬜ Pendiente |
+| Roles y privilegios diferenciados | `sql/entrega2/roles/roles_privilegios.sql + .md` | ⬜ Pendiente |
+| Casos de prueba ejecutados | `tests/entrega2/casos_prueba.md` | ⬜ Pendiente |
+
 
 ---
 
