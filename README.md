@@ -134,7 +134,7 @@ Ventana de aporte semanal: **lunes 00:00 — domingo 23:59 (hora Colombia, UTC-5
 
 | Integrante | Bloque asignado |
 |---|---|
-| [@Nicolukazzz](https://github.com/Nicolukazzz) |  |
+| [@Nicolukazzz](https://github.com/Nicolukazzz) | DDL del modelo ampliado; carga de datos de prueba |
 | [@hsantiagopf](https://github.com/hsantiagopf) | Modelo de lógico ampliado; Diccionario de datos ampliado |
 | [@Nivk-Debug](https://github.com/Nivk-Debug) |  |
 | [@laulesmes04](https://github.com/laulesmes04) |  |
@@ -174,9 +174,9 @@ Ventana de aporte semanal: **lunes 00:00 — domingo 23:59 (hora Colombia, UTC-5
 |---|---|---|
 | Modelo lógico ampliado (12–16 tablas) | `docs/entrega2/modelo_logico.md + diagrama` | ✅ Hecho |
 | Diccionario de datos ampliado | `docs/entrega2/diccionario_datos_ampliado.md` | ⬜ Pendiente |
-| DDL ampliado | `sql/entrega2/ddl/ddl_modelo_ampliado.sql` | ⬜ Pendiente |
+| DDL ampliado | `sql/entrega2/ddl/ddl_modelo_ampliado.sql` | ✅ Hecho |
 | Modelo físico | `docs/entrega2/modelo_fisico.md` | ⬜ Pendiente |
-| Carga de datos de prueba | `sql/entrega2/dml/carga_datos_prueba.sql` | ⬜ Pendiente |
+| Carga de datos de prueba | `sql/entrega2/dml/carga_datos_prueba.sql` | ✅ Hecho |
 | Normalización (1FN–3FN) | `docs/entrega2/normalizacion.md` | ⬜ Pendiente |
 | Consultas avanzadas - Parte 1 | `sql/entrega2/consultas/consultas_avanzadas_parte1.sql` | ⬜ Pendiente |
 | Consultas avanzadas - Parte 2 | `sql/entrega2/consultas/consultas_avanzadas_parte2.sql` | ⬜ Pendiente |
