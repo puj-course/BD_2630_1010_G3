@@ -124,3 +124,33 @@ Ventana de aporte semanal: **lunes 00:00 — domingo 23:59 (hora Colombia, UTC-5
 
 - La Consulta 14 fue ejecutada correctamente y devolvió 0 filas, sin detectar duplicados.
 - Se detectó que algunos archivos SQL habían quedado guardados como archivos vacíos a pesar de tener el contenido abierto en el IDE. El contenido fue guardado correctamente y recuperado mediante un commit correctivo y el PR correspondiente.
+
+---
+
+## Semana 6 — Entrega 2 — (28 de septiembre – 4 de octubre de 2026)
+
+### Objetivos
+
+- Escribir el DDL del modelo ampliado de 16 tablas sobre el esquema personal.
+- Generar la carga de datos de prueba para el nuevo modelo: las 7 ediciones completas y el detalle deportivo de la edición 7.
+- Mantener la coherencia de datos entre la base (Entrega 1) y las tablas nuevas.
+
+### Tareas realizadas
+
+| Tarea | Responsable | Rama utilizada | Descripción |
+|---|---|---|---|
+| DDL del modelo ampliado | Nicolás Mamian | `feature/entrega2-ddl-ampliado` | 16 tablas con sus llaves, índices y las reglas de negocio que un `CHECK` no puede expresar documentadas al final |
+| Carga de datos de prueba ampliada | Nicolás Mamian | `feature/entrega2-ddl-ampliado` | Los datos de la Entrega 1 reacomodados al modelo ampliado (la sede sale de EDICION, el grupo y la fase se vuelven llaves foráneas, y el partido apunta al siguiente del cuadro) más el detalle deportivo de la edición 7 |
+
+### Cambios principales
+
+- El esquema pasa de 5 a 16 tablas. Las llaves primarias sintéticas del modelo inicial se conservan.
+- La carga base reutiliza los datos ya probados de la Entrega 1: 7 ediciones, 112 estadios, 224 selecciones, 448 partidos y 896 participaciones.
+- El detalle de la edición 7 (Catar 2022) cubre sus 32 selecciones: 832 jugadores, 832 convocatorias, 160 miembros de cuerpo técnico, 120 árbitros con 384 asignaciones (6 roles por partido), 2.048 estadísticas y 32 incidencias.
+- Las estadísticas y las asignaciones arbitrales se cargan con `INSERT...SELECT` porque derivan de tablas ya cargadas; el resto, con `INSERT` explícito como en la Entrega 1.
+- Los nombres de jugadores, árbitros y cuerpo técnico son inventados, siguiendo la misma convención que en la Entrega 1.
+- La suma de goles de la estadística por selección coincide con `PARTICIPACION_PARTIDO.GOLES_MARCADOS`, y ningún árbitro se repite dentro de un mismo partido.
+
+### Problemas encontrados
+
+- El detalle de la edición 7 no se alcanzó a probar contra el servidor por una caída de la VPN de la universidad. Los conteos y la coherencia entre tablas se validaron con el generador que produce el script; la verificación en Oracle queda para el cierre de la semana una vez restablecida la conexión.
