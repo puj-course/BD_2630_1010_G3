@@ -1,4 +1,4 @@
-# Modelo Lógico Ampliado — Entrega 2
+# Modelo Lógico Ampliado - Entrega 2
 
 ## Sistema de Información para la Gestión Integral de la Copa Mundial de la FIFA
 
