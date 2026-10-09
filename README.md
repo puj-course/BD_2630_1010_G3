@@ -136,7 +136,6 @@ Ventana de aporte semanal: **lunes 00:00 — domingo 23:59 (hora Colombia, UTC-5
 |---|---|
 | [@Nicolukazzz](https://github.com/Nicolukazzz) | DDL del modelo ampliado; carga de datos de prueba |
 | [@hsantiagopf](https://github.com/hsantiagopf) | Modelo de lógico ampliado; Diccionario de datos ampliado |
-| [@Nivk-Debug](https://github.com/Nivk-Debug) |  |
 | [@laulesmes04](https://github.com/laulesmes04) |  |
 | [@daniellrzz](https://github.com/daniellrzz) | Consultas Avanzadas Parte 1 y 2 |
 
