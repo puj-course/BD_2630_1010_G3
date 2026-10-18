@@ -162,8 +162,8 @@ Ventana de aporte semanal: **lunes 00:00 — domingo 23:59 (hora Colombia, UTC-5
 | Consulta de verificación de integridad | `sql/entrega1/consultas/semana4_verificacion_integridad.sql` | ✅ Hecho |
 | Roles y privilegios | `sql/entrega1/roles/roles_privilegios.sql` | ✅ Hecho |
 | Álgebra relacional | `sql/entrega1/algebra_relacional/algebra_relacional.md` | ✅ Hecho |
-| Pruebas de DML | `tests/entrega1/pruebas_dml.md` | ⬜ Pendiente |
-| Pruebas de privilegios | `tests/entrega1/pruebas_privilegios.md` | ⬜ Pendiente (archivo creado, falta corregir la vista del diccionario que se consulta) |
+| Pruebas de DML | `tests/entrega1/pruebas_dml.md` | ✅ Hecho |
+| Pruebas de privilegios | `tests/entrega1/pruebas_privilegios.md` | ✅ Hecho |
 
 ---
 
