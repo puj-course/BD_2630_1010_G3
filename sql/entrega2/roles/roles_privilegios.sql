@@ -85,3 +85,29 @@ GRANT SELECT ON arbitro TO rol_auditor;
 GRANT SELECT ON asignacion_arbitral TO rol_auditor;
 GRANT SELECT ON estadistica_jugador_partido TO rol_auditor;
 GRANT SELECT ON incidencia TO rol_auditor;
+
+
+
+
+-- ------------------------------------------------------------
+-- 5. Usuarios de prueba, uno por rol.
+-- ------------------------------------------------------------
+
+CREATE USER usuario_admin_torneo IDENTIFIED BY "ClavePrueba_1";
+CREATE USER usuario_analista IDENTIFIED BY "ClavePrueba_2";
+CREATE USER usuario_auditor IDENTIFIED BY "ClavePrueba_3";
+
+GRANT CREATE SESSION TO usuario_admin_torneo;
+GRANT CREATE SESSION TO usuario_analista;
+GRANT CREATE SESSION TO usuario_auditor;
+
+GRANT rol_admin_torneo TO usuario_admin_torneo;
+GRANT rol_analista_deportivo TO usuario_analista;
+GRANT rol_auditor TO usuario_auditor;
+
+
+
+
+
+
+EXIT;
