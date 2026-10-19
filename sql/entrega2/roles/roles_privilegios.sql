@@ -39,3 +39,26 @@ GRANT SELECT, INSERT, UPDATE, DELETE ON arbitro TO rol_admin_torneo;
 GRANT SELECT, INSERT, UPDATE, DELETE ON asignacion_arbitral TO rol_admin_torneo;
 GRANT SELECT, INSERT, UPDATE, DELETE ON estadistica_jugador_partido TO rol_admin_torneo;
 GRANT SELECT, INSERT, UPDATE, DELETE ON incidencia TO rol_admin_torneo;
+
+
+
+-- ------------------------------------------------------------
+-- 3. ANALISTA DEPORTIVO: consulta lo deportivo y solo carga
+-- estadisticas y no ve el cuerpo tecnico.
+-- ------------------------------------------------------------
+
+GRANT SELECT ON edicion_mundial TO rol_analista_deportivo;
+GRANT SELECT ON sede TO rol_analista_deportivo;
+GRANT SELECT ON ciudad TO rol_analista_deportivo;
+GRANT SELECT ON estadio TO rol_analista_deportivo;
+GRANT SELECT ON fase TO rol_analista_deportivo;
+GRANT SELECT ON grupo TO rol_analista_deportivo;
+GRANT SELECT ON seleccion TO rol_analista_deportivo;
+GRANT SELECT ON partido TO rol_analista_deportivo;
+GRANT SELECT ON participacion_partido TO rol_analista_deportivo;
+GRANT SELECT ON jugador TO rol_analista_deportivo;
+GRANT SELECT ON convocatoria_jugador TO rol_analista_deportivo;
+GRANT SELECT ON arbitro TO rol_analista_deportivo;
+GRANT SELECT ON asignacion_arbitral TO rol_analista_deportivo;
+GRANT SELECT ON incidencia TO rol_analista_deportivo;
+GRANT SELECT, INSERT, UPDATE ON estadistica_jugador_partido TO rol_analista_deportivo;
