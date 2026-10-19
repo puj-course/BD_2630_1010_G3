@@ -16,3 +16,26 @@ DROP ROLE rol_auditor;
 CREATE ROLE rol_admin_torneo;
 CREATE ROLE rol_analista_deportivo;
 CREATE ROLE rol_auditor;
+
+
+
+-- ------------------------------------------------------------
+-- 2. ADMINISTRADOR DEL TORNEO: lee y modifica todo el modelo
+-- ------------------------------------------------------------
+
+GRANT SELECT, INSERT, UPDATE, DELETE ON edicion_mundial TO rol_admin_torneo;
+GRANT SELECT, INSERT, UPDATE, DELETE ON sede TO rol_admin_torneo;
+GRANT SELECT, INSERT, UPDATE, DELETE ON ciudad TO rol_admin_torneo;
+GRANT SELECT, INSERT, UPDATE, DELETE ON estadio TO rol_admin_torneo;
+GRANT SELECT, INSERT, UPDATE, DELETE ON fase TO rol_admin_torneo;
+GRANT SELECT, INSERT, UPDATE, DELETE ON grupo TO rol_admin_torneo;
+GRANT SELECT, INSERT, UPDATE, DELETE ON seleccion TO rol_admin_torneo;
+GRANT SELECT, INSERT, UPDATE, DELETE ON partido TO rol_admin_torneo;
+GRANT SELECT, INSERT, UPDATE, DELETE ON participacion_partido TO rol_admin_torneo;
+GRANT SELECT, INSERT, UPDATE, DELETE ON jugador TO rol_admin_torneo;
+GRANT SELECT, INSERT, UPDATE, DELETE ON convocatoria_jugador TO rol_admin_torneo;
+GRANT SELECT, INSERT, UPDATE, DELETE ON cuerpo_tecnico TO rol_admin_torneo;
+GRANT SELECT, INSERT, UPDATE, DELETE ON arbitro TO rol_admin_torneo;
+GRANT SELECT, INSERT, UPDATE, DELETE ON asignacion_arbitral TO rol_admin_torneo;
+GRANT SELECT, INSERT, UPDATE, DELETE ON estadistica_jugador_partido TO rol_admin_torneo;
+GRANT SELECT, INSERT, UPDATE, DELETE ON incidencia TO rol_admin_torneo;
