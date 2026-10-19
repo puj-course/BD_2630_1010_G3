@@ -14,8 +14,8 @@ Ventana de aporte semanal: **lunes 00:00 — domingo 23:59 (hora Colombia, UTC-5
 | Nicolás Esteban Mamian Palacios | [github.com/Nicolukazzz](https://github.com/Nicolukazzz) |
 | Santiago P. | [github.com/hsantiagopf](https://github.com/hsantiagopf) |
 | Nick_07 | [github.com/Nivk-Debug](https://github.com/Nivk-Debug) |
-| _(completar nombre)_ | [github.com/laulesmes04](https://github.com/laulesmes04) |
-
+| Laura | [github.com/laulesmes04](https://github.com/laulesmes04) |
+| Daniel Rozo | [github.com/daniellrzz](https://github.com/daniellrzz) |
 ---
 
 # Registro real del proyecto
@@ -40,6 +40,12 @@ Ventana de aporte semanal: **lunes 00:00 — domingo 23:59 (hora Colombia, UTC-5
 | Corrección de la restricción de grupo | Nicolás Mamian | `fix/restriccion-grupo` | Se cambió BETWEEN por una lista de valores y la columna a un solo carácter |
 | Auditoría del DDL | Nicolás Mamian | `fix/auditoria-ddl` | Se cerraron 4 huecos con nuevas restricciones CHECK y se documentaron 3 reglas más que no se pueden declarar |
 
+### Aporte — Consultas SQL
+
+| Tarea | Responsable | Rama utilizada | Descripción |
+|---|---|---|---|
+| Consultas SQL — Semana 1 | Santiago P. | `feature/consultasql-entrega1` | Implementación y validación de las Consultas 2 y 6 del enunciado sobre el modelo inicial |
+
 ### Cambios principales
 
 - Se creó la estructura de carpetas `docs/`, `sql/` y `tests/` separada por entrega, siguiendo exactamente el `README_CRONOGRAMA.md`.
@@ -60,3 +66,92 @@ Ventana de aporte semanal: **lunes 00:00 — domingo 23:59 (hora Colombia, UTC-5
 - La auditoría encontró que la base aceptaba asistencias mayores que el aforo del estadio, campos de texto con solo espacios en blanco y ediciones de un solo día. Los dos últimos se cerraron con restricciones `CHECK`; el primero no se puede, porque el aforo está en otra tabla y un `CHECK` no puede consultarla.
 
 ---
+
+
+## Semana 2 — Entrega 1 — (31 de agosto – 6 de septiembre de 2026)
+
+### Objetivos
+
+- Desarrollar y validar las consultas de agregación correspondientes a la Semana 2.
+
+### Tareas realizadas
+
+| Tarea | Responsable | Rama utilizada | Descripción |
+|---|---|---|---|
+| Consultas SQL — Semana 2 | Santiago P. | `feature/consultasql-semana2` | Implementación y validación de las Consultas 1, 3, 4, 5, 9, 12 y 13, manteniendo la separación de resultados por `id_edicion` |
+
+### Problemas encontrados
+
+- La Consulta 9 presentó un error `ORA-00979` relacionado con `GROUP BY`. Se corrigió la consulta y las siete consultas fueron validadas posteriormente en Oracle SQL Developer.
+
+---
+
+## Semana 3 — Entrega 1 — (7–13 de septiembre de 2026)
+
+### Objetivos
+
+- Desarrollar y validar las consultas basadas en subconsultas y la consulta que reutiliza una vista.
+
+### Tareas realizadas
+
+| Tarea | Responsable | Rama utilizada | Descripción |
+|---|---|---|---|
+| Consultas SQL — Subconsultas | Santiago P. | `feature/consultasql-semana3` | Implementación y validación de las Consultas 7, 8, 10 y 11 |
+| Consulta SQL sobre vista | Santiago P. | `feature/consultasql-semana3` | Implementación y validación de la Consulta 15 reutilizando `vista_tabla_posiciones` |
+
+### Problemas encontrados
+
+- La Consulta 15 inicialmente no pudo ejecutarse porque `vista_tabla_posiciones` no estaba creada en el esquema utilizado para las pruebas. Se cargaron las vistas y posteriormente la consulta fue validada correctamente.
+
+---
+
+## Semana 4 — Entrega 1 — (14–20 de septiembre de 2026)
+
+### Objetivos
+
+- Completar y validar la consulta de verificación de integridad.
+- Consolidar la organización de las 15 consultas SQL de la Entrega 1.
+
+### Tareas realizadas
+
+| Tarea | Responsable | Rama utilizada | Descripción |
+|---|---|---|---|
+| Consulta SQL — Semana 4 | Santiago P. | `feature/consultasql-semana4` | Implementación y validación de la Consulta 14 para detectar participaciones duplicadas de una selección en un mismo partido |
+| Corrección de scripts SQL | Santiago P. | `feature/consultasql-semana4` | Recuperación del contenido de los scripts de Semanas 1, 3 y 4 que habían quedado vacíos y posterior validación de los archivos |
+| Limpieza de consultas SQL | Santiago P. | `feature/consultasql-semana4` | Eliminación del archivo obsoleto `sql/entrega1/consultas/consultas.sql` después de distribuir las 15 consultas en los archivos establecidos por el cronograma |
+
+### Problemas encontrados
+
+- La Consulta 14 fue ejecutada correctamente y devolvió 0 filas, sin detectar duplicados.
+- Se detectó que algunos archivos SQL habían quedado guardados como archivos vacíos a pesar de tener el contenido abierto en el IDE. El contenido fue guardado correctamente y recuperado mediante un commit correctivo y el PR correspondiente.
+
+---
+
+## Semana 6 — Entrega 2 — (28 de septiembre – 4 de octubre de 2026)
+
+### Objetivos
+
+- Escribir el DDL del modelo ampliado de 16 tablas sobre el esquema personal.
+- Generar la carga de datos de prueba para el nuevo modelo: las 7 ediciones completas y el detalle deportivo de la edición 7.
+- Mantener la coherencia de datos entre la base (Entrega 1) y las tablas nuevas.
+
+### Tareas realizadas
+
+| Tarea | Responsable | Rama utilizada | Descripción |
+|---|---|---|---|
+| DDL del modelo ampliado | Nicolás Mamian | `feature/entrega2-ddl-ampliado` | 16 tablas con sus llaves, índices y las reglas de negocio que un `CHECK` no puede expresar documentadas al final |
+| Carga de datos de prueba ampliada | Nicolás Mamian | `feature/entrega2-ddl-ampliado` | Los datos de la Entrega 1 reacomodados al modelo ampliado (la sede sale de EDICION, el grupo y la fase se vuelven llaves foráneas, y el partido apunta al siguiente del cuadro) más el detalle deportivo de la edición 7 |
+
+### Cambios principales
+
+- El esquema pasa de 5 a 16 tablas. Las llaves primarias sintéticas del modelo inicial se conservan.
+- La carga base reutiliza los datos ya probados de la Entrega 1: 7 ediciones, 112 estadios, 224 selecciones, 448 partidos y 896 participaciones.
+- El detalle de la edición 7 (Catar 2022) cubre sus 32 selecciones: 832 jugadores, 832 convocatorias, 160 miembros de cuerpo técnico, 120 árbitros con 384 asignaciones (6 roles por partido), 2.048 estadísticas y 32 incidencias.
+- Las estadísticas y las asignaciones arbitrales se cargan con `INSERT...SELECT` porque derivan de tablas ya cargadas; el resto, con `INSERT` explícito como en la Entrega 1.
+- Los nombres de jugadores, árbitros y cuerpo técnico son inventados, siguiendo la misma convención que en la Entrega 1.
+- La suma de goles de la estadística por selección coincide con `PARTICIPACION_PARTIDO.GOLES_MARCADOS`, y ningún árbitro se repite dentro de un mismo partido.
+
+### Problemas encontrados
+
+- El detalle de la edición 7 no se alcanzó a probar contra el servidor por una caída de la VPN de la universidad. Los conteos y la coherencia entre tablas se validaron con el generador que produce el script; la verificación en Oracle queda para el cierre de la semana una vez restablecida la conexión.
+- Al probar la carga contra el servidor, el insercionado de `PARTIDO` en orden ascendente fallaba con `ORA-02291`: cada partido apunta con `id_partido_siguiente` a un id mayor, que aún no existía. Se reordenó el script para insertar los partidos de mayor a menor id (la Final primero), de modo que el destino de la llave foránea siempre esté cargado. Con ese cambio la carga completa contra `IS101009` pasó sin errores y las verificaciones de coherencia (suma de goles, árbitros sin repetir por partido, 26 convocados por selección, asistencia dentro del aforo y cuadro del torneo) dieron 0 filas.

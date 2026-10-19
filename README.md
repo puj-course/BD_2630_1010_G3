@@ -26,7 +26,7 @@ Lee los tres documentos antes de empezar a trabajar.
 |---|---|---|
 | Nicolás Esteban Mamian Palacios | [@Nicolukazzz](https://github.com/Nicolukazzz) | `IS101009` |
 | Laura Sofia Lesmes Ocampo | [@laulesmes04](https://github.com/laulesmes04) | `IS101007` |
-|  | [@hsantiagopf](https://github.com/hsantiagopf) |  |
+| Harold Santiago Pereira Fuentes | [@hsantiagopf](https://github.com/hsantiagopf) | `IS101013` |
 | Nicholas Ruiz Zhilkin | [@Nivk-Debug](https://github.com/Nivk-Debug) | `IS101017` |
 | Daniel Enrique Rozo Tarache| [@daniellrzz](https://github.com/daniellrzz) | `IS101016` |
 
@@ -116,6 +116,8 @@ Ventana de aporte semanal: **lunes 00:00 — domingo 23:59 (hora Colombia, UTC-5
 | 2 | Aplicación funcional (base + catálogos) y arquitectura |
 | 3 | Aplicación completa, módulo de reportes y cierre |
 
+---
+
 ### Reparto de responsabilidades — Entrega 1
 
 | Integrante | Bloque asignado |
@@ -128,29 +130,58 @@ Ventana de aporte semanal: **lunes 00:00 — domingo 23:59 (hora Colombia, UTC-5
 
 ---
 
+### Reparto de responsabilidades — Entrega 2
+
+| Integrante | Bloque asignado |
+|---|---|
+| [@Nicolukazzz](https://github.com/Nicolukazzz) | DDL del modelo ampliado; carga de datos de prueba |
+| [@hsantiagopf](https://github.com/hsantiagopf) | Modelo de lógico ampliado; Diccionario de datos ampliado |
+| [@laulesmes04](https://github.com/laulesmes04) |  |
+| [@daniellrzz](https://github.com/daniellrzz) | Consultas Avanzadas Parte 1 y 2 |
+
+---
+
 ## Estado de la Entrega 1
 
 | Entregable | Archivo | Estado |
 |---|---|---|
-| Documento técnico | `docs/entrega1/documento_tecnico.md` | ⬜ Pendiente |
-| Diagrama ER del modelo inicial | `docs/entrega1/modelo_er_inicial.png` | ⬜ Pendiente |
-| Diccionario de datos | `docs/entrega1/diccionario_datos.md` | ⬜ Pendiente |
-| Justificación de vistas | `docs/entrega1/vistas.md` | ⬜ Pendiente |
-| Evaluación crítica del modelo inicial | `docs/entrega1/evaluacion_critica_modelo_inicial.md` | ⬜ Pendiente |
-| Boceto del modelo ampliado | `docs/entrega1/boceto_modelo_ampliado.png` | ⬜ Pendiente |
-| DDL del modelo inicial | `sql/entrega1/ddl/ddl_modelo_inicial.sql` | ⬜ Pendiente |
-| Datos de prueba | `sql/entrega1/dml/carga_datos_prueba.sql` | ⬜ Pendiente |
-| DML — ciclo de vida del partido | `sql/entrega1/dml/dml_ciclo_vida_partido.sql` | ⬜ Pendiente |
-| Vistas | `sql/entrega1/vistas/vistas.sql` | ⬜ Pendiente |
-| Consultas — joins | `sql/entrega1/consultas/semana1_joins.sql` | ⬜ Pendiente |
-| Consultas — agregaciones | `sql/entrega1/consultas/semana2_agregaciones.sql` | ⬜ Pendiente |
-| Consultas — subconsultas | `sql/entrega1/consultas/semana3_subconsultas.sql` | ⬜ Pendiente |
-| Consulta sobre vista | `sql/entrega1/consultas/semana3_consulta_vista.sql` | ⬜ Pendiente |
-| Consulta de verificación de integridad | `sql/entrega1/consultas/semana4_verificacion_integridad.sql` | ⬜ Pendiente |
-| Roles y privilegios | `sql/entrega1/roles/roles_privilegios.sql` | ⬜ Pendiente |
-| Álgebra relacional | `sql/entrega1/algebra_relacional/algebra_relacional.md` | ⬜ Pendiente |
-| Pruebas de DML | `tests/entrega1/pruebas_dml.md` | ⬜ Pendiente |
-| Pruebas de privilegios | `tests/entrega1/pruebas_privilegios.md` | ⬜ Pendiente |
+| Documento técnico | `docs/entrega1/documento_tecnico.md` | ✅ Hecho |
+| Diagrama ER del modelo inicial | `docs/entrega1/modelo_er_inicial.png` | ✅ Hecho |
+| Diccionario de datos | `docs/entrega1/diccionario_datos.md` | ✅ Hecho |
+| Justificación de vistas | `docs/entrega1/vistas.md` | ✅ Hecho |
+| Evaluación crítica del modelo inicial | `docs/entrega1/evaluacion_critica_modelo_inicial.md` | ✅ Hecho |
+| Boceto del modelo ampliado | `docs/entrega1/boceto_modelo_ampliado.png` | ✅ Hecho |
+| DDL del modelo inicial | `sql/entrega1/ddl/ddl_modelo_inicial.sql` | ✅ Hecho |
+| Datos de prueba | `sql/entrega1/dml/carga_datos_prueba.sql` | ✅ Hecho |
+| DML — ciclo de vida del partido | `sql/entrega1/dml/dml_ciclo_vida_partido.sql` | ✅ Hecho |
+| Vistas | `sql/entrega1/vistas/vistas.sql` | ✅ Hecho |
+| Consultas — joins | `sql/entrega1/consultas/semana1_joins.sql` | ✅ Hecho |
+| Consultas — agregaciones | `sql/entrega1/consultas/semana2_agregaciones.sql` | ✅ Hecho |
+| Consultas — subconsultas | `sql/entrega1/consultas/semana3_subconsultas.sql` | ✅ Hecho |
+| Consulta sobre vista | `sql/entrega1/consultas/semana3_consulta_vista.sql` | ✅ Hecho |
+| Consulta de verificación de integridad | `sql/entrega1/consultas/semana4_verificacion_integridad.sql` | ✅ Hecho |
+| Roles y privilegios | `sql/entrega1/roles/roles_privilegios.sql` | ✅ Hecho |
+| Álgebra relacional | `sql/entrega1/algebra_relacional/algebra_relacional.md` | ✅ Hecho |
+| Pruebas de DML | `tests/entrega1/pruebas_dml.md` | ✅ Hecho |
+| Pruebas de privilegios | `tests/entrega1/pruebas_privilegios.md` | ✅ Hecho |
+
+---
+
+## Estado de la Entrega 2
+
+| Entregable | Archivo | Estado |
+|---|---|---|
+| Modelo lógico ampliado (12–16 tablas) | `docs/entrega2/modelo_logico.md + diagrama` | ✅ Hecho |
+| Diccionario de datos ampliado | `docs/entrega2/diccionario_datos_ampliado.md` | ⬜ Pendiente |
+| DDL ampliado | `sql/entrega2/ddl/ddl_modelo_ampliado.sql` | ✅ Hecho |
+| Modelo físico | `docs/entrega2/modelo_fisico.md` | ⬜ Pendiente |
+| Carga de datos de prueba | `sql/entrega2/dml/carga_datos_prueba.sql` | ✅ Hecho |
+| Normalización (1FN–3FN) | `docs/entrega2/normalizacion.md` | ⬜ Pendiente |
+| Consultas avanzadas - Parte 1 | `sql/entrega2/consultas/consultas_avanzadas_parte1.sql` | ⬜ Pendiente |
+| Consultas avanzadas - Parte 2 | `sql/entrega2/consultas/consultas_avanzadas_parte2.sql` | ⬜ Pendiente |
+| Roles y privilegios diferenciados | `sql/entrega2/roles/roles_privilegios.sql + .md` | ⬜ Pendiente |
+| Casos de prueba ejecutados | `tests/entrega2/casos_prueba.md` | ⬜ Pendiente |
+
 
 ---
 

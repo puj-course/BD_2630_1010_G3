@@ -234,7 +234,7 @@ INSERT INTO estadio (id_estadio, id_edicion, nombre, ciudad, capacidad) VALUES (
 --   - id_edicion tiene que existir en EDICION_MUNDIAL
 --   - un pais no se puede repetir dentro de la misma edicion
 --   - confederacion solo puede ser una de las seis de la FIFA
---   - grupo es una letra entre A y L
+--   - grupo es NULL o una de las letras de la lista A..L (no un rango)
 -- ------------------------------------------------------------
 
 -- Edicion 1
@@ -949,7 +949,7 @@ INSERT INTO partido (id_partido, id_edicion, id_estadio, fecha_hora, fase, asist
 --   - exactamente dos participaciones por partido
 --   - una sola LOCAL y una sola VISITANTE en cada partido
 --   - las dos selecciones son distintas y de la edicion del partido
---   - goles entre 0 y 30
+--   - goles entre 0 y 15 (CK_PARTICIPACION_GOLES en el DDL)
 --
 -- En fase eliminatoria no hay empates: siempre avanza alguien.
 -- ------------------------------------------------------------
