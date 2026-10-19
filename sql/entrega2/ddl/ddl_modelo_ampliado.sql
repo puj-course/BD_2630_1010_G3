@@ -357,9 +357,9 @@ CREATE TABLE asignacion_arbitral (
     -- Sin ON DELETE: no se borra un arbitro que ya pito.
     CONSTRAINT fk_asignacion_arbitro FOREIGN KEY (id_arbitro)
         REFERENCES arbitro (id_arbitro),
-    -- El mismo arbitro no puede tener dos roles en el mismo partido.
-    -- Para conocer los roles reales de la terna se consulta
-    -- ARBITRO, y un partido solo tiene un jugador por rol.
+    -- El mismo arbitro no puede tener dos roles en el mismo partido,
+    -- asi la terna nunca repite gente. De que rol cumplio cada uno
+    -- se da cuenta esta misma tabla, no hay que ir a mirar a otra.
     CONSTRAINT uq_asignacion_arbitro UNIQUE (id_partido, id_arbitro),
     -- Los roles del equipo arbitral en un partido
     CONSTRAINT ck_asignacion_rol CHECK (rol IN
@@ -472,19 +472,19 @@ CREATE INDEX ix_incidencia_partido ON incidencia (id_partido);
 --   H. En fase eliminatoria no puede haber empate.
 --   I. La fase del partido debe ser una fase de la edicion del partido.
 --   J. El partido siguiente (id_partido_siguiente) debe ser de la misma
---      edicion y de una fase posterior a la de este partido. Ademas
---      un FK compuesto por fases podria evitar que un partido de la
---      fase de grupos apunte a un "siguiente", pero la regla real es
---      deportiva: solo en eliminatorias hay un partido siguiente.
+--      edicion y de una fase posterior a la de este partido. Ademas,
+--      solo en eliminatorias hay partido siguiente: un partido de la
+--      fase de grupos no apunta a nadie, y eso una llave foranea por
+--      si sola no lo distingue.
 --   K. Los partidos de la fase de grupos de una edicion descansan
 --      entre fase y fase: no pueden cruzarse dos de la misma fecha.
 --   L. La cantidad de convocados por seleccion tiene tope reglamentario
---      (26 desde el Mundial 2022). CUERPO_TECNICO sin limite de filas.
---   M. Un jugador solo puede marcar/registrar estadistica en partidos
---      de la edicion de la seleccion que lo convoco.
+--      (26 desde el Mundial 2022). En CUERPO_TECNICO no aplica tope.
+--   M. Un jugador solo puede registrar estadistica en partidos de la
+--      edicion de la seleccion que lo convoco.
 --   N. La suma de goles de los jugadores de una seleccion en un partido
---      debe ser igual al goles_marcados de su participacion en ese
---      partido.
+--      debe ser igual a goles_marcados en su participacion de ese
+--      mismo partido.
 --   O. Un arbitro no puede estar asignado a dos partidos que se juegan
 --      a la misma hora. ASIGNACION_ARBITRAL no puede comparar fechas.
 -- ------------------------------------------------------------
