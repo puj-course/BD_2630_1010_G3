@@ -62,3 +62,26 @@ GRANT SELECT ON arbitro TO rol_analista_deportivo;
 GRANT SELECT ON asignacion_arbitral TO rol_analista_deportivo;
 GRANT SELECT ON incidencia TO rol_analista_deportivo;
 GRANT SELECT, INSERT, UPDATE ON estadistica_jugador_partido TO rol_analista_deportivo;
+
+
+
+-- ------------------------------------------------------------
+-- 4. AUDITOR / CONSULTA: solo lectura de todo el modelo
+-- ------------------------------------------------------------
+
+GRANT SELECT ON edicion_mundial TO rol_auditor;
+GRANT SELECT ON sede TO rol_auditor;
+GRANT SELECT ON ciudad TO rol_auditor;
+GRANT SELECT ON estadio TO rol_auditor;
+GRANT SELECT ON fase TO rol_auditor;
+GRANT SELECT ON grupo TO rol_auditor;
+GRANT SELECT ON seleccion TO rol_auditor;
+GRANT SELECT ON partido TO rol_auditor;
+GRANT SELECT ON participacion_partido TO rol_auditor;
+GRANT SELECT ON jugador TO rol_auditor;
+GRANT SELECT ON convocatoria_jugador TO rol_auditor;
+GRANT SELECT ON cuerpo_tecnico TO rol_auditor;
+GRANT SELECT ON arbitro TO rol_auditor;
+GRANT SELECT ON asignacion_arbitral TO rol_auditor;
+GRANT SELECT ON estadistica_jugador_partido TO rol_auditor;
+GRANT SELECT ON incidencia TO rol_auditor;
