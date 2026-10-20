@@ -180,7 +180,7 @@ Ventana de aporte semanal: **lunes 00:00 — domingo 23:59 (hora Colombia, UTC-5
 | Consultas avanzadas - Parte 1 | `sql/entrega2/consultas/consultas_avanzadas_parte1.sql` | ✅ Hecho |
 | Consultas avanzadas - Parte 2 | `sql/entrega2/consultas/consultas_avanzadas_parte2.sql` | ✅ Hecho |
 | Roles y privilegios diferenciados | `sql/entrega2/roles/roles_privilegios.sql` + `docs/entrega2/roles_privilegios.md` | ✅ Hecho |
-| Casos de prueba ejecutados | `tests/entrega2/casos_prueba.md` | ⬜ Pendiente |
+| Casos de prueba ejecutados | `tests/entrega2/casos_prueba.md` + `tests/entrega2/casos_prueba.sql` | ✅ Hecho |
 
 
 ---
