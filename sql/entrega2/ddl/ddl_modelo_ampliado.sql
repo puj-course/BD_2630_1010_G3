@@ -347,7 +347,7 @@ CREATE TABLE asignacion_arbitral (
         REFERENCES arbitro (id_arbitro),
     -- El mismo arbitro no puede tener dos roles en el mismo partido.
     -- Para conocer los roles reales de la terna se consulta
-    -- ARBITRO, y un partido solo tiene un jugador por rol.
+    -- El mismo arbitro no puede aparecer dos veces en el mismo partido
     CONSTRAINT uq_asignacion_arbitro UNIQUE (id_partido, id_arbitro),
     -- Los roles del equipo arbitral en un partido
     CONSTRAINT ck_asignacion_rol CHECK (rol IN
