@@ -177,7 +177,7 @@ Relaciona un árbitro con un partido y define el rol arbitral.
 | `id_arbitro` | `NUMBER(10)` | FK → `ARBITRO.id_arbitro`, NOT NULL | Árbitro asignado. |
 | `rol` | `VARCHAR2(30)` | NOT NULL, CHECK lista de roles (`ck_asignacion_rol`) | Función: Principal, Asistente 1, Asistente 2, Cuarto arbitro, VAR o AVAR. |
 
-**Restricción adicional de tabla:** `uq_asignacion_arbitro` establece UNIQUE sobre (`id_partido`, `id_arbitro`), de modo que el mismo árbitro no puede tener dos asignaciones en un partido. Esta restricción no impone directamente unicidad por rol.
+**Restricción adicional de tabla:** `uq_asignacion_arbitro` establece UNIQUE sobre (`id_partido`, `id_arbitro`), de modo que el mismo árbitro no puede tener dos asignaciones en un partido. 
 
 ### 2.15. ESTADISTICA_JUGADOR_PARTIDO
 
