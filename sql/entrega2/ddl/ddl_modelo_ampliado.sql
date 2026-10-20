@@ -431,7 +431,7 @@ CREATE INDEX ix_estadistica_jugador ON estadistica_jugador_partido (id_jugador);
 CREATE INDEX ix_asignacion_arbitro ON asignacion_arbitral (id_arbitro);
 CREATE INDEX ix_incidencia_partido ON incidencia (id_partido);
 CREATE INDEX ix_seleccion_grupo ON seleccion (id_grupo);
-
+CREATE INDEX ix_cuerpo_tecnico_seleccion ON cuerpo_tecnico (id_seleccion);
 
 -- ------------------------------------------------------------
 -- Reglas que no se pueden poner como CHECK
