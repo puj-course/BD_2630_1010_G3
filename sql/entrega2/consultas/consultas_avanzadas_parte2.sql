@@ -1,5 +1,5 @@
 -- ============================================================
--- Consultas avanzadas - Entrega 2 (semana 4)
+-- Consultas avanzadas - Entrega 2 (parte 2)
 -- ============================================================
 
 SET SQLBLANKLINES ON
