@@ -454,8 +454,8 @@ CREATE INDEX ix_cuerpo_tecnico_seleccion ON cuerpo_tecnico (id_seleccion);
 --   H. En fase eliminatoria no puede haber empate.
 --   I. La fase del partido debe ser una fase de la edicion del partido.
 --   J. El partido siguiente debe ser de la misma edicion y de una fase posterior.
---   K. Los partidos de una edicion descansan entre fase y fase: no pueden
---      cruzarse dos de la misma fecha.
+--   K. Las fases de una edicion no se cruzan: ningun partido de una fase
+--      puede jugarse antes de que termine la fase anterior.
 --   L. La cantidad de convocados por seleccion tiene tope (26 desde el Mundial 2022).
 --   M. Un jugador solo puede marcar/registrar estadistica en partidos
 --      de la edicion de la seleccion que lo convoco.
