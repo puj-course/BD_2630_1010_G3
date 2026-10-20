@@ -521,51 +521,33 @@ Estas son las reglas que sigue el modelo:
 
 # 10. Decisiones de modelado
 
-### Separación de sede, ciudad y estadio
+### Sede, ciudad y estadio
 
-El modelo inicial almacenaba información geográfica directamente en
-`EDICION_MUNDIAL` y `ESTADIO`. El modelo ampliado separa estos conceptos para
-representar correctamente la jerarquía:
+En el modelo inicial el país sede estaba en `EDICION_MUNDIAL` y la ciudad era un texto dentro de `ESTADIO`. Ahora cada uno tiene su tabla (`EDICION_MUNDIAL → SEDE → CIUDAD → ESTADIO`). Así una edición puede tener varios países sede, como 2002 o 2026, y se pueden sumar datos por país o por ciudad sin repetir nombres.
 
-`EDICION_MUNDIAL → SEDE → CIUDAD → ESTADIO`
+### Fase y grupo
 
-Esto permite realizar agregaciones por país, ciudad y estadio sin duplicar
-información.
+La fase era un texto en `PARTIDO` y el grupo un texto en `SELECCION`. Ahora son tablas, lo que permite ordenar las fases y saber a qué fase pertenece cada grupo.
 
-### Separación de fase y grupo
+### Jugador y convocatoria
 
-La fase del torneo deja de ser un atributo textual de `PARTIDO` y pasa a ser
-una entidad independiente. Los grupos también se modelan como entidades,
-permitiendo asociar las selecciones participantes y realizar análisis
-específicos por grupo y fase.
+Los datos del jugador se guardan una sola vez en `JUGADOR`. Cada vez que una selección lo convoca se crea una fila en `CONVOCATORIA_JUGADOR`, con su dorsal y si es capitán. Así un jugador que va a varios mundiales no se repite.
 
-### Separación de jugador y convocatoria
+### Estadísticas
 
-La información básica del jugador se almacena en `JUGADOR`, mientras que su
-participación con una selección se registra mediante `CONVOCATORIA_JUGADOR`.
-Esto evita duplicar la información del jugador entre diferentes ediciones.
-
-### Estadísticas por jugador y partido
-
-Las estadísticas se almacenan en una relación independiente entre jugador y
-partido. Esto permite analizar goles, asistencias, tarjetas y minutos
-jugados por diferentes niveles del torneo.
+Cada fila de `ESTADISTICA_JUGADOR_PARTIDO` es lo que hizo un jugador en un partido. Con eso se pueden sacar goleadores, asistencias y tarjetas por partido, selección, fase o edición.
 
 ### Arbitraje
 
-La relación entre árbitros y partidos se implementa mediante
-`ASIGNACION_ARBITRAL`, permitiendo que un árbitro desempeñe diferentes roles
-en diferentes partidos.
+`ASIGNACION_ARBITRAL` une árbitros y partidos. Un mismo árbitro puede ser principal en un partido y VAR en otro.
 
-### Progresión de fases eliminatorias
+### Cuadro eliminatorio
 
-`PARTIDO.id_partido_siguiente` permite representar que un partido puede
-alimentar un partido posterior dentro del cuadro eliminatorio.
+`id_partido_siguiente` indica a qué partido pasa el ganador. Con eso se puede recorrer el cuadro desde los dieciseisavos hasta la final.
 
 ### Incidencias
 
-Las incidencias se mantienen asociadas al partido para permitir consultas
-operativas sobre eventos ocurridos durante el desarrollo del encuentro.
+Cada incidencia queda ligada a su partido, lo que permite ver en qué fases o estadios ocurren más.
 
 ---
 
