@@ -1,8 +1,7 @@
 # Modelo Físico - Entrega 2
 ## Sistema de Información para la Gestión Integral de la Copa Mundial de la FIFA
 
-**Motor:** Oracle Database 19c
-**Script:** `sql/entrega2/ddl/ddl_modelo_ampliado.sql`
+Implementado en Oracle Database 19c (script: `sql/entrega2/ddl/ddl_modelo_ampliado.sql`).
 
 ---
 
