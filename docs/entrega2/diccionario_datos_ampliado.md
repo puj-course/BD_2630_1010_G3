@@ -228,6 +228,7 @@ El DDL documenta reglas que requieren validaciones adicionales, por ejemplo medi
 9. El partido siguiente debe corresponder a la misma edición y una fase posterior cuando se use la progresión eliminatoria.
 10. Una selección no puede tener más de 26 jugadores convocados.
 11. En fase eliminatoria un partido no puede terminar empatado.
+12. Las fases de una edición no se cruzan: ningún partido de una fase se juega antes de que termine la fase anterior.
 
 ## 4. Observaciones 
 
