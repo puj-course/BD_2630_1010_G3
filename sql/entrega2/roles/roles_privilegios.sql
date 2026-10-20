@@ -44,8 +44,9 @@ GRANT SELECT, INSERT, UPDATE, DELETE ON estadistica_jugador_partido TO rol_admin
 GRANT SELECT, INSERT, UPDATE, DELETE ON incidencia TO rol_admin_torneo;
 
 -- ------------------------------------------------------------
--- 3. ANALISTA DEPORTIVO: consulta lo deportivo y solo carga
--- estadisticas y no ve el cuerpo tecnico.
+-- 3. ANALISTA DEPORTIVO: consulta los datos deportivos y solo
+-- puede cargar y corregir estadisticas. No ve el cuerpo tecnico
+-- porque no lo necesita para el analisis de rendimiento.
 -- ------------------------------------------------------------
 
 GRANT SELECT ON edicion_mundial TO rol_analista_deportivo;
