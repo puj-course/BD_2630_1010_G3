@@ -334,7 +334,6 @@ Representa integrantes del cuerpo técnico de una selección.
 ### Relación
 
 - Una selección puede tener múltiples integrantes del cuerpo técnico.
-- Cada integrante registrado pertenece a una selección dentro del modelo.
 
 ---
 
