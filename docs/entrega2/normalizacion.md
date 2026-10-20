@@ -19,12 +19,11 @@ Las 16 tablas cumplen 1FN:
 - No hay columnas repetitivas (como `jugador1`, `jugador2`). Lo que se repite se modela en tablas propias: `CONVOCATORIA_JUGADOR`, `ESTADISTICA_JUGADOR_PARTIDO`, `ASIGNACION_ARBITRAL` e `INCIDENCIA`.
 
 
-
 ## 3. Segunda forma normal (2FN)
 
-Las 16 tablas usan una llave primaria de una sola columna (`id_*`). Una dependencia parcial solo puede existir con llave compuesta, así que 2FN se cumple en todas.
+Las 16 tablas usan una llave primaria de una sola columna (`id_*`), así que con respecto a ella no puede haber dependencias parciales.
 
-Las combinaciones naturales, como `(id_partido, id_seleccion)`, se protegen con restricciones `UNIQUE`, pero no son la llave primaria.
+Algunas tablas también tienen llaves candidatas compuestas, declaradas como `UNIQUE`. En todas, los demás atributos dependen de la combinación completa y no de una sola parte. Por ejemplo, en `PARTICIPACION_PARTIDO` los goles dependen de `(id_partido, id_seleccion)` juntos: con solo el partido o solo la selección no se sabe cuántos goles hubo. Lo mismo pasa con el dorsal en `CONVOCATORIA_JUGADOR`, el rol en `ASIGNACION_ARBITRAL` y los datos de `ESTADISTICA_JUGADOR_PARTIDO`.
 
 
 
