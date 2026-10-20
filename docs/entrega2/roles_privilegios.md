@@ -49,7 +49,6 @@ Se aplica el **principio de mínimo privilegio**: cada rol recibe solo los permi
 | `GRANT ... ON tabla TO rol` | Asigna permisos al rol |
 | `CREATE USER` y `GRANT CREATE SESSION` | Crea el usuario de prueba y le permite conectarse |
 | `GRANT rol TO usuario` | Entrega el rol al usuario |
-| `REVOKE` | Quita un permiso ya otorgado |
 
 ---
 
@@ -94,4 +93,4 @@ Resultado: 3 filas, todas de `ESTADISTICA_JUGADOR_PARTIDO` (INSERT, SELECT, UPDA
 
 ## 7. Pruebas con usuarios
 
-Las pruebas de conexión con cada usuario (permitido y prohibido, `REVOKE` y `GRANT`) están pendientes: el usuario `IS101007` tiene `CREATE ROLE` pero no `CREATE USER` en el servidor del curso (ORA-01031), por lo que los usuarios de prueba no se pudieron crear. 
+Los permisos de cada rol se comprobaron en el catálogo de Oracle (sección 6). Para iniciar sesión con cada usuario se necesita el privilegio `CREATE USER`, que el usuario del grupo (`IS101007`) no tiene en el servidor del curso (ORA-01031). El script ya deja definidos los tres usuarios, así que esas pruebas se pueden correr apenas se tenga ese privilegio.
