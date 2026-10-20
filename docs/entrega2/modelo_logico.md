@@ -559,8 +559,7 @@ El análisis de 1FN, 2FN y 3FN tabla por tabla está en `docs/entrega2/normaliza
 
 # 12. Proyección hacia consultas avanzadas
 
-La estructura permite realizar consultas que recorran diferentes niveles
-del torneo, por ejemplo:
+Las consultas pueden ir del jugador hasta la edición:
 
 `JUGADOR → ESTADISTICA_JUGADOR_PARTIDO → PARTIDO → FASE → EDICION_MUNDIAL`, y la selección del jugador se obtiene por `CONVOCATORIA_JUGADOR → SELECCION → GRUPO`.
 
@@ -576,5 +575,4 @@ Esto permite obtener indicadores como:
 - asistencia acumulada por sede;
 - estadísticas agregadas por edición.
 
-Estas estructuras servirán como base para las consultas avanzadas de la
-Entrega 2.
+Las consultas avanzadas de esta entrega usan estos recorridos.
