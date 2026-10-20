@@ -1,15 +1,3 @@
--- ============================================================
--- Proyecto Base de Datos - Mundial FIFA
--- Entrega 2 - Modelo ampliado (16 tablas)
--- Grupo G3 - Bases de Datos - Pontificia Universidad Javeriana
--- Motor: Oracle 19c
--- ============================================================
--- Se ejecuta sobre el esquema propio de cada estudiante.
--- Amplia el modelo de la Entrega 1: separa sede, ciudad y estadio,
--- fase y grupo como entidades, y agrega jugadores, cuerpo tecnico,
--- arbitros, estadisticas e incidencias.
--- ============================================================
-
 -- Evita que SQLcl corte las sentencias al llegar a una linea en blanco.
 SET SQLBLANKLINES ON
 
@@ -139,14 +127,13 @@ CREATE TABLE fase (
     CONSTRAINT uq_fase_orden UNIQUE (id_edicion, orden_fase),
     -- No puede haber dos fases con el mismo nombre en la misma edicion
     CONSTRAINT uq_fase_nombre UNIQUE (id_edicion, nombre),
-    -- El orden empieza en 1 y la fase de grupos manda al resto
+    -- El orden empieza en 1
     CONSTRAINT ck_fase_orden CHECK (orden_fase >= 1),
     -- Fases que usa el formato real del torneo
     CONSTRAINT ck_fase_nombre CHECK (nombre IN
         ('Fase de Grupos','Dieciseisavos','Octavos','Cuartos',
          'Semifinal','Tercer Puesto','Final')),
-    -- La fase de grupos es la unica que no es eliminatoria: tras ella
-    -- ningun empate define, siempre tiene que pasar alguien.
+     -- Solo la fase de grupos es de tipo GRUPOS; las demas son eliminatorias
     CONSTRAINT ck_fase_tipo CHECK (tipo IN ('GRUPOS','ELIMINATORIA'))
 );
 
@@ -253,8 +240,8 @@ CREATE TABLE participacion_partido (
     -- Un partido tiene un solo local y un solo visitante
     CONSTRAINT uq_participacion_condicion UNIQUE (id_partido, condicion),
     CONSTRAINT ck_participacion_condicion CHECK (condicion IN ('LOCAL','VISITANTE')),
-    -- El tope de 15 sale del reglamento: la mayor goleada de un equipo
-    -- en un Mundial fue Hungria 10-1 a El Salvador en 1982.
+    -- Tope puesto por el equipo para atrapar errores de digitacion. La mayor
+    -- goleada de un equipo en un Mundial fue Hungria 10-1 a El Salvador en 1982.
     CONSTRAINT ck_participacion_goles CHECK (goles_marcados BETWEEN 0 AND 15)
 );
 
@@ -394,16 +381,15 @@ CREATE TABLE estadistica_jugador_partido (
         REFERENCES jugador (id_jugador),
     -- El mismo jugador no puede tener dos registros del mismo partido
     CONSTRAINT uq_estadistica_jugador UNIQUE (id_partido, id_jugador),
-    -- Si inicio el partido no pudo "entrar" despues. El que no inicio
-    -- tiene que haber entrado en algun momento del juego.
     CONSTRAINT ck_estadistica_titular CHECK (titular IN (0, 1)),
+     -- El titular no tiene minuto de entrada; el suplente si
     CONSTRAINT ck_estadistica_entradas CHECK
         ((titular = 0 AND minuto_entrada IS NOT NULL)
          OR (titular = 1 AND minuto_entrada IS NULL)),
     CONSTRAINT ck_estadistica_entradas_rango CHECK
         ((minuto_entrada IS NULL OR minuto_entrada BETWEEN 0 AND 120)
          AND (minuto_salida IS NULL OR minuto_salida BETWEEN 0 AND 120)),
-    -- El minuto 120 toma el caso limite de un partido que se alarga.
+      -- Hasta 120 por si hay tiempo extra
     CONSTRAINT ck_estadistica_minutos CHECK (minutos_jugados BETWEEN 0 AND 120),
     CONSTRAINT ck_estadistica_counters CHECK
         (goles >= 0 AND asistencias >= 0
@@ -441,17 +427,15 @@ CREATE TABLE incidencia (
 
 CREATE INDEX ix_partido_edicion ON partido (id_edicion);
 CREATE INDEX ix_partido_fase ON partido (id_fase);
-CREATE INDEX ix_partido_estadio ON partido (id_estadio);
 CREATE INDEX ix_partido_siguiente ON partido (id_partido_siguiente);
 CREATE INDEX ix_participacion_seleccion ON participacion_partido (id_seleccion);
 CREATE INDEX ix_seleccion_grupo ON seleccion (id_grupo);
 CREATE INDEX ix_estadistica_jugador ON estadistica_jugador_partido (id_jugador);
 CREATE INDEX ix_convocatoria_jugador ON convocatoria_jugador (id_jugador);
 CREATE INDEX ix_convocatoria_seleccion ON convocatoria_jugador (id_seleccion);
-CREATE INDEX ix_cuerpo_tecnico_seleccion ON cuerpo_tecnico (id_seleccion);
 CREATE INDEX ix_asignacion_arbitro ON asignacion_arbitral (id_arbitro);
 CREATE INDEX ix_incidencia_partido ON incidencia (id_partido);
-
+CREATE INDEX ix_cuerpo_tecnico_seleccion ON cuerpo_tecnico (id_seleccion);
 
 -- ------------------------------------------------------------
 -- Reglas que no se pueden poner como CHECK
@@ -473,20 +457,15 @@ CREATE INDEX ix_incidencia_partido ON incidencia (id_partido);
 --   G. Una seleccion no puede jugar dos partidos a la misma fecha y hora.
 --   H. En fase eliminatoria no puede haber empate.
 --   I. La fase del partido debe ser una fase de la edicion del partido.
---   J. El partido siguiente (id_partido_siguiente) debe ser de la misma
---      edicion y de una fase posterior a la de este partido. Ademas,
---      solo en eliminatorias hay partido siguiente: un partido de la
---      fase de grupos no apunta a nadie, y eso una llave foranea por
---      si sola no lo distingue.
---   K. Los partidos de la fase de grupos de una edicion descansan
---      entre fase y fase: no pueden cruzarse dos de la misma fecha.
---   L. La cantidad de convocados por seleccion tiene tope reglamentario
---      (26 desde el Mundial 2022). En CUERPO_TECNICO no aplica tope.
---   M. Un jugador solo puede registrar estadistica en partidos de la
---      edicion de la seleccion que lo convoco.
+--   J. El partido siguiente debe ser de la misma edicion y de una fase posterior.
+--   K. Los partidos de una edicion descansan entre fase y fase: no pueden
+--      cruzarse dos de la misma fecha.
+--   L. La cantidad de convocados por seleccion tiene tope (26 desde el Mundial 2022).
+--   M. Un jugador solo puede marcar/registrar estadistica en partidos
+--      de la edicion de la seleccion que lo convoco.
 --   N. La suma de goles de los jugadores de una seleccion en un partido
---      debe ser igual a goles_marcados en su participacion de ese
---      mismo partido.
+--      debe ser igual al goles_marcados de su participacion en ese
+--      partido.
 --   O. Un arbitro no puede estar asignado a dos partidos que se juegan
 --      a la misma hora. ASIGNACION_ARBITRAL no puede comparar fechas.
 -- ------------------------------------------------------------
