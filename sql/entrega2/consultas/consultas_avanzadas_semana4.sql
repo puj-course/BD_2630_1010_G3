@@ -88,5 +88,27 @@ WHERE p.asistencia_registrada IS NOT NULL
 GROUP BY ROLLUP (m.anio, sd.pais, ci.nombre)
 ORDER BY m.anio, sd.pais, ci.nombre;
 
+-- 10. Historial de cada arbitro y partidos que se le cruzan de horario
+SELECT ar.nombre AS arbitro, ar.nacionalidad,
+       COUNT(*) AS partidos,
+       SUM(CASE WHEN a.rol = 'Principal' THEN 1 ELSE 0 END) AS como_principal,
+       SUM(CASE WHEN a.rol IN ('VAR', 'AVAR') THEN 1 ELSE 0 END) AS como_var,
+       COUNT(DISTINCT p.id_edicion) AS ediciones,
+       (SELECT COUNT(*)
+        FROM asignacion_arbitral a1
+        JOIN partido p1 ON p1.id_partido = a1.id_partido
+        JOIN asignacion_arbitral a2 ON a2.id_arbitro = a1.id_arbitro
+                                   AND a2.id_partido > a1.id_partido
+        JOIN partido p2 ON p2.id_partido = a2.id_partido
+        WHERE a1.id_arbitro = ar.id_arbitro
+          AND p1.fecha_hora = p2.fecha_hora) AS cruces_horario
+FROM arbitro ar
+JOIN asignacion_arbitral a ON a.id_arbitro = ar.id_arbitro
+JOIN partido p ON p.id_partido = a.id_partido
+GROUP BY ar.id_arbitro, ar.nombre, ar.nacionalidad
+ORDER BY partidos DESC, ar.nombre;
+
+
+EXIT;
 
 
