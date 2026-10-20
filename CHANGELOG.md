@@ -194,3 +194,25 @@ Ventana de aporte semanal: **lunes 00:00 — domingo 23:59 (hora Colombia, UTC-5
 ### Problemas encontrados
 
 - La normalización y las consultas avanzadas parte 1 no quedaron listas esta semana y pasaron al cierre de la entrega.
+
+---
+
+## Semana 8 — Entrega 2 — (12–18 de octubre de 2026)
+
+### Objetivos
+
+- Definir los tres roles del enunciado: Administrador del Torneo, Analista Deportivo y Auditor/Consulta.
+- Revisar la documentación del DDL ampliado.
+
+### Tareas realizadas
+
+| Tarea | Responsable | Rama utilizada | Descripción |
+|---|---|---|---|
+| Estructura de roles | Laura | `lesmes-dml` | Creación de `rol_admin_torneo`, `rol_analista_deportivo` y `rol_auditor` en `sql/entrega2/roles/roles_privilegios.sql` |
+| Permisos del Administrador | Laura | `lesmes-dml` | `SELECT`, `INSERT`, `UPDATE` y `DELETE` sobre las 16 tablas |
+| Revisión de comentarios del DDL | Nicolás Mamian | `feature/entrega2-ajustes` | Corrección del comentario del rol arbitral y de la redacción de las reglas J, L, M y N que no se pueden declarar como `CHECK` |
+| Actualización del README | Santiago P. | Edición directa en `main` | Ajustes al estado de la entrega |
+
+### Problemas encontrados
+
+- En Oracle los roles son globales a toda la base, no al esquema. Si otro grupo ya creó un rol con el mismo nombre, `CREATE ROLE` falla con `ORA-01921`.
