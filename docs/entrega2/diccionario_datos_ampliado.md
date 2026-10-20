@@ -2,16 +2,18 @@
 
 ## 1. Propósito y convenciones
 
-Este documento describe los atributos de las 16 tablas del modelo ampliado. Los tipos, la nulabilidad, los valores predeterminados y las restricciones declaradas se documentan conforme al DDL de Oracle 19c.
+Este documento describe las columnas de las 16 tablas del modelo ampliado, con los mismos tipos, valores por defecto y restricciones del DDL.
 
-- **PK:** clave primaria.
-- **FK:** clave foránea; se indica la tabla y columna referenciada.
-- **UNIQUE:** restricción de unicidad. Si involucra varias columnas, se especifican todas.
-- **NOT NULL:** valor obligatorio.
-- **CHECK:** condición de validación declarada en Oracle.
-- **DEFAULT:** valor predeterminado aplicado cuando un `INSERT` omite la columna.
-- **ON DELETE CASCADE:** la fila hija se elimina al borrar la fila padre referenciada.
-- **Nulo permitido:** la columna no declara `NOT NULL`.
+| Abreviatura | Significado |
+|---|---|
+| PK | Llave primaria |
+| FK | Llave foránea; se indica la tabla y columna a la que apunta |
+| UNIQUE | No se puede repetir; si son varias columnas, se nombran todas |
+| NOT NULL | Valor obligatorio |
+| CHECK | Condición que Oracle valida al insertar o actualizar |
+| DEFAULT | Valor que toma la columna si el `INSERT` no la incluye |
+| ON DELETE CASCADE | Al borrar la fila padre, se borran también sus filas hijas |
+| Nulo permitido | La columna puede quedar vacía |
 
 ## 2. Diccionario por tabla
 
