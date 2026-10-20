@@ -1,8 +1,7 @@
 # Roles y Privilegios - Entrega 2
 ## Sistema de Información para la Gestión Integral de la Copa Mundial de la FIFA
 
-**Script:** `sql/entrega2/roles/roles_privilegios.sql`
-**Casos de prueba:** `tests/entrega2/casos_prueba.md`
+El script está en `sql/entrega2/roles/roles_privilegios.sql` y los casos de prueba en `tests/entrega2/casos_prueba.md`.
 
 ---
 
