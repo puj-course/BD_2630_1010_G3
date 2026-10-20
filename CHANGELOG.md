@@ -126,6 +126,26 @@ Ventana de aporte semanal: **lunes 00:00 — domingo 23:59 (hora Colombia, UTC-5
 
 ---
 
+## Semana 5 — Entrega 2 — (21–27 de septiembre de 2026)
+
+### Objetivos
+
+- Construir el modelo lógico ampliado (12 a 16 tablas) a partir de la evaluación crítica de la Entrega 1.
+- Repartir los bloques de trabajo de la Entrega 2 entre los integrantes.
+
+### Tareas realizadas
+
+| Tarea | Responsable | Rama utilizada | Descripción |
+|---|---|---|---|
+| Modelo lógico ampliado | Santiago P. | `feature/modelo-logico-ampliado-e2` (PR #37) | Primera versión de `docs/entrega2/modelo_logico.md` con las 16 tablas del modelo ampliado |
+| Reparto y estado de la Entrega 2 en el README | Santiago P. | Edición directa en `main` | Tabla de responsables por integrante y tabla de estado de los entregables de la Entrega 2 |
+
+### Problemas encontrados
+
+- El diccionario de datos ampliado no se alcanzó a terminar esta semana; quedó para el cierre de la entrega.
+
+---
+
 ## Semana 6 — Entrega 2 — (28 de septiembre – 4 de octubre de 2026)
 
 ### Objetivos
@@ -154,3 +174,79 @@ Ventana de aporte semanal: **lunes 00:00 — domingo 23:59 (hora Colombia, UTC-5
 
 - El detalle de la edición 7 no se alcanzó a probar contra el servidor por una caída de la VPN de la universidad. Los conteos y la coherencia entre tablas se validaron con el generador que produce el script; la verificación en Oracle queda para el cierre de la semana una vez restablecida la conexión.
 - Al probar la carga contra el servidor, el insercionado de `PARTIDO` en orden ascendente fallaba con `ORA-02291`: cada partido apunta con `id_partido_siguiente` a un id mayor, que aún no existía. Se reordenó el script para insertar los partidos de mayor a menor id (la Final primero), de modo que el destino de la llave foránea siempre esté cargado. Con ese cambio la carga completa contra `IS101009` pasó sin errores y las verificaciones de coherencia (suma de goles, árbitros sin repetir por partido, 26 convocados por selección, asistencia dentro del aforo y cuadro del torneo) dieron 0 filas.
+
+---
+
+## Semana 7 — Entrega 2 — (5–11 de octubre de 2026)
+
+### Objetivos
+
+- Ajustar el modelo lógico al DDL de 16 tablas ya cargado en el servidor.
+- Iniciar la normalización y las consultas avanzadas (parte 1).
+
+### Tareas realizadas
+
+| Tarea | Responsable | Rama utilizada | Descripción |
+|---|---|---|---|
+| Ajustes al modelo lógico | Daniel Rozo | Edición directa en `main` | Actualización de `docs/entrega2/modelo_logico.md` |
+| Actualización del README | Daniel Rozo | Edición directa en `main` | Ajustes al estado de la Entrega 2 |
+
+### Problemas encontrados
+
+- La normalización y las consultas avanzadas parte 1 no quedaron listas esta semana y pasaron al cierre de la entrega.
+
+---
+
+## Semana 8 — Entrega 2 — (12–18 de octubre de 2026)
+
+### Objetivos
+
+- Definir los tres roles del enunciado: Administrador del Torneo, Analista Deportivo y Auditor/Consulta.
+- Revisar la documentación del DDL ampliado.
+
+### Tareas realizadas
+
+| Tarea | Responsable | Rama utilizada | Descripción |
+|---|---|---|---|
+| Estructura de roles | Laura | `lesmes-dml` | Creación de `rol_admin_torneo`, `rol_analista_deportivo` y `rol_auditor` en `sql/entrega2/roles/roles_privilegios.sql` |
+| Permisos del Administrador | Laura | `lesmes-dml` | `SELECT`, `INSERT`, `UPDATE` y `DELETE` sobre las 16 tablas |
+| Revisión de comentarios del DDL | Nicolás Mamian | `feature/entrega2-ajustes` | Corrección del comentario del rol arbitral y de la redacción de las reglas J, L, M y N que no se pueden declarar como `CHECK` |
+| Actualización del README | Santiago P. | Edición directa en `main` | Ajustes al estado de la entrega |
+
+### Problemas encontrados
+
+- En Oracle los roles son globales a toda la base, no al esquema. Si otro grupo ya creó un rol con el mismo nombre, `CREATE ROLE` falla con `ORA-01921`.
+
+---
+
+## Semana 9 — Entrega 2 — (19–25 de octubre de 2026) — cierre de la Entrega 2
+
+### Objetivos
+
+- Terminar los entregables pendientes: diccionario ampliado, modelo físico, normalización, roles y privilegios, consultas avanzadas y casos de prueba.
+- Fusionar todas las ramas a `main` y dejar los nombres de archivo como los pide el cronograma.
+
+### Tareas realizadas
+
+| Tarea | Responsable | Rama utilizada | Descripción |
+|---|---|---|---|
+| Permisos del Analista y del Auditor, usuarios de prueba | Laura | `lesmes-dml` (PR #40) | El analista lee el modelo deportivo y solo escribe en `estadistica_jugador_partido`; no ve `cuerpo_tecnico`. El auditor solo lee las 16 tablas |
+| Documento de roles y privilegios | Laura | `lesmes-dml` (PR #40) | `docs/entrega2/roles_privilegios.md` con la matriz de permisos y la verificación en el catálogo |
+| Normalización 1FN–3FN | Laura | `lesmes-dml` (PR #40) | `docs/entrega2/normalizacion.md` |
+| Modelo físico | Laura | `lesmes-dml` (PR #40) | `docs/entrega2/modelo_fisico.md` con diagrama e índices |
+| Diccionario de datos ampliado | Santiago P. | `hsantiagopf-patch-diccionario_datos2` (PR #41) | `docs/entrega2/diccionario_datos_ampliado.md` |
+| Índices adicionales del DDL | Nicolás Mamian | `feature/entrega2-ajustes` (PR #42) | `ix_seleccion_grupo` e `ix_cuerpo_tecnico_seleccion`, y resolución del conflicto del DDL con `main` |
+| Casos de prueba | Daniel Rozo | `casos-prueba-entrega2` (PR #43) | 6 casos exitosos y 12 fallidos en `tests/entrega2/casos_prueba.md` y `.sql` |
+| Consultas avanzadas 1 a 5 | Daniel Rozo | `consultas-avanzadas-semana3` (PR #44) | Goleadores, tarjetas, ficha de partido, control de goles y tabla de posiciones |
+| Consultas avanzadas 6 a 10 | Daniel Rozo | `consultas-avanzadas-semana4` (PR #45) | Fase alcanzada, grupos vs eliminatorias, incidencias, asistencia con `ROLLUP` y árbitros |
+| Diagrama del modelo lógico | Daniel Rozo | PR #46, #47 y #48 | Diagrama actualizado con el DDL final |
+| Revisión de documentos de la entrega | Daniel Rozo | Edición directa en `main` | Ajustes al DDL, modelo lógico, diccionario, modelo físico, normalización y roles |
+| Nombres de archivo de las consultas | Daniel Rozo | `renombra-consultas-avanzadas` (PR #49 y #50) | Renombrado a `consultas_avanzadas_parte1.sql` y `consultas_avanzadas_parte2.sql`, como pide el cronograma |
+| Encabezado de las consultas avanzadas | Nicolás Mamian | `fix/nombres-consultas-entrega2` | El comentario inicial de cada archivo decía "semana 3" y "semana 4"; pasa a "parte 1" y "parte 2" |
+| README y CHANGELOG | Nicolás Mamian | `docs/readme-estado-entrega2`, `docs/readme-equipo-y-referencias`, `docs/changelog-entrega2` | Estado real de la Entrega 2, tabla del equipo y registro de las semanas 5, 7, 8 y 9 |
+
+### Problemas encontrados
+
+- La cuenta Oracle del grupo no tiene `CREATE USER` (`ORA-01031`), así que los usuarios de prueba del script no se pudieron crear. Los permisos se verificaron en el catálogo con `USER_TAB_PRIVS_MADE` sobre `IS101007`: 64 permisos para el administrador, 17 para el analista y 16 para el auditor.
+- Las consultas avanzadas se habían subido como `_semana3` y `_semana4`; se renombraron a `_parte1` y `_parte2` para seguir el cronograma.
+- Las reglas que necesitan consultar otras filas o tablas (por ejemplo, asistencia menor o igual al aforo, o exactamente dos participaciones por partido) no se pueden controlar con `CHECK`. Quedan para los triggers de la Entrega 3.
