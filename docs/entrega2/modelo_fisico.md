@@ -186,9 +186,3 @@ Oracle no indexa las llaves foráneas por sí solo. Se crearon 9 índices sobre 
 | `ix_cuerpo_tecnico_seleccion` | `cuerpo_tecnico` (`id_seleccion`) | Cuerpo técnico de una selección |
 
 Total de índices en el modelo: 16 + 15 + 9 = 40.
-
----
-
-## 5. Observación
-
-Tres índices repiten la primera columna de un índice UNIQUE que ya existe, por lo que Oracle podría resolver esas búsquedas con el índice automático: `ix_partido_estadio` (con `uq_partido_agenda`), `ix_convocatoria_jugador` (con `uq_convocatoria_jugador`) e `ix_convocatoria_seleccion` (con `uq_convocatoria_numero`). Se conservan por claridad, a costa de algo de espacio y de escritura adicional; con volúmenes pequeños el impacto es mínimo. Una revisión posterior con planes de ejecución (`EXPLAIN PLAN`) permitiría decidir si se eliminan.
