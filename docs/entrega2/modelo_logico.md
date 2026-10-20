@@ -485,7 +485,7 @@ Registra eventos relevantes ocurridos durante un partido.
 
 # 9. Reglas de negocio principales
 
-El modelo lógico ampliado contempla las siguientes reglas:
+Estas son las reglas que sigue el modelo:
 
 1. Cada edición del Mundial se identifica de manera única.
 2. Una edición puede tener múltiples países sede.
