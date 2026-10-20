@@ -126,6 +126,26 @@ Ventana de aporte semanal: **lunes 00:00 — domingo 23:59 (hora Colombia, UTC-5
 
 ---
 
+## Semana 5 — Entrega 2 — (21–27 de septiembre de 2026)
+
+### Objetivos
+
+- Construir el modelo lógico ampliado (12 a 16 tablas) a partir de la evaluación crítica de la Entrega 1.
+- Repartir los bloques de trabajo de la Entrega 2 entre los integrantes.
+
+### Tareas realizadas
+
+| Tarea | Responsable | Rama utilizada | Descripción |
+|---|---|---|---|
+| Modelo lógico ampliado | Santiago P. | `feature/modelo-logico-ampliado-e2` (PR #37) | Primera versión de `docs/entrega2/modelo_logico.md` con las 16 tablas del modelo ampliado |
+| Reparto y estado de la Entrega 2 en el README | Santiago P. | Edición directa en `main` | Tabla de responsables por integrante y tabla de estado de los entregables de la Entrega 2 |
+
+### Problemas encontrados
+
+- El diccionario de datos ampliado no se alcanzó a terminar esta semana; quedó para el cierre de la entrega.
+
+---
+
 ## Semana 6 — Entrega 2 — (28 de septiembre – 4 de octubre de 2026)
 
 ### Objetivos
