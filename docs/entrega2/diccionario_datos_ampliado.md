@@ -221,12 +221,13 @@ El DDL documenta reglas que requieren validaciones adicionales, por ejemplo medi
 2. La fecha del partido debe pertenecer al rango de fechas de la edición asociada.
 3. El estadio, la fase y las selecciones asociadas a un partido deben corresponder a la misma edición.
 4. Cada partido debe tener exactamente dos participaciones: una local y una visitante. Las restricciones `UNIQUE` limitan los duplicados, pero no obligan a que existan dos filas.
-5. Cada grupo debe cumplir la cantidad de selecciones definida por las reglas del proyecto (el comentario del DDL plantea cuatro).
+5. Cada grupo debe tener exactamente cuatro selecciones.
 6. Una selección y un árbitro no deben tener partidos simultáneos.
 7. Las estadísticas de un jugador deben corresponder a una convocatoria y a una selección participante del partido.
 8. La suma de goles individuales debe coincidir con los goles de la selección en `PARTICIPACION_PARTIDO`.
 9. El partido siguiente debe corresponder a la misma edición y una fase posterior cuando se use la progresión eliminatoria.
 10. Una selección no puede tener más de 26 jugadores convocados.
+11. En fase eliminatoria un partido no puede terminar empatado.
 
 Estas reglas se registran como validaciones adicionales; no se describen como constraints que el DDL actual ya garantice.
 
