@@ -301,8 +301,7 @@ una determinada edición.
 - Un jugador no debe aparecer dos veces en la misma selección.
 - El número de camiseta debe ser válido dentro de la convocatoria.
 - Una selección debe pertenecer a una edición.
-- Las reglas de cantidad máxima de jugadores convocados se validarán
-  mediante mecanismos adicionales cuando corresponda.
+- Una selección no puede tener más de 26 convocados. Esto se validará con un trigger en la Entrega 3.
 
 ### Relación
 
