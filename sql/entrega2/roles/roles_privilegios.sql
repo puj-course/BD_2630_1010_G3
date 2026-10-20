@@ -5,10 +5,7 @@
 SET SQLBLANKLINES ON
 
 -- Borrado previo, para poder ejecutar el script varias veces.
--- La primera vez dan error porque los usuarios y roles aun no existen.
-DROP USER usuario_admin_torneo CASCADE;
-DROP USER usuario_analista CASCADE;
-DROP USER usuario_auditor CASCADE;
+-- La primera vez dan error porque los roles aun no existen.
 DROP ROLE rol_admin_torneo;
 DROP ROLE rol_analista_deportivo;
 DROP ROLE rol_auditor;
@@ -86,20 +83,18 @@ GRANT SELECT ON estadistica_jugador_partido TO rol_auditor;
 GRANT SELECT ON incidencia TO rol_auditor;
 
 -- ------------------------------------------------------------
--- 5. Usuarios de prueba, uno por rol.
+-- 5. Asignacion de roles a cuentas de integrantes para las pruebas.
+-- IS101009 (Nicolas) prueba el administrador, IS101013 (Santiago) el
+-- analista e IS101016 (Daniel) el auditor. Se ejecutan solo durante
+-- las pruebas y se revocan al terminar.
 -- ------------------------------------------------------------
 
-CREATE USER usuario_admin_torneo IDENTIFIED BY "ClavePrueba_1";
-CREATE USER usuario_analista IDENTIFIED BY "ClavePrueba_2";
-CREATE USER usuario_auditor IDENTIFIED BY "ClavePrueba_3";
+-- GRANT rol_admin_torneo TO IS101009;
+-- GRANT rol_analista_deportivo TO IS101013;
+-- GRANT rol_auditor TO IS101016;
 
-GRANT CREATE SESSION TO usuario_admin_torneo;
-GRANT CREATE SESSION TO usuario_analista;
-GRANT CREATE SESSION TO usuario_auditor;
+-- REVOKE rol_admin_torneo FROM IS101009;
+-- REVOKE rol_analista_deportivo FROM IS101013;
+-- REVOKE rol_auditor FROM IS101016;
 
-GRANT rol_admin_torneo TO usuario_admin_torneo;
-GRANT rol_analista_deportivo TO usuario_analista;
-GRANT rol_auditor TO usuario_auditor;
-
-
-EXIT;  
+EXIT;
