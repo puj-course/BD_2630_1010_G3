@@ -6,7 +6,7 @@ Este repositorio se utiliza para desarrollar el proyecto de Bases de Datos desde
 Este README es el documento principal de lineamientos. Existen dos documentos complementarios:
 
 - **README_CRONOGRAMA.md** — detalle semana a semana de entregables, nombres de archivo, contenido esperado y estructura de carpetas.
-- **README_SERVIDOR_ENTREGA1.md** — guía de conexión al servidor de base de datos dispuesto por el curso para la Entrega 1 (modelo inicial).
+- **README_GUIA_SERVIDOR.md** — guía de conexión al servidor de base de datos dispuesto por el curso para la Entrega 1 (modelo inicial).
 
 Lee los tres documentos antes de empezar a trabajar.
 
@@ -27,8 +27,10 @@ Lee los tres documentos antes de empezar a trabajar.
 | Nicolás Esteban Mamian Palacios | [@Nicolukazzz](https://github.com/Nicolukazzz) | `IS101009` |
 | Laura Sofia Lesmes Ocampo | [@laulesmes04](https://github.com/laulesmes04) | `IS101007` |
 | Harold Santiago Pereira Fuentes | [@hsantiagopf](https://github.com/hsantiagopf) | `IS101013` |
-| Nicholas Ruiz Zhilkin | [@Nivk-Debug](https://github.com/Nivk-Debug) | `IS101017` |
 | Daniel Enrique Rozo Tarache| [@daniellrzz](https://github.com/daniellrzz) | `IS101016` |
+
+> Nicholas Ruiz Zhilkin ([@Nivk-Debug](https://github.com/Nivk-Debug), `IS101017`) participó en
+> la Entrega 1 y se retiró del curso antes de la Entrega 2.
 
 ---
 
@@ -339,7 +341,7 @@ BD_PROYECTO/
 ├── CHANGELOG.md
 ├── README.md
 ├── README_CRONOGRAMA.md
-└── README_SERVIDOR_ENTREGA1.md
+└── README_GUIA_SERVIDOR.md
 ```
 
 El detalle exacto de qué archivo va dentro de cada subcarpeta, semana a semana, está en README_CRONOGRAMA.md. Esa estructura es la que se debe seguir de forma precisa.
