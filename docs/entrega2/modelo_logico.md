@@ -382,8 +382,7 @@ Relaciona árbitros con partidos y registra la función desempeñada.
 ### Restricciones
 
 - Un mismo árbitro no debe tener dos asignaciones para el mismo partido.
-- Las reglas de no simultaneidad entre partidos se consideran reglas de
-  negocio que pueden requerir validaciones adicionales.
+- Un árbitro no puede estar en dos partidos a la misma hora. Esto se validará con un trigger en la Entrega 3.
 
 ---
 
