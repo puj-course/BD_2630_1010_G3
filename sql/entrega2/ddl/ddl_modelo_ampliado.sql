@@ -344,9 +344,7 @@ CREATE TABLE asignacion_arbitral (
     -- Sin ON DELETE: no se borra un arbitro que ya pito.
     CONSTRAINT fk_asignacion_arbitro FOREIGN KEY (id_arbitro)
         REFERENCES arbitro (id_arbitro),
-    -- El mismo arbitro no puede tener dos roles en el mismo partido,
-    -- asi la terna nunca repite gente. De que rol cumplio cada uno
-    -- se da cuenta esta misma tabla, no hay que ir a mirar a otra.
+    -- El mismo arbitro no puede tener dos roles en el mismo partido
     CONSTRAINT uq_asignacion_arbitro UNIQUE (id_partido, id_arbitro),
     -- Los roles del equipo arbitral en un partido
     CONSTRAINT ck_asignacion_rol CHECK (rol IN
