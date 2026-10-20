@@ -1,7 +1,6 @@
-# Modelo Físico — Entrega 2
+# Modelo Físico - Entrega 2
 ## Sistema de Información para la Gestión Integral de la Copa Mundial de la FIFA
 
-**Grupo:** G3 — Bases de Datos, Pontificia Universidad Javeriana
 **Motor:** Oracle Database 19c
 **Script:** `sql/entrega2/ddl/ddl_modelo_ampliado.sql`
 
