@@ -1,8 +1,11 @@
 -- ============================================================
 -- Roles y privilegios - Entrega 2
+-- ============================================================
 
 SET SQLBLANKLINES ON
 
+-- Borrado previo, para poder ejecutar el script varias veces.
+-- La primera vez dan error porque los usuarios y roles aun no existen.
 DROP USER usuario_admin_torneo CASCADE;
 DROP USER usuario_analista CASCADE;
 DROP USER usuario_auditor CASCADE;
@@ -11,11 +14,13 @@ DROP ROLE rol_analista_deportivo;
 DROP ROLE rol_auditor;
 
 
+-- ------------------------------------------------------------
+-- 1. Roles
+-- ------------------------------------------------------------
+
 CREATE ROLE rol_admin_torneo;
 CREATE ROLE rol_analista_deportivo;
 CREATE ROLE rol_auditor;
-
-
 
 -- ------------------------------------------------------------
 -- 2. ADMINISTRADOR DEL TORNEO: lee y modifica todo el modelo
@@ -37,8 +42,6 @@ GRANT SELECT, INSERT, UPDATE, DELETE ON arbitro TO rol_admin_torneo;
 GRANT SELECT, INSERT, UPDATE, DELETE ON asignacion_arbitral TO rol_admin_torneo;
 GRANT SELECT, INSERT, UPDATE, DELETE ON estadistica_jugador_partido TO rol_admin_torneo;
 GRANT SELECT, INSERT, UPDATE, DELETE ON incidencia TO rol_admin_torneo;
-
-
 
 -- ------------------------------------------------------------
 -- 3. ANALISTA DEPORTIVO: consulta lo deportivo y solo carga
@@ -104,8 +107,4 @@ GRANT rol_analista_deportivo TO usuario_analista;
 GRANT rol_auditor TO usuario_auditor;
 
 
-
-
-
-
-EXIT;
+EXIT;  
