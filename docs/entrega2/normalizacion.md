@@ -72,8 +72,6 @@ Cuatro tablas tienen una dependencia entre atributos no clave:
 | `SELECCION.grupo` como texto | Tabla `GRUPO` | El grupo se asocia a una fase |
 | Sin jugadores | `JUGADOR` y `CONVOCATORIA_JUGADOR` | El jugador se registra una sola vez aunque juegue varias ediciones |
 
-
-
 ## 7. Conclusión
 
-Las 16 tablas cumplen 1FN y 2FN. Doce cumplen 3FN sin observaciones y cuatro tienen una dependencia documentada en la sección 5, con su justificación y la mejora que llevaría a 3FN estricta.
+Las 16 tablas cumplen 1FN y 2FN, y doce cumplen 3FN. En las otras cuatro, la dependencia se mantuvo a propósito por rendimiento o por simplicidad, y en la sección 5 se explica cómo llevar cada una a 3FN estricta.
