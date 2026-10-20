@@ -171,22 +171,21 @@ Oracle crea un índice único por cada llave primaria y por cada restricción UN
 
 ## 4. Índices creados explícitamente
 
-Oracle no indexa las llaves foráneas por sí solo. Se crearon 10 índices sobre las columnas que más se usan en los `JOIN` y filtros de las consultas.
+Oracle no indexa las llaves foráneas por sí solo. Se crearon 9 índices sobre las columnas que más se usan en los `JOIN` y filtros de las consultas. Las llaves foráneas que ya son la primera columna de un UNIQUE no necesitan índice aparte.
 
 | Índice | Tabla (columna) | Justificación |
 |---|---|---|
 | `ix_partido_edicion` | `partido` (`id_edicion`) | Filtrar y agrupar partidos por edición |
 | `ix_partido_fase` | `partido` (`id_fase`) | Resultados y conteos por fase |
-| `ix_partido_estadio` | `partido` (`id_estadio`) | Partidos por estadio y ocupación |
 | `ix_partido_siguiente` | `partido` (`id_partido_siguiente`) | Recorrer el cuadro eliminatorio |
 | `ix_participacion_seleccion` | `participacion_partido` (`id_seleccion`) | Partidos y goles por selección |
 | `ix_estadistica_jugador` | `estadistica_jugador_partido` (`id_jugador`) | Goleadores y rendimiento por jugador |
-| `ix_convocatoria_jugador` | `convocatoria_jugador` (`id_jugador`) | Ediciones en las que fue convocado un jugador |
-| `ix_convocatoria_seleccion` | `convocatoria_jugador` (`id_seleccion`) | Plantel de una selección |
 | `ix_asignacion_arbitro` | `asignacion_arbitral` (`id_arbitro`) | Historial de partidos de un árbitro |
 | `ix_incidencia_partido` | `incidencia` (`id_partido`) | Incidencias de un partido |
+| `ix_seleccion_grupo` | `seleccion` (`id_grupo`) | Selecciones de un grupo y tabla de posiciones |
+| `ix_cuerpo_tecnico_seleccion` | `cuerpo_tecnico` (`id_seleccion`) | Cuerpo técnico de una selección |
 
-Total de índices en el modelo: 16 + 15 + 10 = 41.
+Total de índices en el modelo: 16 + 15 + 9 = 40.
 
 ---
 
