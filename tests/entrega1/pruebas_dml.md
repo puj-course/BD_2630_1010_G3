@@ -1,4 +1,4 @@
-# Pruebas DML — Mundial FIFA (Entrega 1)
+# Pruebas DML - Mundial FIFA (Entrega 1)
 
 Evidencia de la ejecución de `sql/entrega1/dml/dml_ciclo_vida_partido.sql` contra el
 esquema `IS101009` del servidor `orion.javeriana.edu.co` (service name `LAB`).
