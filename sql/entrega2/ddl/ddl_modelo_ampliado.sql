@@ -431,8 +431,6 @@ CREATE INDEX ix_partido_siguiente ON partido (id_partido_siguiente);
 CREATE INDEX ix_participacion_seleccion ON participacion_partido (id_seleccion);
 CREATE INDEX ix_seleccion_grupo ON seleccion (id_grupo);
 CREATE INDEX ix_estadistica_jugador ON estadistica_jugador_partido (id_jugador);
-CREATE INDEX ix_convocatoria_jugador ON convocatoria_jugador (id_jugador);
-CREATE INDEX ix_convocatoria_seleccion ON convocatoria_jugador (id_seleccion);
 CREATE INDEX ix_asignacion_arbitro ON asignacion_arbitral (id_arbitro);
 CREATE INDEX ix_incidencia_partido ON incidencia (id_partido);
 CREATE INDEX ix_cuerpo_tecnico_seleccion ON cuerpo_tecnico (id_seleccion);
