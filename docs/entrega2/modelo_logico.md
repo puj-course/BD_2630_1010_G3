@@ -4,16 +4,9 @@
 
 ## 1. Objetivo
 
-El modelo lógico ampliado extiende el modelo inicial desarrollado en la Entrega 1
-para representar de manera más completa la organización, competencia deportiva,
-participación de selecciones y jugadores, arbitraje, estadísticas e incidencias
-de una edición de la Copa Mundial.
+El modelo de la Entrega 1 solo tenía cinco tablas: edición, estadio, selección, partido y participación. Para la Entrega 2 se amplió a 16, agregando sedes y ciudades, fases y grupos, jugadores y convocatorias, cuerpo técnico, árbitros, estadísticas por jugador e incidencias.
 
-El modelo busca mantener una estructura relacional normalizada hasta Tercera
-Forma Normal (3FN), evitando la duplicación de información y permitiendo
-consultas analíticas por jugador, partido, selección, grupo, fase y edición.
-
-La propuesta está compuesta por 16 tablas.
+Con estas tablas se pueden hacer consultas por jugador, partido, selección, grupo, fase y edición. La normalización de cada tabla se revisa en `normalizacion.md`.
 
 ---
 
