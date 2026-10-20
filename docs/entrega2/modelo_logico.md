@@ -183,8 +183,7 @@ Representa una selección nacional participante en una edición.
 
 - Una selección debe pertenecer a una edición.
 - Una selección no debe aparecer dos veces en la misma edición.
-- `id_grupo` puede ser nulo para selecciones cuando ya se encuentran
-  exclusivamente en fases eliminatorias.
+- `id_grupo` puede quedar vacío si la selección todavía no tiene grupo asignado.
 
 ### Relación
 
@@ -333,6 +332,7 @@ Representa integrantes del cuerpo técnico de una selección.
 - Asistente técnico
 - Preparador físico
 - Entrenador de porteros
+- Médico
 
 ### Relación
 
