@@ -13,8 +13,6 @@ Este documento describe los atributos de las 16 tablas del modelo ampliado. Los 
 - **ON DELETE CASCADE:** la fila hija se elimina al borrar la fila padre referenciada.
 - **Nulo permitido:** la columna no declara `NOT NULL`.
 
-> Las reglas de negocio que requieren consultar varias filas o tablas se distinguen de las restricciones declaradas en el DDL. No se presentan como si Oracle ya las garantizara.
-
 ## 2. Diccionario por tabla
 
 ### 2.1. EDICION_MUNDIAL
@@ -231,10 +229,6 @@ El DDL documenta reglas que requieren validaciones adicionales, por ejemplo medi
 
 Estas reglas se registran como validaciones adicionales; no se describen como constraints que el DDL actual ya garantice.
 
-## 4. Observaciones de coherencia
+## 4. Observaciones 
 
-- El diccionario usa los nombres y atributos físicos del DDL, mientras que `docs/entrega2/modelo_logico.md` describe el diseño conceptual.
-- `SELECCION.id_grupo` es una FK opcional, pero por sí sola no garantiza que el grupo pertenezca a la misma edición que la selección.
-- `uq_asignacion_arbitro` (partido, árbitro) evita asignar dos veces el mismo árbitro a un partido; no impone directamente un único árbitro por cada rol.
-- `PARTIDO.id_partido_siguiente` asegura que el partido referenciado exista, pero no valida la edición ni el orden de la fase.
-- La relación directa entre estadísticas, jugador y partido no garantiza por sí sola que el jugador haya sido convocado por una selección que participe en ese partido.
+El diccionario usa los nombres del DDL. El diseño conceptual de cada tabla está en `docs/entrega2/modelo_logico.md`.
