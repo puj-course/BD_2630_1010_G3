@@ -1,7 +1,6 @@
 # Roles y Privilegios - Entrega 2
 ## Sistema de Información para la Gestión Integral de la Copa Mundial de la FIFA
 
-**Grupo:** G3 — Bases de Datos, Pontificia Universidad Javeriana
 **Script:** `sql/entrega2/roles/roles_privilegios.sql`
 **Casos de prueba:** `tests/entrega2/casos_prueba.md`
 
