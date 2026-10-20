@@ -216,3 +216,36 @@ Ventana de aporte semanal: **lunes 00:00 — domingo 23:59 (hora Colombia, UTC-5
 ### Problemas encontrados
 
 - En Oracle los roles son globales a toda la base, no al esquema. Si otro grupo ya creó un rol con el mismo nombre, `CREATE ROLE` falla con `ORA-01921`.
+
+---
+
+## Semana 9 — Entrega 2 — (19–25 de octubre de 2026) — cierre de la Entrega 2
+
+### Objetivos
+
+- Terminar los entregables pendientes: diccionario ampliado, modelo físico, normalización, roles y privilegios, consultas avanzadas y casos de prueba.
+- Fusionar todas las ramas a `main` y dejar los nombres de archivo como los pide el cronograma.
+
+### Tareas realizadas
+
+| Tarea | Responsable | Rama utilizada | Descripción |
+|---|---|---|---|
+| Permisos del Analista y del Auditor, usuarios de prueba | Laura | `lesmes-dml` (PR #40) | El analista lee el modelo deportivo y solo escribe en `estadistica_jugador_partido`; no ve `cuerpo_tecnico`. El auditor solo lee las 16 tablas |
+| Documento de roles y privilegios | Laura | `lesmes-dml` (PR #40) | `docs/entrega2/roles_privilegios.md` con la matriz de permisos y la verificación en el catálogo |
+| Normalización 1FN–3FN | Laura | `lesmes-dml` (PR #40) | `docs/entrega2/normalizacion.md` |
+| Modelo físico | Laura | `lesmes-dml` (PR #40) | `docs/entrega2/modelo_fisico.md` con diagrama e índices |
+| Diccionario de datos ampliado | Santiago P. | `hsantiagopf-patch-diccionario_datos2` (PR #41) | `docs/entrega2/diccionario_datos_ampliado.md` |
+| Índices adicionales del DDL | Nicolás Mamian | `feature/entrega2-ajustes` (PR #42) | `ix_seleccion_grupo` e `ix_cuerpo_tecnico_seleccion`, y resolución del conflicto del DDL con `main` |
+| Casos de prueba | Daniel Rozo | `casos-prueba-entrega2` (PR #43) | 6 casos exitosos y 12 fallidos en `tests/entrega2/casos_prueba.md` y `.sql` |
+| Consultas avanzadas 1 a 5 | Daniel Rozo | `consultas-avanzadas-semana3` (PR #44) | Goleadores, tarjetas, ficha de partido, control de goles y tabla de posiciones |
+| Consultas avanzadas 6 a 10 | Daniel Rozo | `consultas-avanzadas-semana4` (PR #45) | Fase alcanzada, grupos vs eliminatorias, incidencias, asistencia con `ROLLUP` y árbitros |
+| Diagrama del modelo lógico | Daniel Rozo | PR #46, #47 y #48 | Diagrama actualizado con el DDL final |
+| Revisión de documentos de la entrega | Daniel Rozo | Edición directa en `main` | Ajustes al DDL, modelo lógico, diccionario, modelo físico, normalización y roles |
+| Nombres de archivo de las consultas | Nicolás Mamian | `fix/nombres-consultas-entrega2` | Renombrado a `consultas_avanzadas_parte1.sql` y `consultas_avanzadas_parte2.sql`, como pide el cronograma |
+| README y CHANGELOG | Nicolás Mamian | `docs/readme-estado-entrega2`, `docs/readme-equipo-y-referencias`, `docs/changelog-entrega2` | Estado real de la Entrega 2, tabla del equipo y registro de las semanas 5, 7, 8 y 9 |
+
+### Problemas encontrados
+
+- La cuenta Oracle del grupo no tiene `CREATE USER` (`ORA-01031`), así que los usuarios de prueba del script no se pudieron crear. Los permisos se verificaron en el catálogo con `USER_TAB_PRIVS_MADE` sobre `IS101007`: 64 permisos para el administrador, 17 para el analista y 16 para el auditor.
+- Las consultas avanzadas se habían subido como `_semana3` y `_semana4`; se renombraron a `_parte1` y `_parte2` para seguir el cronograma.
+- Las reglas que necesitan consultar otras filas o tablas (por ejemplo, asistencia menor o igual al aforo, o exactamente dos participaciones por partido) no se pueden controlar con `CHECK`. Quedan para los triggers de la Entrega 3.
