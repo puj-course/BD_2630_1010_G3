@@ -240,8 +240,8 @@ CREATE TABLE participacion_partido (
     -- Un partido tiene un solo local y un solo visitante
     CONSTRAINT uq_participacion_condicion UNIQUE (id_partido, condicion),
     CONSTRAINT ck_participacion_condicion CHECK (condicion IN ('LOCAL','VISITANTE')),
-    -- El tope de 15 sale del reglamento: la mayor goleada de un equipo
-    -- en un Mundial fue Hungria 10-1 a El Salvador en 1982.
+    -- Tope puesto por el equipo para atrapar errores de digitacion. La mayor
+    -- goleada de un equipo en un Mundial fue Hungria 10-1 a El Salvador en 1982.
     CONSTRAINT ck_participacion_goles CHECK (goles_marcados BETWEEN 0 AND 15)
 );
 
