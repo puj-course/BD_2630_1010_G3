@@ -227,8 +227,6 @@ El DDL documenta reglas que requieren validaciones adicionales, por ejemplo medi
 10. Una selección no puede tener más de 26 jugadores convocados.
 11. En fase eliminatoria un partido no puede terminar empatado.
 
-Estas reglas se registran como validaciones adicionales; no se describen como constraints que el DDL actual ya garantice.
-
 ## 4. Observaciones 
 
 El diccionario usa los nombres del DDL. El diseño conceptual de cada tabla está en `docs/entrega2/modelo_logico.md`.
