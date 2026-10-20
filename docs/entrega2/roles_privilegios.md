@@ -85,7 +85,7 @@ WHERE grantee = 'ROL_ANALISTA_DEPORTIVO'
 ORDER BY table_name, privilege;
 ```
 
-Resultado: 3 filas, todas de `ESTADISTICA_JUGADOR_PARTIDO` (INSERT, SELECT, UPDATE) y ninguna de `CUERPO_TECNICO`. Se confirma que el analista puede cargar estadísticas y no tiene acceso al cuerpo técnico.
+Resultado: 3 filas, todas de `ESTADISTICA_JUGADOR_PARTIDO` (INSERT, SELECT, UPDATE) y ninguna de `CUERPO_TECNICO`. Se confirma que el analista puede cargar estadísticas y no tiene acceso al cuerpo técnico. El script ya deja definidos los tres usuarios, así que esas pruebas se pueden correr apenas se tenga ese privilegio.
 
 ![Consulta 2](roles_consulta2.png)
 
