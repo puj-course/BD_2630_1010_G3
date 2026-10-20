@@ -241,7 +241,8 @@ Ventana de aporte semanal: **lunes 00:00 — domingo 23:59 (hora Colombia, UTC-5
 | Consultas avanzadas 6 a 10 | Daniel Rozo | `consultas-avanzadas-semana4` (PR #45) | Fase alcanzada, grupos vs eliminatorias, incidencias, asistencia con `ROLLUP` y árbitros |
 | Diagrama del modelo lógico | Daniel Rozo | PR #46, #47 y #48 | Diagrama actualizado con el DDL final |
 | Revisión de documentos de la entrega | Daniel Rozo | Edición directa en `main` | Ajustes al DDL, modelo lógico, diccionario, modelo físico, normalización y roles |
-| Nombres de archivo de las consultas | Nicolás Mamian | `fix/nombres-consultas-entrega2` | Renombrado a `consultas_avanzadas_parte1.sql` y `consultas_avanzadas_parte2.sql`, como pide el cronograma |
+| Nombres de archivo de las consultas | Daniel Rozo | `renombra-consultas-avanzadas` (PR #49 y #50) | Renombrado a `consultas_avanzadas_parte1.sql` y `consultas_avanzadas_parte2.sql`, como pide el cronograma |
+| Encabezado de las consultas avanzadas | Nicolás Mamian | `fix/nombres-consultas-entrega2` | El comentario inicial de cada archivo decía "semana 3" y "semana 4"; pasa a "parte 1" y "parte 2" |
 | README y CHANGELOG | Nicolás Mamian | `docs/readme-estado-entrega2`, `docs/readme-equipo-y-referencias`, `docs/changelog-entrega2` | Estado real de la Entrega 2, tabla del equipo y registro de las semanas 5, 7, 8 y 9 |
 
 ### Problemas encontrados
