@@ -127,7 +127,7 @@ CREATE TABLE fase (
     CONSTRAINT uq_fase_orden UNIQUE (id_edicion, orden_fase),
     -- No puede haber dos fases con el mismo nombre en la misma edicion
     CONSTRAINT uq_fase_nombre UNIQUE (id_edicion, nombre),
-    -- El orden empieza en 1 y la fase de grupos manda al resto
+    -- El orden empieza en 1
     CONSTRAINT ck_fase_orden CHECK (orden_fase >= 1),
     -- Fases que usa el formato real del torneo
     CONSTRAINT ck_fase_nombre CHECK (nombre IN
@@ -390,7 +390,7 @@ CREATE TABLE estadistica_jugador_partido (
     CONSTRAINT ck_estadistica_entradas_rango CHECK
         ((minuto_entrada IS NULL OR minuto_entrada BETWEEN 0 AND 120)
          AND (minuto_salida IS NULL OR minuto_salida BETWEEN 0 AND 120)),
-    -- El minuto 120 toma el caso limite de un partido que se alarga.
+      -- Hasta 120 por si hay tiempo extra
     CONSTRAINT ck_estadistica_minutos CHECK (minutos_jugados BETWEEN 0 AND 120),
     CONSTRAINT ck_estadistica_counters CHECK
         (goles >= 0 AND asistencias >= 0
@@ -458,15 +458,8 @@ CREATE INDEX ix_incidencia_partido ON incidencia (id_partido);
 --   G. Una seleccion no puede jugar dos partidos a la misma fecha y hora.
 --   H. En fase eliminatoria no puede haber empate.
 --   I. La fase del partido debe ser una fase de la edicion del partido.
---   J. El partido siguiente (id_partido_siguiente) debe ser de la misma
---      edicion y de una fase posterior a la de este partido. Ademas
---      un FK compuesto por fases podria evitar que un partido de la
---      fase de grupos apunte a un "siguiente", pero la regla real es
---      deportiva: solo en eliminatorias hay un partido siguiente.
---   K. Los partidos de la fase de grupos de una edicion descansan
---      entre fase y fase: no pueden cruzarse dos de la misma fecha.
---   L. La cantidad de convocados por seleccion tiene tope reglamentario
---      (26 desde el Mundial 2022). CUERPO_TECNICO sin limite de filas.
+--   J. El partido siguiente debe ser de la misma edicion y de una fase posterior.
+--   L. La cantidad de convocados por seleccion tiene tope (26 desde el Mundial 2022).
 --   M. Un jugador solo puede marcar/registrar estadistica en partidos
 --      de la edicion de la seleccion que lo convoco.
 --   N. La suma de goles de los jugadores de una seleccion en un partido
