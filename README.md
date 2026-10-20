@@ -174,9 +174,9 @@ Ventana de aporte semanal: **lunes 00:00 — domingo 23:59 (hora Colombia, UTC-5
 | Modelo lógico ampliado (12–16 tablas) | `docs/entrega2/modelo_logico.md + diagrama` | ✅ Hecho |
 | Diccionario de datos ampliado | `docs/entrega2/diccionario_datos_ampliado.md` | ✅ Hecho |
 | DDL ampliado | `sql/entrega2/ddl/ddl_modelo_ampliado.sql` | ✅ Hecho |
-| Modelo físico | `docs/entrega2/modelo_fisico.md` | ⬜ Pendiente |
+| Modelo físico | `docs/entrega2/modelo_fisico.md` | ✅ Hecho |
 | Carga de datos de prueba | `sql/entrega2/dml/carga_datos_prueba.sql` | ✅ Hecho |
-| Normalización (1FN–3FN) | `docs/entrega2/normalizacion.md` | ⬜ Pendiente |
+| Normalización (1FN–3FN) | `docs/entrega2/normalizacion.md` | ✅ Hecho |
 | Consultas avanzadas - Parte 1 | `sql/entrega2/consultas/consultas_avanzadas_parte1.sql` | ⬜ Pendiente |
 | Consultas avanzadas - Parte 2 | `sql/entrega2/consultas/consultas_avanzadas_parte2.sql` | ⬜ Pendiente |
 | Roles y privilegios diferenciados | `sql/entrega2/roles/roles_privilegios.sql + .md` | ⬜ Pendiente |
