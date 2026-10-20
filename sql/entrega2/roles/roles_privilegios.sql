@@ -13,7 +13,6 @@ DROP ROLE rol_admin_torneo;
 DROP ROLE rol_analista_deportivo;
 DROP ROLE rol_auditor;
 
-
 -- ------------------------------------------------------------
 -- 1. Roles
 -- ------------------------------------------------------------
@@ -65,8 +64,6 @@ GRANT SELECT ON asignacion_arbitral TO rol_analista_deportivo;
 GRANT SELECT ON incidencia TO rol_analista_deportivo;
 GRANT SELECT, INSERT, UPDATE ON estadistica_jugador_partido TO rol_analista_deportivo;
 
-
-
 -- ------------------------------------------------------------
 -- 4. AUDITOR / CONSULTA: solo lectura de todo el modelo
 -- ------------------------------------------------------------
@@ -87,9 +84,6 @@ GRANT SELECT ON arbitro TO rol_auditor;
 GRANT SELECT ON asignacion_arbitral TO rol_auditor;
 GRANT SELECT ON estadistica_jugador_partido TO rol_auditor;
 GRANT SELECT ON incidencia TO rol_auditor;
-
-
-
 
 -- ------------------------------------------------------------
 -- 5. Usuarios de prueba, uno por rol.
