@@ -344,8 +344,6 @@ CREATE TABLE asignacion_arbitral (
     -- Sin ON DELETE: no se borra un arbitro que ya pito.
     CONSTRAINT fk_asignacion_arbitro FOREIGN KEY (id_arbitro)
         REFERENCES arbitro (id_arbitro),
-    -- El mismo arbitro no puede tener dos roles en el mismo partido.
-    -- Para conocer los roles reales de la terna se consulta
     -- El mismo arbitro no puede aparecer dos veces en el mismo partido
     CONSTRAINT uq_asignacion_arbitro UNIQUE (id_partido, id_arbitro),
     -- Los roles del equipo arbitral en un partido
@@ -381,9 +379,8 @@ CREATE TABLE estadistica_jugador_partido (
         REFERENCES jugador (id_jugador),
     -- El mismo jugador no puede tener dos registros del mismo partido
     CONSTRAINT uq_estadistica_jugador UNIQUE (id_partido, id_jugador),
-    -- Si inicio el partido no pudo "entrar" despues. El que no inicio
-    -- tiene que haber entrado en algun momento del juego.
     CONSTRAINT ck_estadistica_titular CHECK (titular IN (0, 1)),
+     -- El titular no tiene minuto de entrada; el suplente si
     CONSTRAINT ck_estadistica_entradas CHECK
         ((titular = 0 AND minuto_entrada IS NOT NULL)
          OR (titular = 1 AND minuto_entrada IS NULL)),
@@ -459,13 +456,13 @@ CREATE INDEX ix_incidencia_partido ON incidencia (id_partido);
 --   H. En fase eliminatoria no puede haber empate.
 --   I. La fase del partido debe ser una fase de la edicion del partido.
 --   J. El partido siguiente debe ser de la misma edicion y de una fase posterior.
---   L. La cantidad de convocados por seleccion tiene tope (26 desde el Mundial 2022).
---   M. Un jugador solo puede marcar/registrar estadistica en partidos
+--   K. La cantidad de convocados por seleccion tiene tope (26 desde el Mundial 2022).
+--   L. Un jugador solo puede marcar/registrar estadistica en partidos
 --      de la edicion de la seleccion que lo convoco.
---   N. La suma de goles de los jugadores de una seleccion en un partido
+--   M. La suma de goles de los jugadores de una seleccion en un partido
 --      debe ser igual al goles_marcados de su participacion en ese
 --      partido.
---   O. Un arbitro no puede estar asignado a dos partidos que se juegan
+--   N. Un arbitro no puede estar asignado a dos partidos que se juegan
 --      a la misma hora. ASIGNACION_ARBITRAL no puede comparar fechas.
 -- ------------------------------------------------------------
 
