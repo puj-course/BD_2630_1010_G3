@@ -585,7 +585,7 @@ El análisis de 1FN, 2FN y 3FN tabla por tabla está en `docs/entrega2/normaliza
 La estructura permite realizar consultas que recorran diferentes niveles
 del torneo, por ejemplo:
 
-`JUGADOR → ESTADISTICA_JUGADOR_PARTIDO → PARTIDO → SELECCION → GRUPO → FASE → EDICION_MUNDIAL`
+`JUGADOR → ESTADISTICA_JUGADOR_PARTIDO → PARTIDO → FASE → EDICION_MUNDIAL`, y la selección del jugador se obtiene por `CONVOCATORIA_JUGADOR → SELECCION → GRUPO`.
 
 Esto permite obtener indicadores como:
 
@@ -595,7 +595,7 @@ Esto permite obtener indicadores como:
 - estadísticas por grupo;
 - resultados por selección;
 - incidencias por fase;
-- desempeño arbitral;
+- partidos dirigidos por cada árbitro;
 - asistencia acumulada por sede;
 - estadísticas agregadas por edición.
 
