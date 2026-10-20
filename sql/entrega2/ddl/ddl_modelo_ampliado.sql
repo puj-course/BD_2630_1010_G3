@@ -133,8 +133,7 @@ CREATE TABLE fase (
     CONSTRAINT ck_fase_nombre CHECK (nombre IN
         ('Fase de Grupos','Dieciseisavos','Octavos','Cuartos',
          'Semifinal','Tercer Puesto','Final')),
-    -- La fase de grupos es la unica que no es eliminatoria: tras ella
-    -- ningun empate define, siempre tiene que pasar alguien.
+     -- Solo la fase de grupos es de tipo GRUPOS; las demas son eliminatorias
     CONSTRAINT ck_fase_tipo CHECK (tipo IN ('GRUPOS','ELIMINATORIA'))
 );
 
