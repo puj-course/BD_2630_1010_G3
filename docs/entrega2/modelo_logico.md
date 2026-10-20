@@ -92,7 +92,7 @@ Representa un estadio utilizado durante el torneo.
 
 ### Restricciones
 
-- La capacidad debe ser mayor que cero.
+- La capacidad debe estar entre 20 000 y 150 000.
 - Un estadio pertenece a una única ciudad.
 
 ### Relación
