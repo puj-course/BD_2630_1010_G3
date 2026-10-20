@@ -1,15 +1,3 @@
--- ============================================================
--- Proyecto Base de Datos - Mundial FIFA
--- Entrega 2 - Modelo ampliado (16 tablas)
--- Grupo G3 - Bases de Datos - Pontificia Universidad Javeriana
--- Motor: Oracle 19c
--- ============================================================
--- Se ejecuta sobre el esquema propio de cada estudiante.
--- Amplia el modelo de la Entrega 1: separa sede, ciudad y estadio,
--- fase y grupo como entidades, y agrega jugadores, cuerpo tecnico,
--- arbitros, estadisticas e incidencias.
--- ============================================================
-
 -- Evita que SQLcl corte las sentencias al llegar a una linea en blanco.
 SET SQLBLANKLINES ON
 
