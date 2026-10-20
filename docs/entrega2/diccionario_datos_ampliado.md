@@ -154,7 +154,7 @@ Registra integrantes del cuerpo técnico de una selección.
 | `id_cuerpo_tecnico` | `NUMBER(10)` | PK, NOT NULL | Identificador del integrante. |
 | `id_seleccion` | `NUMBER(10)` | FK → `SELECCION.id_seleccion`, NOT NULL | Selección a la que pertenece. |
 | `nombre` | `VARCHAR2(150)` | NOT NULL, CHECK texto no vacío (`ck_cuerpo_tecnico_nombre`) | Nombre del integrante. |
-| `cargo` | `VARCHAR2(50)` | NOT NULL, CHECK lista de cargos (`ck_cuerpo_tecnico_cargo`) | Cargo: Director tecnico, Asistente tecnico, Preparador fisico, Entrenador de porteros o Medico. Los literales se almacenan según la escritura definida en el DDL. |
+| `cargo` | `VARCHAR2(50)` | NOT NULL, CHECK lista de cargos (`ck_cuerpo_tecnico_cargo`) | Cargo: Director tecnico, Asistente tecnico, Preparador fisico, Entrenador de porteros o Medico. |
 
 ### 2.13. ARBITRO
 
