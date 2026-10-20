@@ -341,7 +341,7 @@ BD_PROYECTO/
 ├── CHANGELOG.md
 ├── README.md
 ├── README_CRONOGRAMA.md
-└── README_SERVIDOR_ENTREGA1.md
+└── README_GUIA_SERVIDOR.md
 ```
 
 El detalle exacto de qué archivo va dentro de cada subcarpeta, semana a semana, está en README_CRONOGRAMA.md. Esa estructura es la que se debe seguir de forma precisa.
