@@ -93,4 +93,4 @@ Resultado: 3 filas, todas de `ESTADISTICA_JUGADOR_PARTIDO` (INSERT, SELECT, UPDA
 
 ## 7. Pruebas con usuarios
 
-Los permisos de cada rol se comprobaron en el catálogo de Oracle (sección 6). Para crear los usuarios se necesita el privilegio `CREATE USER`, que el usuario del grupo (`IS101009`) no tiene en el servidor del curso.
+Los permisos de cada rol se comprobaron en el catálogo de Oracle (sección 6). Para crear los usuarios se necesita el privilegio `CREATE USER`, que el usuario del grupo (`IS101009`) no tiene en el servidor del curso. El script ya deja definidos los tres usuarios, así que esas pruebas se pueden correr apenas se tenga ese privilegio.
