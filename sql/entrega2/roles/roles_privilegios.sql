@@ -1,7 +1,5 @@
 -- ============================================================
 -- Roles y privilegios - Entrega 2
--- Grupo G3 - Bases de Datos - Pontificia Universidad Javeriana
-
 
 SET SQLBLANKLINES ON
 
