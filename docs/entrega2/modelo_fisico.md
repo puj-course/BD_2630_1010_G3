@@ -168,6 +168,26 @@ Oracle crea un índice único por cada llave primaria y por cada restricción UN
 | Llaves primarias | 16 |
 | Restricciones UNIQUE | 15 |
 
+Las restricciones UNIQUE del modelo son:
+
+| Restricción | Tabla | Columnas |
+|---|---|---|
+| `uq_edicion_anio` | `edicion_mundial` | `anio` |
+| `uq_sede_pais` | `sede` | `id_edicion`, `pais` |
+| `uq_ciudad_nombre` | `ciudad` | `id_sede`, `nombre` |
+| `uq_estadio_nombre` | `estadio` | `id_ciudad`, `nombre` |
+| `uq_fase_orden` | `fase` | `id_edicion`, `orden_fase` |
+| `uq_fase_nombre` | `fase` | `id_edicion`, `nombre` |
+| `uq_grupo_nombre` | `grupo` | `id_fase`, `nombre` |
+| `uq_seleccion_pais` | `seleccion` | `id_edicion`, `pais` |
+| `uq_partido_agenda` | `partido` | `id_estadio`, `fecha_hora` |
+| `uq_participacion_seleccion` | `participacion_partido` | `id_partido`, `id_seleccion` |
+| `uq_participacion_condicion` | `participacion_partido` | `id_partido`, `condicion` |
+| `uq_convocatoria_jugador` | `convocatoria_jugador` | `id_jugador`, `id_seleccion` |
+| `uq_convocatoria_numero` | `convocatoria_jugador` | `id_seleccion`, `numero_camiseta` |
+| `uq_asignacion_arbitro` | `asignacion_arbitral` | `id_partido`, `id_arbitro` |
+| `uq_estadistica_jugador` | `estadistica_jugador_partido` | `id_partido`, `id_jugador` |
+
 ---
 
 ## 4. Índices creados explícitamente
