@@ -576,19 +576,7 @@ operativas sobre eventos ocurridos durante el desarrollo del encuentro.
 
 # 11. Normalización
 
-El modelo se diseña siguiendo los principios de normalización hasta Tercera
-Forma Normal (3FN):
-
-- Los atributos de cada tabla representan una única propiedad.
-- Los atributos no clave dependen de la clave primaria correspondiente.
-- Se separan entidades independientes para evitar dependencias transitivas.
-- Las relaciones N:M se representan mediante tablas asociativas.
-- La información de jugadores, selecciones, partidos, árbitros y estadísticas
-  se mantiene separada para evitar redundancia.
-
-La demostración formal de 1FN, 2FN y 3FN se desarrolla en el documento:
-
-`docs/entrega2/normalizacion.md`
+El análisis de 1FN, 2FN y 3FN tabla por tabla está en `docs/entrega2/normalizacion.md`.
 
 ---
 
