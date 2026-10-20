@@ -55,7 +55,7 @@ Las ubicaciones se normalizaron separando la jerarquía `EDICION_MUNDIAL → SED
 
 ## 5. Observaciones
 
-Cuatro tablas tienen una dependencia entre atributos no clave. Se documentan en lugar de ocultarlas:
+Cuatro tablas tienen una dependencia entre atributos no clave:
 
 1. **SELECCION:** `pais` → `confederacion`. Un país pertenece a una sola confederación, pero el dato se repite en cada edición. Para 3FN estricta se crearía una tabla de países o federaciones nacionales con su confederación. El enunciado (sección 7.3) menciona federación nacional y confederación; queda como mejora.
 2. **PARTIDO:** `id_fase` → `id_edicion`. La edición del partido también se obtiene por su fase. Se conserva `id_edicion` en `PARTIDO` como redundancia controlada: permite filtrar por edición sin uniones y facilita validar que la fase, el estadio y la fecha del partido sean de la misma edición.
