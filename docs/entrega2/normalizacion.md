@@ -1,8 +1,5 @@
-# Normalización — Entrega 2
+# Normalización - Entrega 2
 ## Sistema de Información para la Gestión Integral de la Copa Mundial de la FIFA
-
-**Grupo:** G3 — Bases de Datos, Pontificia Universidad Javeriana
-
 
 ## 1. Criterios
 
@@ -11,7 +8,6 @@
 | 1FN | Atributos atómicos, sin grupos repetitivos y con llave primaria |
 | 2FN | Cumple 1FN y ningún atributo depende de solo una parte de una llave compuesta |
 | 3FN | Cumple 2FN y ningún atributo no clave depende de otro atributo no clave (sin dependencias transitivas) |
-
 
 
 ## 2. Primera forma normal (1FN)
