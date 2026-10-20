@@ -1,11 +1,5 @@
 # Diccionario de datos ampliado - Entrega 2
 
-**Proyecto:** Sistema de Información para la Gestión Integral de la Copa Mundial de la FIFA  
-**Grupo:** G3 — Bases de Datos, Pontificia Universidad Javeriana  
-**Motor:** Oracle Database 19c  
-**Fuente física:** `sql/entrega2/ddl/ddl_modelo_ampliado.sql`  
-**Modelo lógico:** `docs/entrega2/modelo_logico.md`
-
 ## 1. Propósito y convenciones
 
 Este documento describe los atributos de las 16 tablas del modelo ampliado. Los tipos, la nulabilidad, los valores predeterminados y las restricciones declaradas se documentan conforme al DDL de Oracle 19c.
