@@ -53,16 +53,14 @@ En las tablas marcadas "Sí" ningún atributo no clave determina a otro atributo
 Las ubicaciones se normalizaron separando la jerarquía `EDICION_MUNDIAL → SEDE → CIUDAD → ESTADIO`. La edición de un estadio no se guarda en `ESTADIO`: se obtiene recorriendo esa cadena, lo que evita una dependencia transitiva.
 
 
-
 ## 5. Observaciones
 
 Cuatro tablas tienen una dependencia entre atributos no clave. Se documentan en lugar de ocultarlas:
 
 1. **SELECCION:** `pais` → `confederacion`. Un país pertenece a una sola confederación, pero el dato se repite en cada edición. Para 3FN estricta se crearía una tabla de países o federaciones nacionales con su confederación. El enunciado (sección 7.3) menciona federación nacional y confederación; queda como mejora.
-2. **PARTIDO:** `id_fase` → `id_edicion`. La edición del partido también se obtiene por su fase. Se conserva `id_edicion` en `PARTIDO` como redundancia controlada: permite filtrar por edición sin uniones y validar las reglas de negocio B, C e I.
+2. **PARTIDO:** `id_fase` → `id_edicion`. La edición del partido también se obtiene por su fase. Se conserva `id_edicion` en `PARTIDO` como redundancia controlada: permite filtrar por edición sin uniones y facilita validar que la fase, el estadio y la fecha del partido sean de la misma edición.
 3. **FASE:** `nombre` → `tipo`. Solo "Fase de Grupos" es de tipo `GRUPOS`; las demás son `ELIMINATORIA`. Los valores se restringen con `CHECK`. Para 3FN estricta se crearía un catálogo de tipos de fase.
 4. **ESTADISTICA_JUGADOR_PARTIDO:** `minutos_jugados` se puede derivar de `titular`, `minuto_entrada` y `minuto_salida`. Se almacena para facilitar las agregaciones por jugador, partido y edición.
-
 
 
 ## 6. Mejoras frente al modelo inicial
