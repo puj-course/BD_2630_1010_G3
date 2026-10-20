@@ -74,7 +74,7 @@ GROUP BY grantee;
 
 Los tres valores coinciden con la matriz de la sección 3.
 
-![Consulta 1](img/roles_consulta1.png)
+![Consulta 1](roles_consulta1.png)
 
 **Consulta 2: el analista sobre `cuerpo_tecnico` y `estadistica_jugador_partido`**
 
