@@ -6,7 +6,7 @@ Este repositorio se utiliza para desarrollar el proyecto de Bases de Datos desde
 Este README es el documento principal de lineamientos. Existen dos documentos complementarios:
 
 - **README_CRONOGRAMA.md** — detalle semana a semana de entregables, nombres de archivo, contenido esperado y estructura de carpetas.
-- **README_SERVIDOR_ENTREGA1.md** — guía de conexión al servidor de base de datos dispuesto por el curso para la Entrega 1 (modelo inicial).
+- **README_GUIA_SERVIDOR.md** — guía de conexión al servidor de base de datos dispuesto por el curso para la Entrega 1 (modelo inicial).
 
 Lee los tres documentos antes de empezar a trabajar.
 
