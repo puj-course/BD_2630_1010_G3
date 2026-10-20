@@ -88,7 +88,7 @@ ORDER BY table_name, privilege;
 
 Resultado: 3 filas, todas de `ESTADISTICA_JUGADOR_PARTIDO` (INSERT, SELECT, UPDATE) y ninguna de `CUERPO_TECNICO`. Se confirma que el analista puede cargar estadísticas y no tiene acceso al cuerpo técnico.
 
-![Consulta 2](img/roles_consulta2.png)
+![Consulta 2](roles_consulta2.png)
 
 ---
 
