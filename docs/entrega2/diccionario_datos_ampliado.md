@@ -213,7 +213,7 @@ Registra un evento relevante ocurrido durante un partido.
 | `minuto` | `NUMBER(3)` | NOT NULL, CHECK 0–120 (`ck_incidencia_minuto`) | Minuto aproximado del evento. |
 | `descripcion` | `VARCHAR2(300)` | Nulo permitido | Descripción complementaria del evento. |
 
-## 3. Reglas de negocio no garantizadas únicamente por constraints
+## 3. Reglas que no se pueden poner como CHECK
 
 El DDL documenta reglas que requieren validaciones adicionales, por ejemplo mediante triggers, procedimientos o casos de prueba:
 
