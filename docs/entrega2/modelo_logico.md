@@ -255,9 +255,7 @@ Representa la participación de una selección dentro de un partido.
 - Un partido tiene participaciones de selecciones.
 - Una selección puede participar en múltiples partidos.
 
-> La validación de que un partido tenga exactamente dos participaciones
-> se considera una regla de negocio que puede requerir mecanismos adicionales
-> de integridad en una etapa posterior.
+Que cada partido tenga exactamente dos participaciones no se puede controlar con un CHECK. Se validará con un trigger en la Entrega 3.
 
 ---
 
