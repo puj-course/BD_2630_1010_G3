@@ -226,7 +226,7 @@ El DDL documenta reglas que requieren validaciones adicionales, por ejemplo medi
 7. Las estadísticas de un jugador deben corresponder a una convocatoria y a una selección participante del partido.
 8. La suma de goles individuales debe coincidir con los goles de la selección en `PARTICIPACION_PARTIDO`.
 9. El partido siguiente debe corresponder a la misma edición y una fase posterior cuando se use la progresión eliminatoria.
-10. Los límites de convocatoria deben verificarse de forma coherente con las reglas del proyecto.
+10. Una selección no puede tener más de 26 jugadores convocados.
 
 Estas reglas se registran como validaciones adicionales; no se describen como constraints que el DDL actual ya garantice.
 
