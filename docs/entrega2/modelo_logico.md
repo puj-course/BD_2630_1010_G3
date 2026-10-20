@@ -8,6 +8,8 @@ El modelo de la Entrega 1 solo tenía cinco tablas: edición, estadio, selecció
 
 Con estas tablas se pueden hacer consultas por jugador, partido, selección, grupo, fase y edición. La normalización de cada tabla se revisa en `normalizacion.md`.
 
+![Modelo lógico](modelo_logico.png)
+
 ---
 
 # 2. Tablas del modelo
