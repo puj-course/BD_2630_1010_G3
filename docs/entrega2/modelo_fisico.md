@@ -155,6 +155,7 @@ erDiagram
 
 Tipos de dato: `NUMBER` para identificadores, cantidades y banderas (0/1), `VARCHAR2` para texto, `DATE` para fechas del torneo y `TIMESTAMP` para la fecha y hora de cada partido.
 
+`minutos_jugados` se guarda aunque se puede calcular con `minuto_entrada` y `minuto_salida`, porque se consulta seguido en los reportes de rendimiento.
 ---
 
 ## 3. Índices automáticos
