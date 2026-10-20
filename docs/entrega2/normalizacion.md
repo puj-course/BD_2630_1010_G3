@@ -74,4 +74,4 @@ Cuatro tablas tienen una dependencia entre atributos no clave:
 
 ## 7. Conclusión
 
-Las 16 tablas cumplen 1FN y 2FN, y doce cumplen 3FN. En las otras cuatro, la dependencia se mantuvo a propósito por rendimiento o por simplicidad, y en la sección 5 se explica cómo llevar cada una a 3FN estricta.
+Las 16 tablas cumplen 1FN y 2FN, y doce cumplen 3FN. En las otras cuatro, la dependencia se mantuvo a propósito, por rendimiento o por simplicidad, y en la sección 5 se justifica cada caso.
