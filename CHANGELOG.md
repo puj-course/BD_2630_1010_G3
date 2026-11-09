@@ -250,3 +250,40 @@ Ventana de aporte semanal: **lunes 00:00 — domingo 23:59 (hora Colombia, UTC-5
 - La cuenta Oracle del grupo no tiene `CREATE USER` (`ORA-01031`), así que los usuarios de prueba del script no se pudieron crear. Los permisos se verificaron en el catálogo con `USER_TAB_PRIVS_MADE` sobre `IS101007`: 64 permisos para el administrador, 17 para el analista y 16 para el auditor.
 - Las consultas avanzadas se habían subido como `_semana3` y `_semana4`; se renombraron a `_parte1` y `_parte2` para seguir el cronograma.
 - Las reglas que necesitan consultar otras filas o tablas (por ejemplo, asistencia menor o igual al aforo, o exactamente dos participaciones por partido) no se pueden controlar con `CHECK`. Quedan para los triggers de la Entrega 3.
+
+---
+
+## Semana 10 — Entrega 3 — (26 de octubre – 1 de noviembre de 2026)
+
+### Objetivos
+
+- Empezar las funciones, los procedimientos y los 4 triggers obligatorios.
+
+### Tareas realizadas
+
+No se subió trabajo al repositorio esta semana.
+
+### Problemas encontrados
+
+- El grupo estuvo con el Taller de PL/SQL y Triggers (entrega el 1 de noviembre), y la Entrega 3 no arrancó.
+
+---
+
+## Semana 11 — Entrega 3 — (2–8 de noviembre de 2026)
+
+### Objetivos
+
+- Avanzar en los triggers obligatorios.
+- Repartir el trabajo de la Entrega 3 y definir la tecnología de la aplicación.
+
+### Tareas realizadas
+
+| Tarea | Responsable | Rama utilizada | Descripción |
+|---|---|---|---|
+| Triggers de rangos, anti-duplicidad y auditoría | Laura | `lesmes-triggers` | Primera versión en `sql/entrega3/triggers/triggers.sql`, con la tabla `auditoria_evento` y capturas |
+| Plan de la Entrega 3 | Nicolás Mamian | `docs/readme-entrega3` | Fechas, reparto y estado de la entrega en el README. Issues #55 a #61 con responsable y milestone "Entrega 3" |
+
+### Problemas encontrados
+
+- La Entrega 3 se entrega el martes 17 de noviembre y las semanas 1 y 2 del cronograma quedaron casi sin avance. El reparto pone fechas límite internas: SQL el miércoles 11, pantallas el domingo 15 e integración el lunes 16.
+- La aplicación se hace en Java con JDBC y Swing, como en la clase de JDBC. Necesita la VPN de la universidad para conectarse al servidor.
