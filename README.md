@@ -112,11 +112,13 @@ Ventana de aporte semanal: **lunes 00:00 — domingo 23:59 (hora Colombia, UTC-5
 
 ### Entrega 3 — Programación en Base de Datos y Aplicación
 
-| Semana | Entregables principales |
-|---|---|
-| 1 | Funciones, procedimientos y los 4 triggers obligatorios + pruebas |
-| 2 | Aplicación funcional (base + catálogos) y arquitectura |
-| 3 | Aplicación completa, módulo de reportes y cierre |
+| Semana | Fechas | Entregables principales |
+|---|---|---|
+| 1 | 26 oct – 1 nov 2026 | Funciones, procedimientos y los 4 triggers obligatorios + pruebas |
+| 2 | 2–8 nov 2026 | Aplicación funcional (base + catálogos) y arquitectura |
+| 3 | 9–15 nov 2026 | Aplicación completa, módulo de reportes y cierre |
+
+Entrega en BrightSpace: **martes 17 de noviembre de 2026**. La sustentación es en panel público.
 
 ---
 
@@ -140,6 +142,24 @@ Ventana de aporte semanal: **lunes 00:00 — domingo 23:59 (hora Colombia, UTC-5
 | [@hsantiagopf](https://github.com/hsantiagopf) | Modelo de lógico ampliado; Diccionario de datos ampliado |
 | [@laulesmes04](https://github.com/laulesmes04) | Normalización (1FN–3FN); roles y privilegios diferenciados |
 | [@daniellrzz](https://github.com/daniellrzz) | Consultas Avanzadas Parte 1 y 2 |
+
+---
+
+### Reparto de responsabilidades — Entrega 3
+
+La aplicación se hace de escritorio en Java, con JDBC (driver `ojdbc17`) y Swing, como se vio en
+clase. Cada tarea tiene su issue en GitHub; la rama se crea desde `main` y se integra por Pull Request.
+Cada quien escribe en `docs/entrega3/documentacion_programacion_bd.md` la sección de lo que programó.
+
+| Integrante | Bloque asignado | Fecha límite interna |
+|---|---|---|
+| [@Nicolukazzz](https://github.com/Nicolukazzz) | Base de la aplicación y conexión a Oracle; catálogos de edición, sedes, ciudades y estadios; `arquitectura_aplicacion.md` y `app/README.md`; integración de ramas, README y CHANGELOG | Base de la app: mar 10 nov |
+| [@laulesmes04](https://github.com/laulesmes04) | Los 4 triggers obligatorios y `tests/entrega3/pruebas_triggers.md`; tabla de posiciones por grupo (la tabla nueva que llena el procedimiento); catálogo de selecciones y grupos | Triggers: mié 11 nov |
+| [@hsantiagopf](https://github.com/hsantiagopf) | `procedimientos.sql` (carga de resultados, tabla de posiciones, cierre de fase); registro de partidos, estadísticas e incidencias; catálogo de jugadores y cuerpo técnico | Procedimientos: mié 11 nov |
+| [@daniellrzz](https://github.com/daniellrzz) | `funciones.sql` (diferencia de gol, ranking de goleadores, cupo de convocatoria); consulta de posiciones, resultados e incidencias; módulo de reportes y `reportes.md` | Funciones: mié 11 nov |
+
+Las pantallas de la aplicación se cierran el **domingo 15 de noviembre**. El lunes 16 se integra todo
+en `main` y se prueba completo contra el servidor.
 
 ---
 
@@ -183,6 +203,24 @@ Ventana de aporte semanal: **lunes 00:00 — domingo 23:59 (hora Colombia, UTC-5
 | Consultas avanzadas - Parte 2 | `sql/entrega2/consultas/consultas_avanzadas_parte2.sql` | ✅ Hecho |
 | Roles y privilegios diferenciados | `sql/entrega2/roles/roles_privilegios.sql` + `docs/entrega2/roles_privilegios.md` | ✅ Hecho |
 | Casos de prueba ejecutados | `tests/entrega2/casos_prueba.md` + `tests/entrega2/casos_prueba.sql` | ✅ Hecho |
+
+---
+
+## Estado de la Entrega 3
+
+| Entregable | Archivo | Estado |
+|---|---|---|
+| Funciones | `sql/entrega3/funciones/funciones.sql` | ⏳ Pendiente |
+| Procedimientos almacenados | `sql/entrega3/procedimientos/procedimientos.sql` | ⏳ Pendiente |
+| Triggers obligatorios (4) | `sql/entrega3/triggers/triggers.sql` | 🔄 En progreso: rangos, anti-duplicidad y auditoría en la rama `lesmes-triggers`; falta consistencia |
+| Documentación de la programación en BD | `docs/entrega3/documentacion_programacion_bd.md` | ⏳ Pendiente |
+| Pruebas de los triggers | `tests/entrega3/pruebas_triggers.md` | ⏳ Pendiente |
+| Aplicación: base y conexión | `app/` | ⏳ Pendiente |
+| Aplicación: catálogos | `app/` | ⏳ Pendiente |
+| Aplicación: partidos, estadísticas, posiciones e incidencias | `app/` | ⏳ Pendiente |
+| Módulo de reportes | `app/` + `docs/entrega3/reportes.md` | ⏳ Pendiente |
+| Instrucciones para levantar la app | `app/README.md` | ⏳ Pendiente |
+| Arquitectura de la aplicación | `docs/entrega3/arquitectura_aplicacion.md` | ⏳ Pendiente |
 
 
 ---
