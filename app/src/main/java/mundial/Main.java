@@ -1,23 +1,21 @@
 package mundial;
 
 import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
+import javax.swing.JOptionPane;
+import javax.swing.SwingUtilities;
+import mundial.ui.VentanaPrincipal;
 
 public class Main {
 
     public static void main(String[] args) {
-        String sql = "SELECT banner FROM v$version";
-        try (Connection con = Conexion.abrir();
-             PreparedStatement ps = con.prepareStatement(sql);
-             ResultSet rs = ps.executeQuery()) {
-            System.out.println("Conectado como " + con.getMetaData().getUserName());
-            while (rs.next()) {
-                System.out.println(rs.getString("banner"));
-            }
+        String usuario;
+        try (Connection con = Conexion.abrir()) {
+            usuario = con.getMetaData().getUserName();
         } catch (SQLException e) {
-            System.out.println("Error de conexion: " + e.getMessage());
+            JOptionPane.showMessageDialog(null, e.getMessage(), "Error de conexion", JOptionPane.ERROR_MESSAGE);
+            return;
         }
+        SwingUtilities.invokeLater(() -> new VentanaPrincipal(usuario).setVisible(true));
     }
 }
