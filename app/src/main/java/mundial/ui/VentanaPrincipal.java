@@ -22,7 +22,7 @@ public class VentanaPrincipal extends JFrame {
 
         // Cada integrante cambia pendiente(...) por su propio panel.
         JMenu catalogos = new JMenu("Catalogos");
-        agregar(catalogos, "Ediciones del Mundial", () -> pendiente("Ediciones del Mundial"));
+        agregar(catalogos, "Ediciones del Mundial", PanelEdiciones::new);
         agregar(catalogos, "Sedes", () -> pendiente("Sedes"));
         agregar(catalogos, "Ciudades", () -> pendiente("Ciudades"));
         agregar(catalogos, "Estadios", () -> pendiente("Estadios"));
