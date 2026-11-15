@@ -40,8 +40,8 @@ flowchart TB
 
 ## Capas
 
-**Presentacion (`mundial.ui`).** `VentanaPrincipal` tiene la barra de menus con los modulos del
-enunciado: catalogos, partidos, consultas y reportes. Cada opcion cambia el contenido de la ventana
+**Presentacion (`mundial.ui`).** `VentanaPrincipal` tiene la barra de menus y una pantalla de
+inicio con los modulos del enunciado: catalogos, partidos, consultas y reportes. Cada opcion cambia el contenido de la ventana
 por un panel. Los paneles solo muestran datos y piden datos al usuario; no tienen SQL.
 
 **Datos (`mundial.datos`).** Seguimos el patron DAO de la presentacion 19. Por cada tabla hay una
@@ -69,6 +69,8 @@ en el servidor con cada operacion que haga la aplicacion, sin que la aplicacion 
 | Credenciales en `config.properties`, fuera del repositorio | Cada integrante usa su propio usuario Oracle y ninguna contrasena queda en GitHub |
 | Id nuevo con `NVL(MAX(id)) + 1` dentro del mismo `INSERT` | Las tablas de la Entrega 2 no tienen secuencias. Si dos usuarios guardan al mismo tiempo, la PK rechaza al segundo con `ORA-00001` |
 | Autocommit de JDBC activo en los catalogos | Cada operacion de catalogo es una sola sentencia, asi que no hay nada que agrupar en una transaccion |
+| Errores de Oracle explicados en palabras simples | La clase `Mensajes` traduce los codigos mas comunes (`ORA-00001`, `ORA-02290`, `ORA-02292`, falta de VPN) y debajo deja el mensaje original de Oracle |
+| Cada accion deja un mensaje abajo de la tabla | Despues de agregar, editar o eliminar, el panel dice que paso, selecciona la fila afectada y sugiere el siguiente paso (por ejemplo, agregar las ciudades de una sede nueva) |
 | Listas desplegables para la tabla padre | Al crear una ciudad se escoge la sede de una lista, no se escribe su id. Asi no se puede escoger una sede que no existe |
 
 ## Flujo de una operacion

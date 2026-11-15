@@ -35,6 +35,6 @@ public class Edicion {
 
     @Override
     public String toString() {
-        return "Edicion " + anio + " (" + idEdicion + ")";
+        return "Mundial " + anio;
     }
 }
