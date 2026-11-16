@@ -80,3 +80,24 @@ BEGIN
   END IF;
 END;
 /
+
+-- Trigger 4: Consistencia (los goles de los jugadores no superan el marcador oficial)
+CREATE OR REPLACE TRIGGER trg_consistencia_marcador
+AFTER INSERT OR UPDATE OF goles ON estadistica_jugador_partido
+DECLARE
+  v_incoherentes NUMBER;
+BEGIN
+  SELECT COUNT(*) INTO v_incoherentes
+  FROM (SELECT e.id_partido, c.id_seleccion
+        FROM estadistica_jugador_partido e
+        JOIN convocatoria_jugador c ON c.id_jugador = e.id_jugador
+        JOIN participacion_partido pp ON pp.id_partido = e.id_partido
+                                     AND pp.id_seleccion = c.id_seleccion
+        GROUP BY e.id_partido, c.id_seleccion, pp.goles_marcados
+        HAVING SUM(e.goles) > pp.goles_marcados);
+
+  IF v_incoherentes > 0 THEN
+    RAISE_APPLICATION_ERROR(-20004, 'Los goles de los jugadores superan el marcador oficial');
+  END IF;
+END;
+/
