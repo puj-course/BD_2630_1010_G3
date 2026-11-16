@@ -1,5 +1,7 @@
 package mundial;
 
+import com.formdev.flatlaf.FlatLightLaf;
+import java.awt.Color;
 import java.sql.Connection;
 import java.sql.SQLException;
 import javax.swing.JOptionPane;
@@ -10,12 +12,18 @@ import mundial.ui.VentanaPrincipal;
 public class Main {
 
     public static void main(String[] args) {
-        // Usa el aspecto del sistema operativo (en Mac se ve como una app nativa).
-        try {
-            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-        } catch (Exception e) {
-            // Si falla, Swing queda con su aspecto por defecto.
-        }
+        // Tema FlatLaf: se ve igual en Windows y en Mac
+        FlatLightLaf.setup();
+        UIManager.put("Button.arc", 10);
+        UIManager.put("Component.arc", 10);
+        UIManager.put("TextComponent.arc", 10);
+        UIManager.put("ScrollBar.showButtons", false);
+        UIManager.put("Table.showHorizontalLines", true);
+        UIManager.put("Table.showVerticalLines", false);
+        UIManager.put("Table.alternateRowColor", new Color(244, 247, 252));
+        UIManager.put("TableHeader.background", new Color(30, 70, 140));
+        UIManager.put("TableHeader.foreground", Color.WHITE);
+        UIManager.put("TabbedPane.showTabSeparators", true);
 
         String usuario;
         try (Connection con = Conexion.abrir()) {
