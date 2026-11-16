@@ -250,3 +250,71 @@ Ventana de aporte semanal: **lunes 00:00 — domingo 23:59 (hora Colombia, UTC-5
 - La cuenta Oracle del grupo no tiene `CREATE USER` (`ORA-01031`), así que los usuarios de prueba del script no se pudieron crear. Los permisos se verificaron en el catálogo con `USER_TAB_PRIVS_MADE` sobre `IS101007`: 64 permisos para el administrador, 17 para el analista y 16 para el auditor.
 - Las consultas avanzadas se habían subido como `_semana3` y `_semana4`; se renombraron a `_parte1` y `_parte2` para seguir el cronograma.
 - Las reglas que necesitan consultar otras filas o tablas (por ejemplo, asistencia menor o igual al aforo, o exactamente dos participaciones por partido) no se pueden controlar con `CHECK`. Quedan para los triggers de la Entrega 3.
+
+---
+
+## Semana 10 — Entrega 3 — (26 de octubre – 1 de noviembre de 2026)
+
+### Objetivos
+
+- Empezar las funciones, los procedimientos y los 4 triggers obligatorios.
+
+### Tareas realizadas
+
+No se subió trabajo al repositorio esta semana.
+
+### Problemas encontrados
+
+- El grupo estuvo con el Taller de PL/SQL y Triggers (entrega el 1 de noviembre), y la Entrega 3 no arrancó.
+
+---
+
+## Semana 11 — Entrega 3 — (2–8 de noviembre de 2026)
+
+### Objetivos
+
+- Avanzar en los triggers obligatorios.
+- Repartir el trabajo de la Entrega 3 y definir la tecnología de la aplicación.
+
+### Tareas realizadas
+
+| Tarea | Responsable | Rama utilizada | Descripción |
+|---|---|---|---|
+| Triggers de rangos, anti-duplicidad y auditoría | Laura | `lesmes-triggers` | Primera versión en `sql/entrega3/triggers/triggers.sql`, con la tabla `auditoria_evento` y capturas |
+| Plan de la Entrega 3 | Nicolás Mamian | `docs/readme-entrega3` | Fechas, reparto y estado de la entrega en el README. Issues #55 a #61 con responsable y milestone "Entrega 3" |
+
+### Problemas encontrados
+
+- La Entrega 3 se entrega el martes 17 de noviembre y las semanas 1 y 2 del cronograma quedaron casi sin avance. El reparto pone fechas límite internas: SQL el miércoles 11, pantallas el domingo 15 e integración el lunes 16.
+- La aplicación se hace en Java con JDBC y Swing, como en la clase de JDBC. Necesita la VPN de la universidad para conectarse al servidor.
+
+---
+
+## Semana 12 — Entrega 3 — (9–15 de noviembre de 2026)
+
+### Objetivos
+
+- Tener la base de la aplicación para que cada integrante cuelgue sus pantallas.
+- Terminar los catálogos de ediciones, sedes, ciudades y estadios.
+- Documentar cómo se ejecuta la aplicación y cómo está armada.
+
+### Tareas realizadas
+
+| Tarea | Responsable | Rama utilizada | Descripción |
+|---|---|---|---|
+| Base de la aplicación | Nicolás Mamian | `feature/app-base` | Proyecto Maven en `app/`, conexión que lee `config.properties`, ventana principal con menú por módulo y listado de ediciones (PR #63) |
+| Catálogo de ediciones | Nicolás Mamian | `feature/catalogo-ediciones` | Crear, editar y borrar ediciones del Mundial (PR #64) |
+| Catálogos de sedes, ciudades y estadios | Nicolás Mamian | `feature/catalogo-sedes-ciudades-estadios` | Mismo patrón de ediciones. La tabla padre se escoge de una lista al crear o editar (PR #65) |
+| Pantalla de inicio y mensajes | Nicolás Mamian | `feature/catalogo-sedes-ciudades-estadios` | Inicio con botones por módulo. Cada catálogo dice qué pasó después de agregar, editar o eliminar, y explica los errores de Oracle más comunes |
+| README de la aplicación y arquitectura | Nicolás Mamian | `feature/catalogo-sedes-ciudades-estadios` | `app/README.md` y `docs/entrega3/arquitectura_aplicacion.md` con el diagrama de capas |
+
+### Cambios principales
+
+- La aplicación sigue el patrón de la clase de JDBC: una entidad con getters y setters y una clase `RepositoryXXX` por tabla, SQL armado con `StringBuilder` y ejecutado con `PreparedStatement` dentro de try-with-resources.
+- La contraseña de Oracle no está en el repositorio. Cada integrante copia `config.example.properties` como `config.properties`, que está en el `.gitignore`.
+- Los catálogos se probaron contra el servidor: crear, editar y borrar en las cuatro tablas, más los errores `ORA-00001` (sede repetida), `ORA-02290` (estadio con aforo de 10) y `ORA-02292` (borrar una sede con ciudades o un estadio con partidos). Los datos de prueba se borraron al final.
+
+### Problemas encontrados
+
+- Las tablas de la Entrega 2 no tienen secuencias. El id nuevo se calcula con `NVL(MAX(id), 0) + 1` dentro del mismo `INSERT`; si dos personas guardan a la vez, la llave primaria rechaza la segunda.
+- Al cierre de la semana no están en `main` los triggers, las funciones ni los procedimientos, ni las pantallas de selecciones, jugadores, partidos, posiciones, incidencias y reportes. Quedan para la integración del lunes 16.
