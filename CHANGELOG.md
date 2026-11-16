@@ -321,8 +321,10 @@ No se subió trabajo al repositorio esta semana.
 - Se implementaron y validaron los cuatro procedimientos almacenados en Oracle PL/SQL, con validaciones estrictas de reglas de negocio (aforo máximo, ausencia de empates en eliminatorias, rangos de goles y control de fases).
 - Se conectaron todos los módulos correspondientes a Santiago en la interfaz gráfica Swing a través de `VentanaPrincipal`.
 
-### Problemas encontrados
-
 - Las tablas de la Entrega 2 no tienen secuencias. El id nuevo se calcula con `NVL(MAX(id), 0) + 1` dentro del mismo `INSERT`; si dos personas guardan a la vez, la llave primaria rechaza la segunda.
 - En `VentanaPrincipal.java`, la integración previa de consultas y reportes contenía llamadas a `agregar()` con firma incorrecta (faltaban `colConsultas` y `colReportes`), lo que impedía compilar con `javac`. Se corrigieron los argumentos para restaurar la compilación limpia del proyecto.
 - Se identificó la necesidad de crear físicamente la tabla `tabla_posiciones` requerida para materializar los resultados de los grupos; se añadió el bloque de creación controlada en `procedimientos.sql`.
+- En `pr_actualizar_tabla_posiciones`, los partidos agendados pendientes (con marcador 0–0 por defecto) se computaban indebidamente como empates jugados con puntos; se corrigió la CTE agregando la condición `p.asistencia_registrada IS NOT NULL` y envolviendo agregados con `NVL(..., 0)`.
+- En `pr_carga_masiva_resultados`, la consulta del cursor utilizaba `INNER JOIN partido`, lo que causaba que resultados con identificadores de partido inexistentes o corruptos fueran omitidos silenciosamente sin marcarse con `'ERROR'` ni contarse como fallidos; se modificó a `LEFT JOIN` para capturar y asentar el error `ORA-20021`.
+- En `RepositoryEstadistica.consultarEstadisticas`, se presentaban filas duplicadas en la tabla de Swing cuando un jugador contaba con convocatorias en más de una edición mundialista; se reemplazó el join por una subconsulta correlacionada por partido y selección.
+- En `Partido.java`, el método `getMarcador()` desplegaba "0 - 0" en partidos futuros programados pendientes de juego; se ajustó para desplegar "vs" mientras la asistencia sea nula.

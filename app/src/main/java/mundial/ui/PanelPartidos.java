@@ -246,7 +246,13 @@ public class PanelPartidos extends JPanel {
             return;
         }
 
-        Partido p = partidos.get(fila);
+        int modeloFila = tabla.convertRowIndexToModel(fila);
+        Partido p = partidos.get(modeloFila);
+
+        if (p.getIdLocal() == null || p.getIdVisitante() == null) {
+            Mensajes.aviso(this, "El partido #" + p.getIdPartido() + " aún no tiene ambas selecciones participantes asignadas.");
+            return;
+        }
 
         JTextField txtGolesLocal = new JTextField(p.getGolesLocal() != null ? String.valueOf(p.getGolesLocal()) : "0", 5);
         JTextField txtGolesVis = new JTextField(p.getGolesVisitante() != null ? String.valueOf(p.getGolesVisitante()) : "0", 5);
@@ -324,7 +330,8 @@ public class PanelPartidos extends JPanel {
             Mensajes.aviso(this, "Seleccione un partido de la tabla.");
             return;
         }
-        Partido p = partidos.get(fila);
+        int modeloFila = tabla.convertRowIndexToModel(fila);
+        Partido p = partidos.get(modeloFila);
         int resp = JOptionPane.showConfirmDialog(this,
                 "¿Eliminar el partido #" + p.getIdPartido() + " (" + p.getPaisLocal() + " vs " + p.getPaisVisitante() + ")?\n" +
                 "Se eliminarán en cascada sus participaciones, estadísticas e incidencias.",

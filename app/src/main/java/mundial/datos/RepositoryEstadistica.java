@@ -14,13 +14,14 @@ public class RepositoryEstadistica {
         StringBuilder sql = new StringBuilder("SELECT e.id_estadistica, e.id_partido, e.id_jugador, e.titular, ");
         sql.append("e.minuto_entrada, e.minuto_salida, e.minutos_jugados, e.goles, e.asistencias, ");
         sql.append("e.tarjetas_amarillas, e.tarjetas_rojas, j.nombre AS nombre_jugador, j.posicion AS posicion_jugador, ");
-        sql.append("s.pais AS pais_seleccion, 'Partido #' || p.id_partido AS partido_info ");
+        sql.append("(SELECT s.pais FROM participacion_partido pp ");
+        sql.append(" JOIN convocatoria_jugador c ON c.id_seleccion = pp.id_seleccion AND c.id_jugador = e.id_jugador ");
+        sql.append(" JOIN seleccion s ON s.id_seleccion = pp.id_seleccion ");
+        sql.append(" WHERE pp.id_partido = p.id_partido AND ROWNUM = 1) AS pais_seleccion, ");
+        sql.append("'Partido #' || p.id_partido AS partido_info ");
         sql.append("FROM estadistica_jugador_partido e ");
         sql.append("JOIN jugador j ON j.id_jugador = e.id_jugador ");
         sql.append("JOIN partido p ON p.id_partido = e.id_partido ");
-        sql.append("LEFT JOIN convocatoria_jugador c ON c.id_jugador = e.id_jugador ");
-        sql.append("LEFT JOIN participacion_partido pp ON pp.id_partido = p.id_partido AND pp.id_seleccion = c.id_seleccion ");
-        sql.append("LEFT JOIN seleccion s ON s.id_seleccion = pp.id_seleccion ");
         sql.append("WHERE e.id_partido = ? ");
         sql.append("ORDER BY e.titular DESC, e.minutos_jugados DESC, j.nombre");
 

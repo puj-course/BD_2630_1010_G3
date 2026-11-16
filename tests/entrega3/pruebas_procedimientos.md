@@ -26,7 +26,9 @@ El script de pruebas se ubica en `tests/entrega3/pruebas_procedimientos.sql`. Ev
 | **R2** | `pr_registrar_resultado` | Marcador con goles fuera de rango (`goles_local = 16`). | `ORA-20023: Goles del local fuera de rango (0-15): 16` | Límite máximo de goles por partido (`ck_participacion_goles`). |
 | **R3** | `pr_registrar_resultado` | Asistencia de 80.000 en estadio 97 con aforo de 60.000. | `ORA-20024: La asistencia (80000) supera la capacidad del estadio (60000)` | Control de aforo máximo de estadios en partidos. |
 | **R4** | `pr_registrar_resultado` | Registro de empate (2-2) en un partido de fase eliminatoria (partido 448, Final). | `ORA-20025: Un partido de fase eliminatoria no puede terminar en empate` | Desempate reglamentario obligatorio en llaves eliminatorias. |
-| **M2** | `pr_carga_masiva_resultados` | Lote que contiene un resultado con goles negativos (`goles = -1`). | Fila marcada en estado `'ERROR'` con el mensaje de excepción sin interrumpir el procesamiento del resto del lote. | Aislamiento y tolerancia a fallos por `SAVEPOINT`. |
+| **R5** | `pr_registrar_resultado` | Partido inexistente (`id_partido = 999999`). | `ORA-20021: El partido 999999 no existe` | Integridad referencial del partido. |
+| **M2** | `pr_carga_masiva_resultados` | Lote con resultado con goles negativos (`goles = -1`). | Fila marcada en estado `'ERROR'` con el mensaje de excepción sin interrumpir el procesamiento del resto del lote. | Aislamiento y tolerancia a fallos por `SAVEPOINT`. |
+| **M3** | `pr_carga_masiva_resultados` | Lote con partido inexistente (`id_partido = 999999`). | Fila no omitida silenciosamente: capturada, procesada y marcada como `'ERROR'` con mensaje `ORA-20021`. | Integridad en procesamiento masivo de datos externos. |
 | **C2** | `pr_cierre_fase` | Fase que no pertenece a la edición (`id_fase = 99999`). | `ORA-20026: La fase 99999 no existe en la edicion 7` | Coherencia de fases y torneos. |
 
 ---

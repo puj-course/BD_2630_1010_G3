@@ -105,6 +105,9 @@ public class Partido {
     public void setGolesVisitante(Integer golesVisitante) { this.golesVisitante = golesVisitante; }
 
     public String getMarcador() {
+        if (asistenciaRegistrada == null) {
+            return "vs";
+        }
         if (golesLocal != null && golesVisitante != null) {
             return golesLocal + " - " + golesVisitante;
         }

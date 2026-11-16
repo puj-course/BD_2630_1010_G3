@@ -78,6 +78,15 @@ EXCEPTION
 END;
 /
 
+-- Caso R5 (Fallido): Partido inexistente (debe lanzar ORA-20021)
+BEGIN
+    pr_registrar_resultado(999999, 1, 0, 40000);
+EXCEPTION
+    WHEN OTHERS THEN
+        DBMS_OUTPUT.PUT_LINE('R5 esperado: ' || SQLERRM);
+END;
+/
+
 
 -- ------------------------------------------------------------
 -- 3. PR_CARGA_MASIVA_RESULTADOS
@@ -93,6 +102,10 @@ VALUES (9001, 386, 6, 2, 45000, 'PENDIENTE');
 INSERT INTO resultado_carga_temporal (id_carga, id_partido, goles_local, goles_visitante, asistencia, estado)
 VALUES (9002, 386, -1, 2, 45000, 'PENDIENTE');
 
+-- Fila 3 invalida (partido inexistente en el torneo)
+INSERT INTO resultado_carga_temporal (id_carga, id_partido, goles_local, goles_visitante, asistencia, estado)
+VALUES (9003, 999999, 1, 0, 30000, 'PENDIENTE');
+
 DECLARE
     v_proc NUMBER;
     v_exit NUMBER;
@@ -106,7 +119,7 @@ END;
 -- Revisar el estado registrado en la tabla temporal
 SELECT id_carga, id_partido, estado, mensaje_error
 FROM resultado_carga_temporal
-WHERE id_carga IN (9001, 9002);
+WHERE id_carga IN (9001, 9002, 9003);
 
 DELETE FROM resultado_carga_temporal WHERE id_carga >= 9001;
 

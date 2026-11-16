@@ -112,24 +112,26 @@ IS
             JOIN fase f ON f.id_fase = p.id_fase
             WHERE f.tipo = 'GRUPOS'
               AND p.id_edicion = p_id_edicion
+              AND p.asistencia_registrada IS NOT NULL
         ),
         acumulado AS (
             SELECT s.id_grupo,
                    s.id_seleccion,
                    s.pais,
                    COUNT(r.id_seleccion) AS jugados,
-                   SUM(CASE WHEN r.gf > r.gc THEN 1 ELSE 0 END) AS ganados,
-                   SUM(CASE WHEN r.gf = r.gc THEN 1 ELSE 0 END) AS empatados,
-                   SUM(CASE WHEN r.gf < r.gc THEN 1 ELSE 0 END) AS perdidos,
+                   NVL(SUM(CASE WHEN r.gf > r.gc THEN 1 ELSE 0 END), 0) AS ganados,
+                   NVL(SUM(CASE WHEN r.gf = r.gc THEN 1 ELSE 0 END), 0) AS empatados,
+                   NVL(SUM(CASE WHEN r.gf < r.gc THEN 1 ELSE 0 END), 0) AS perdidos,
                    NVL(SUM(r.gf), 0) AS goles_favor,
                    NVL(SUM(r.gc), 0) AS goles_contra,
                    NVL(SUM(r.gf - r.gc), 0) AS diferencia,
-                   SUM(CASE WHEN r.gf > r.gc THEN 3 WHEN r.gf = r.gc THEN 1 ELSE 0 END) AS puntos
+                   NVL(SUM(CASE WHEN r.gf > r.gc THEN 3 WHEN r.gf = r.gc THEN 1 ELSE 0 END), 0) AS puntos
             FROM seleccion s
             JOIN grupo g ON g.id_grupo = s.id_grupo
             JOIN fase f ON f.id_fase = g.id_fase
             LEFT JOIN resultados r ON r.id_seleccion = s.id_seleccion
             WHERE s.id_edicion = p_id_edicion
+              AND f.id_edicion = p_id_edicion
               AND f.tipo = 'GRUPOS'
             GROUP BY s.id_grupo, s.id_seleccion, s.pais
         )
@@ -220,11 +222,11 @@ BEGIN
     END;
 
     -- 2. Validar rango de goles
-    IF p_goles_local < 0 OR p_goles_local > 15 THEN
-        RAISE_APPLICATION_ERROR(-20023, 'Goles del local fuera de rango (0-15): ' || p_goles_local);
+    IF p_goles_local IS NULL OR p_goles_local < 0 OR p_goles_local > 15 THEN
+        RAISE_APPLICATION_ERROR(-20023, 'Goles del local fuera de rango (0-15): ' || NVL(TO_CHAR(p_goles_local), 'NULL'));
     END IF;
-    IF p_goles_visitante < 0 OR p_goles_visitante > 15 THEN
-        RAISE_APPLICATION_ERROR(-20023, 'Goles del visitante fuera de rango (0-15): ' || p_goles_visitante);
+    IF p_goles_visitante IS NULL OR p_goles_visitante < 0 OR p_goles_visitante > 15 THEN
+        RAISE_APPLICATION_ERROR(-20023, 'Goles del visitante fuera de rango (0-15): ' || NVL(TO_CHAR(p_goles_visitante), 'NULL'));
     END IF;
 
     -- 3. Validar asistencia
@@ -239,7 +241,7 @@ BEGIN
     END IF;
 
     -- 4. Validar empate en fase eliminatoria
-    IF v_tipo_fase = 'ELIMINATORIA' AND p_goles_local = p_goles_visitante THEN
+    IF UPPER(TRIM(v_tipo_fase)) = 'ELIMINATORIA' AND p_goles_local = p_goles_visitante THEN
         RAISE_APPLICATION_ERROR(-20025, 'Un partido de fase eliminatoria no puede terminar en empate');
     END IF;
 
@@ -279,9 +281,9 @@ BEGIN
     SET goles_marcados = p_goles_visitante
     WHERE id_participacion = v_id_part_vis;
 
-    -- 7. Actualizar asistencia
+    -- 7. Actualizar asistencia (si es nula se registra 0 para formalizar que el partido fue disputado)
     UPDATE partido
-    SET asistencia_registrada = p_asistencia
+    SET asistencia_registrada = NVL(p_asistencia, 0)
     WHERE id_partido = p_id_partido;
 
     -- 8. Actualizar automaticamente tabla de posiciones si es fase de grupos
@@ -314,9 +316,9 @@ IS
     CURSOR c_cargas IS
         SELECT rct.id_carga, rct.id_partido, rct.goles_local, rct.goles_visitante, rct.asistencia
         FROM resultado_carga_temporal rct
-        JOIN partido p ON p.id_partido = rct.id_partido
-        WHERE p.id_edicion = p_id_edicion
-          AND rct.estado = 'PENDIENTE'
+        LEFT JOIN partido p ON p.id_partido = rct.id_partido
+        WHERE rct.estado = 'PENDIENTE'
+          AND (p.id_edicion = p_id_edicion OR p.id_partido IS NULL)
         ORDER BY rct.id_carga;
 BEGIN
     p_procesados := 0;
@@ -518,5 +520,7 @@ EXEC pr_registrar_resultado(385, 0, 2, 60000);
 
 -- C. Probar cierre de fase de grupos en la edicion 7
 EXEC pr_cierre_fase(7, 37);
+
+COMMIT;
 
 EXIT;
