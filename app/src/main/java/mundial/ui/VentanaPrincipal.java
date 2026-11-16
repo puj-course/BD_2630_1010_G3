@@ -62,3 +62,94 @@ public class VentanaPrincipal extends JFrame {
         irInicio.addActionListener(e -> mostrarInicio());
         JMenuItem salir = new JMenuItem("Salir");
         salir.addActionListener(e -> dispose());
+        aplicacion.add(irInicio);
+        aplicacion.addSeparator();
+        aplicacion.add(salir);
+
+        JMenuBar barra = new JMenuBar();
+        barra.add(aplicacion);
+        barra.add(catalogos);
+        barra.add(partidos);
+        barra.add(consultas);
+        barra.add(reportes);
+        setJMenuBar(barra);
+
+        inicio = armarInicio(modulos);
+        mostrarInicio();
+    }
+
+    private void agregar(JMenu menu, JPanel columna, String titulo, Pantalla pantalla) {
+        JMenuItem item = new JMenuItem(titulo);
+        item.addActionListener(e -> mostrar(pantalla.crear()));
+        menu.add(item);
+
+        JButton boton = new JButton(titulo);
+        boton.addActionListener(e -> mostrar(pantalla.crear()));
+        columna.add(boton);
+    }
+
+    // Devuelve la lista de botones del modulo. Va dentro de un recuadro con el titulo.
+    private JPanel columna(JPanel modulos, String titulo) {
+        JPanel botones = new JPanel(new GridLayout(0, 1, 0, 8));
+        JPanel recuadro = new JPanel(new BorderLayout());
+        recuadro.setBorder(BorderFactory.createCompoundBorder(
+                BorderFactory.createTitledBorder(titulo),
+                BorderFactory.createEmptyBorder(8, 8, 8, 8)));
+        recuadro.add(botones, BorderLayout.NORTH);
+        modulos.add(recuadro);
+        return botones;
+    }
+
+    private JPanel armarInicio(JPanel modulos) {
+        JLabel titulo = new JLabel("Copa Mundial de la FIFA");
+        titulo.setFont(titulo.getFont().deriveFont(Font.BOLD, 26f));
+        JLabel subtitulo = new JLabel("Sistema de gestión del torneo. Conectado a Oracle como " + usuario + ".");
+        subtitulo.setFont(subtitulo.getFont().deriveFont(Font.PLAIN, 14f));
+
+        JPanel encabezado = new JPanel(new GridLayout(2, 1, 0, 4));
+        encabezado.add(titulo);
+        encabezado.add(subtitulo);
+
+        JLabel ayuda = new JLabel("Elija un módulo. También puede usar el menú de arriba y volver aquí con Aplicación > Inicio.");
+
+        JPanel panel = new JPanel(new BorderLayout(0, 20));
+        panel.setBorder(BorderFactory.createEmptyBorder(30, 30, 30, 30));
+        panel.add(encabezado, BorderLayout.NORTH);
+        // En NORTH las columnas quedan del alto de su contenido y no se estiran hasta abajo.
+        JPanel centro = new JPanel(new BorderLayout());
+        centro.add(modulos, BorderLayout.NORTH);
+        panel.add(centro, BorderLayout.CENTER);
+        panel.add(ayuda, BorderLayout.SOUTH);
+        return panel;
+    }
+
+    private void mostrarInicio() {
+        mostrar(inicio);
+    }
+
+    private void mostrar(JPanel panel) {
+        getContentPane().removeAll();
+        getContentPane().add(panel, BorderLayout.CENTER);
+        revalidate();
+        repaint();
+    }
+
+    private JPanel pendiente(String titulo) {
+        JLabel texto = new JLabel(titulo + ": este módulo todavía está en construcción.", SwingConstants.CENTER);
+        texto.setFont(texto.getFont().deriveFont(Font.PLAIN, 16f));
+        JButton volver = new JButton("Volver al inicio");
+        volver.addActionListener(e -> mostrarInicio());
+        JPanel abajo = new JPanel();
+        abajo.add(volver);
+
+        JPanel panel = new JPanel(new BorderLayout());
+        panel.add(texto, BorderLayout.CENTER);
+        panel.add(abajo, BorderLayout.SOUTH);
+        return panel;
+    }
+
+    @FunctionalInterface
+    private interface Pantalla {
+        JPanel crear();
+    }
+}
