@@ -26,3 +26,25 @@ BEGIN
     RETURN v_diferencia;
 END fn_diferencia_gol;
 /
+
+-- ------------------------------------------------------------
+-- 2. Goles de un jugador en una edicion
+-- ------------------------------------------------------------
+
+CREATE OR REPLACE FUNCTION fn_goles_jugador (
+    p_id_jugador IN NUMBER,
+    p_id_edicion IN NUMBER
+) RETURN NUMBER
+IS
+    v_goles NUMBER;
+BEGIN
+    SELECT NVL(SUM(e.goles), 0)
+    INTO v_goles
+    FROM estadistica_jugador_partido e
+    JOIN partido p ON p.id_partido = e.id_partido
+    WHERE e.id_jugador = p_id_jugador
+      AND p.id_edicion = p_id_edicion;
+
+    RETURN v_goles;
+END fn_goles_jugador;
+/
