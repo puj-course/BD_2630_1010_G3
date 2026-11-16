@@ -49,13 +49,13 @@ public class VentanaPrincipal extends JFrame {
 
         JMenu consultas = new JMenu("Consultas");
         JPanel colConsultas = columna(modulos, "Consultas");
-        agregar(consultas, colConsultas, "Tabla de posiciones", () -> pendiente("Tabla de posiciones"));
-        agregar(consultas, colConsultas, "Resultados", () -> pendiente("Resultados"));
-        agregar(consultas, colConsultas, "Incidencias", () -> pendiente("Consulta de incidencias"));
+        agregar(consultas, "Tabla de posiciones", PanelPosiciones::new);
+        agregar(consultas, "Resultados", PanelResultados::new);
+        agregar(consultas, "Incidencias", PanelConsultaIncidencias::new);
 
         JMenu reportes = new JMenu("Reportes");
         JPanel colReportes = columna(modulos, "Reportes");
-        agregar(reportes, colReportes, "Panel de reportes", () -> pendiente("Panel de reportes"));
+        agregar(reportes, "Panel de reportes", PanelReportes::new);
 
 
         JMenu aplicacion = new JMenu("Aplicación");
