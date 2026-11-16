@@ -19,8 +19,12 @@ public class RepositoryReportes {
         sql.append("FROM jugador j ");
         sql.append("JOIN convocatoria_jugador c ON c.id_jugador = j.id_jugador ");
         sql.append("JOIN seleccion s ON s.id_seleccion = c.id_seleccion ");
-        sql.append("WHERE s.id_edicion = ?) ");
-        sql.append("WHERE goles > 0 AND posicion <= ? ");
+        sql.append("WHERE s.id_edicion = ? ");
+        // Solo los que marcaron, para no llamar las funciones con todos los convocados
+        sql.append("AND EXISTS (SELECT 1 FROM estadistica_jugador_partido e ");
+        sql.append("JOIN partido p ON p.id_partido = e.id_partido ");
+        sql.append("WHERE e.id_jugador = j.id_jugador AND p.id_edicion = s.id_edicion AND e.goles > 0)) ");
+        sql.append("WHERE posicion <= ? ");
         sql.append("ORDER BY posicion, nombre");
 
         List<FilaGoleador> filas = new ArrayList<>();
