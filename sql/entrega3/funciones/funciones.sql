@@ -48,3 +48,61 @@ BEGIN
     RETURN v_goles;
 END fn_goles_jugador;
 /
+
+-- ------------------------------------------------------------
+-- 3. Puesto de un jugador en el ranking de goleadores de una edicion
+-- ------------------------------------------------------------
+
+CREATE OR REPLACE FUNCTION fn_posicion_goleador (
+    p_id_jugador IN NUMBER,
+    p_id_edicion IN NUMBER
+) RETURN NUMBER
+IS
+    v_goles   NUMBER;
+    v_encima  NUMBER;
+BEGIN
+    v_goles := fn_goles_jugador(p_id_jugador, p_id_edicion);
+
+    -- Cuantos jugadores de la edicion tienen mas goles; los empatados comparten puesto
+    SELECT COUNT(*)
+    INTO v_encima
+    FROM (SELECT e.id_jugador, SUM(e.goles) AS goles
+          FROM estadistica_jugador_partido e
+          JOIN partido p ON p.id_partido = e.id_partido
+          WHERE p.id_edicion = p_id_edicion
+          GROUP BY e.id_jugador)
+    WHERE goles > v_goles;
+
+    RETURN v_encima + 1;
+END fn_posicion_goleador;
+/
+
+
+
+-- ------------------------------------------------------------
+-- 4. Cupos libres en la convocatoria de una seleccion (maximo 26)
+-- ------------------------------------------------------------
+
+CREATE OR REPLACE FUNCTION fn_cupo_convocatoria (
+    p_id_seleccion IN NUMBER
+) RETURN NUMBER
+IS
+    c_maximo      CONSTANT NUMBER := 26;
+    v_existe      NUMBER;
+    v_convocados  NUMBER;
+BEGIN
+    SELECT COUNT(*) INTO v_existe
+    FROM seleccion
+    WHERE id_seleccion = p_id_seleccion;
+
+    IF v_existe = 0 THEN
+        RAISE_APPLICATION_ERROR(-20010, 'La seleccion ' || p_id_seleccion || ' no existe');
+    END IF;
+
+    SELECT COUNT(*) INTO v_convocados
+    FROM convocatoria_jugador
+    WHERE id_seleccion = p_id_seleccion;
+
+    RETURN c_maximo - v_convocados;
+END fn_cupo_convocatoria;
+/
