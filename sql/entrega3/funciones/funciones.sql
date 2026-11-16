@@ -4,7 +4,6 @@
 
 SET SQLBLANKLINES ON
 
-
 -- ------------------------------------------------------------
 -- 1. Diferencia de gol de una seleccion en todos sus partidos
 -- ------------------------------------------------------------
@@ -104,3 +103,39 @@ BEGIN
     RETURN c_maximo - v_convocados;
 END fn_cupo_convocatoria;
 /
+
+-- ------------------------------------------------------------
+-- Pruebas rapidas
+-- ------------------------------------------------------------
+
+-- Diferencia de gol de las selecciones de la edicion 7
+SELECT pais, fn_diferencia_gol(id_seleccion) AS diferencia_gol
+FROM seleccion
+WHERE id_edicion = 7
+ORDER BY diferencia_gol DESC;
+
+-- Top 5 goleadores de la edicion 7
+SELECT *
+FROM (SELECT j.nombre,
+             fn_goles_jugador(j.id_jugador, 7) AS goles,
+             fn_posicion_goleador(j.id_jugador, 7) AS posicion
+      FROM jugador j
+      WHERE EXISTS (SELECT 1
+                    FROM estadistica_jugador_partido e
+                    JOIN partido p ON p.id_partido = e.id_partido
+                    WHERE e.id_jugador = j.id_jugador
+                      AND p.id_edicion = 7))
+WHERE goles > 0 AND posicion <= 5
+ORDER BY posicion, nombre;
+
+-- Cupos libres por seleccion de la edicion 7 (con 26 convocados deben dar 0)
+SELECT pais, fn_cupo_convocatoria(id_seleccion) AS cupos_libres
+FROM seleccion
+WHERE id_edicion = 7
+ORDER BY pais;
+
+-- Seleccion que no existe: debe dar ORA-20010
+SELECT fn_cupo_convocatoria(999999) FROM dual;
+
+
+EXIT;
