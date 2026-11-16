@@ -10,7 +10,6 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
-import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import mundial.datos.Edicion;
 import mundial.datos.FilaFase;
@@ -46,15 +45,15 @@ public class PanelReportes extends JPanel {
         filtros.add(generar);
 
         JPanel norte = new JPanel(new BorderLayout());
-        norte.add(new JLabel("Panel de reportes"), BorderLayout.NORTH);
+        norte.add(Tablas.titulo("Panel de reportes"), BorderLayout.NORTH);
         norte.add(filtros, BorderLayout.CENTER);
         add(norte, BorderLayout.NORTH);
 
         JTabbedPane pestanas = new JTabbedPane();
-        pestanas.addTab("Goleadores", new JScrollPane(new JTable(goleadores)));
-        pestanas.addTab("Por seleccion", new JScrollPane(new JTable(selecciones)));
-        pestanas.addTab("Por fase", new JScrollPane(new JTable(fases)));
-        pestanas.addTab("Incidencias por fase y estadio", new JScrollPane(new JTable(incidencias)));
+        pestanas.addTab("Goleadores", new JScrollPane(Tablas.crear(goleadores, true)));
+        pestanas.addTab("Por seleccion", new JScrollPane(Tablas.crear(selecciones, false)));
+        pestanas.addTab("Por fase", new JScrollPane(Tablas.crear(fases, false)));
+        pestanas.addTab("Incidencias por fase y estadio", new JScrollPane(Tablas.crear(incidencias, false)));
         add(pestanas, BorderLayout.CENTER);
 
         Tablas.cargarEdiciones(this, ediciones);
