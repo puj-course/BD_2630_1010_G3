@@ -10,7 +10,6 @@ import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import mundial.datos.Edicion;
 import mundial.datos.FilaIncidencia;
@@ -45,10 +44,10 @@ public class PanelConsultaIncidencias extends JPanel {
         filtros.add(consultar);
 
         JPanel norte = new JPanel(new BorderLayout());
-        norte.add(new JLabel("Incidencias de los partidos"), BorderLayout.NORTH);
+        norte.add(Tablas.titulo("Incidencias de los partidos"), BorderLayout.NORTH);
         norte.add(filtros, BorderLayout.CENTER);
         add(norte, BorderLayout.NORTH);
-        add(new JScrollPane(new JTable(modelo)), BorderLayout.CENTER);
+        add(new JScrollPane(Tablas.crear(modelo, false)), BorderLayout.CENTER);
         add(total, BorderLayout.SOUTH);
 
         Tablas.llenarOpciones(tipos, TIPOS);
