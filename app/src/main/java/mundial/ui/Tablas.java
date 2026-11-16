@@ -1,6 +1,7 @@
 package mundial.ui;
 
 import java.awt.Component;
+import java.awt.Dimension;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
@@ -31,6 +32,7 @@ final class Tablas {
 
     // Llena el combo y deja seleccionada la edicion mas reciente
     static void cargarEdiciones(Component padre, JComboBox<Edicion> combo) {
+        ancho(combo, 220);
         try {
             List<Edicion> ediciones = new RepositoryEdicion().consultarEdiciones();
             for (Edicion e : ediciones) {
@@ -42,6 +44,11 @@ final class Tablas {
         } catch (SQLException ex) {
             error(padre, ex);
         }
+    }
+
+    // Con el aspecto de Windows los combos quedan muy angostos y cortan el texto
+    static void ancho(JComboBox<?> combo, int ancho) {
+        combo.setPreferredSize(new Dimension(ancho, combo.getPreferredSize().height));
     }
 
     static void llenarOpciones(JComboBox<String> combo, List<String> opciones) {
