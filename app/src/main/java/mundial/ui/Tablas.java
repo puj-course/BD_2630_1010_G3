@@ -6,7 +6,8 @@ import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.List;
 import javax.swing.JComboBox;
-import javax.swing.JOptionPane;
+import javax.swing.JLabel;
+import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import mundial.datos.Edicion;
 import mundial.datos.RepositoryEdicion;
@@ -62,6 +63,22 @@ final class Tablas {
     }
 
     static void error(Component padre, SQLException ex) {
-        JOptionPane.showMessageDialog(padre, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        Mensajes.error(padre, ex);
+    }
+
+    // Aplica el estilo comun; si la primera columna no es corta se le quita el ancho maximo de Estilo
+    static JTable crear(DefaultTableModel modelo, boolean primeraCorta) {
+        JTable tabla = new JTable(modelo);
+        Estilo.tabla(tabla);
+        if (!primeraCorta) {
+            tabla.getColumnModel().getColumn(0).setMaxWidth(Integer.MAX_VALUE);
+        }
+        return tabla;
+    }
+
+    static JLabel titulo(String texto) {
+        JLabel label = new JLabel(texto);
+        Estilo.titulo(label);
+        return label;
     }
 }
