@@ -9,7 +9,6 @@ import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import mundial.datos.Edicion;
 import mundial.datos.FilaResultado;
@@ -37,10 +36,10 @@ public class PanelResultados extends JPanel {
         filtros.add(consultar);
 
         JPanel norte = new JPanel(new BorderLayout());
-        norte.add(new JLabel("Resultados de los partidos"), BorderLayout.NORTH);
+        norte.add(Tablas.titulo("Resultados de los partidos"), BorderLayout.NORTH);
         norte.add(filtros, BorderLayout.CENTER);
         add(norte, BorderLayout.NORTH);
-        add(new JScrollPane(new JTable(modelo)), BorderLayout.CENTER);
+        add(new JScrollPane(Tablas.crear(modelo, false)), BorderLayout.CENTER);
 
         Tablas.cargarEdiciones(this, ediciones);
         cargarFases();
