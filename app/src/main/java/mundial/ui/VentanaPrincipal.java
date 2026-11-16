@@ -39,13 +39,13 @@ public class VentanaPrincipal extends JFrame {
         catalogos.addSeparator();
         // Cada integrante cambia pendiente(...) por su propio panel.
         agregar(catalogos, colCatalogos, "Selecciones y grupos", () -> pendiente("Selecciones y grupos"));
-        agregar(catalogos, colCatalogos, "Jugadores y cuerpo técnico", () -> pendiente("Jugadores y cuerpo técnico"));
+        agregar(catalogos, colCatalogos, "Jugadores y cuerpo técnico", PanelJugadoresCuerpoTecnico::new);
 
         JMenu partidos = new JMenu("Partidos");
         JPanel colPartidos = columna(modulos, "Partidos");
-        agregar(partidos, colPartidos, "Registro de partidos", () -> pendiente("Registro de partidos"));
-        agregar(partidos, colPartidos, "Estadísticas", () -> pendiente("Estadísticas"));
-        agregar(partidos, colPartidos, "Incidencias", () -> pendiente("Incidencias"));
+        agregar(partidos, colPartidos, "Registro de partidos", PanelPartidos::new);
+        agregar(partidos, colPartidos, "Estadísticas", PanelEstadisticas::new);
+        agregar(partidos, colPartidos, "Incidencias", PanelIncidencias::new);
 
         JMenu consultas = new JMenu("Consultas");
         JPanel colConsultas = columna(modulos, "Consultas");
@@ -56,6 +56,7 @@ public class VentanaPrincipal extends JFrame {
         JMenu reportes = new JMenu("Reportes");
         JPanel colReportes = columna(modulos, "Reportes");
         agregar(reportes, colReportes, "Panel de reportes", PanelReportes::new);
+
 
         JMenu aplicacion = new JMenu("Aplicación");
         JMenuItem irInicio = new JMenuItem("Inicio");
