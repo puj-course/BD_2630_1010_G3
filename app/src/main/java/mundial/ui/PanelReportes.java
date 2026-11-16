@@ -39,6 +39,7 @@ public class PanelReportes extends JPanel {
         filtros.add(ediciones);
         filtros.add(new JLabel("Top goleadores:"));
         top.setSelectedItem(10);
+        Tablas.ancho(top, 70);
         filtros.add(top);
         JButton generar = new JButton("Generar");
         generar.addActionListener(e -> cargar());
