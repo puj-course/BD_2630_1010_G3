@@ -12,30 +12,32 @@ public class RepositoryReportes {
 
     // Usa fn_goles_jugador y fn_posicion_goleador de funciones.sql
     public List<FilaGoleador> consultarGoleadores(int idEdicion, int top) throws SQLException {
-        StringBuilder sql = new StringBuilder("SELECT * FROM ( ");
-        sql.append("SELECT j.nombre, s.pais, ");
+        // Las funciones solo van en el SELECT: en el WHERE Oracle las llamaria con todos los convocados
+        StringBuilder sql = new StringBuilder("SELECT j.nombre, s.pais, ");
         sql.append("fn_goles_jugador(j.id_jugador, s.id_edicion) AS goles, ");
         sql.append("fn_posicion_goleador(j.id_jugador, s.id_edicion) AS posicion ");
         sql.append("FROM jugador j ");
         sql.append("JOIN convocatoria_jugador c ON c.id_jugador = j.id_jugador ");
         sql.append("JOIN seleccion s ON s.id_seleccion = c.id_seleccion ");
         sql.append("WHERE s.id_edicion = ? ");
-        // Solo los que marcaron, para no llamar las funciones con todos los convocados
         sql.append("AND EXISTS (SELECT 1 FROM estadistica_jugador_partido e ");
         sql.append("JOIN partido p ON p.id_partido = e.id_partido ");
-        sql.append("WHERE e.id_jugador = j.id_jugador AND p.id_edicion = s.id_edicion AND e.goles > 0)) ");
-        sql.append("WHERE posicion <= ? ");
-        sql.append("ORDER BY posicion, nombre");
+        sql.append("WHERE e.id_jugador = j.id_jugador AND p.id_edicion = s.id_edicion AND e.goles > 0) ");
+        sql.append("ORDER BY posicion, j.nombre");
 
         List<FilaGoleador> filas = new ArrayList<>();
         try (Connection conex = Conexion.abrir();
              PreparedStatement ps = conex.prepareStatement(sql.toString())) {
             ps.setInt(1, idEdicion);
-            ps.setInt(2, top);
             try (ResultSet rs = ps.executeQuery()) {
                 while (rs.next()) {
+                    int posicion = rs.getInt("POSICION");
+                    // Vienen ordenados: al pasar el top ya no hace falta leer mas
+                    if (posicion > top) {
+                        break;
+                    }
                     filas.add(new FilaGoleador(
-                            rs.getInt("POSICION"),
+                            posicion,
                             rs.getString("NOMBRE"),
                             rs.getString("PAIS"),
                             rs.getInt("GOLES")));
