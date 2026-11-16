@@ -33,3 +33,25 @@ Muestra cada incidencia con el partido en que ocurrió, el estadio, el minuto y 
 
 ---
 
+## 2. Panel de reportes
+
+Filtros: edición y cantidad de goleadores (top 5, 10 o 20). El panel tiene cuatro pestañas.
+
+| Pestaña | Qué muestra | Función que usa |
+|---|---|---|
+| Goleadores | Puesto, jugador, selección y goles | `fn_goles_jugador`, `fn_posicion_goleador` |
+| Por selección | Partidos jugados, ganados, empatados, perdidos, goles a favor, goles en contra y diferencia de gol de cada selección | `fn_diferencia_gol` |
+| Por fase | Partidos, goles, promedio de goles por partido y asistencia total de cada fase | — |
+| Incidencias por fase y estadio | Cantidad de incidencias en cada combinación de fase y estadio, de mayor a menor | — |
+
+En la pestaña de goleadores, los jugadores con los mismos goles comparten puesto, así que el top 10 puede mostrar más de 10 filas.
+
+Antes de abrir el panel de reportes hay que ejecutar `sql/entrega3/funciones/funciones.sql`. Si las funciones no existen, Oracle devuelve un error y la aplicación lo muestra con `Mensajes`.
+
+---
+
+## 3. Clases
+
+Las clases `Fila*` del paquete `mundial.datos` no representan tablas: cada una guarda una fila del resultado de una consulta (por ejemplo, `FilaPosicion` es una fila de la tabla de posiciones). Por eso solo tienen getters.
+
+La clase `Tablas` reúne lo que comparten los cuatro paneles: el combo de ediciones, la opción "Todos" de los filtros, el formato de las fechas y la creación de las tablas con el estilo de `Estilo`.
