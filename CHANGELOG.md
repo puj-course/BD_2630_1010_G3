@@ -307,14 +307,22 @@ No se subió trabajo al repositorio esta semana.
 | Catálogos de sedes, ciudades y estadios | Nicolás Mamian | `feature/catalogo-sedes-ciudades-estadios` | Mismo patrón de ediciones. La tabla padre se escoge de una lista al crear o editar (PR #65) |
 | Pantalla de inicio y mensajes | Nicolás Mamian | `feature/catalogo-sedes-ciudades-estadios` | Inicio con botones por módulo. Cada catálogo dice qué pasó después de agregar, editar o eliminar, y explica los errores de Oracle más comunes |
 | README de la aplicación y arquitectura | Nicolás Mamian | `feature/catalogo-sedes-ciudades-estadios` | `app/README.md` y `docs/entrega3/arquitectura_aplicacion.md` con el diagrama de capas |
+| Consultas y módulo de reportes | Daniel Rozo | `feature/consultas-reportes` | Implementación de funciones SQL, repositorio de reportes y paneles de posiciones, resultados, incidencias y reportes (PR #69) |
+| Procedimientos almacenados y tabla de posiciones | Santiago P. | `feature/procedimientos-partidos` | Script `procedimientos.sql` con `pr_actualizar_tabla_posiciones`, `pr_registrar_resultado`, `pr_carga_masiva_resultados`, `pr_cierre_fase` y DDL de `tabla_posiciones` |
+| Documentación y casos de prueba de procedimientos | Santiago P. | `feature/procedimientos-partidos` | Sección técnica en `docs/entrega3/documentacion_programacion_bd.md`, script `pruebas_procedimientos.sql` y reporte en `tests/entrega3/pruebas_procedimientos.md` |
+| Catálogo de jugadores, cuerpo técnico y convocatorias | Santiago P. | `feature/procedimientos-partidos` | `PanelJugadoresCuerpoTecnico`, entidades `Jugador`, `CuerpoTecnico`, `ConvocatoriaJugador` y repositorios correspondientes |
+| Módulo de partidos, estadísticas e incidencias | Santiago P. | `feature/procedimientos-partidos` | `PanelPartidos` (con cierre de fase y registro de marcador), `PanelEstadisticas`, `PanelIncidencias`, entidades y repositorios DAO |
 
 ### Cambios principales
 
 - La aplicación sigue el patrón de la clase de JDBC: una entidad con getters y setters y una clase `RepositoryXXX` por tabla, SQL armado con `StringBuilder` y ejecutado con `PreparedStatement` dentro de try-with-resources.
 - La contraseña de Oracle no está en el repositorio. Cada integrante copia `config.example.properties` como `config.properties`, que está en el `.gitignore`.
 - Los catálogos se probaron contra el servidor: crear, editar y borrar en las cuatro tablas, más los errores `ORA-00001` (sede repetida), `ORA-02290` (estadio con aforo de 10) y `ORA-02292` (borrar una sede con ciudades o un estadio con partidos). Los datos de prueba se borraron al final.
+- Se implementaron y validaron los cuatro procedimientos almacenados en Oracle PL/SQL, con validaciones estrictas de reglas de negocio (aforo máximo, ausencia de empates en eliminatorias, rangos de goles y control de fases).
+- Se conectaron todos los módulos correspondientes a Santiago en la interfaz gráfica Swing a través de `VentanaPrincipal`.
 
 ### Problemas encontrados
 
 - Las tablas de la Entrega 2 no tienen secuencias. El id nuevo se calcula con `NVL(MAX(id), 0) + 1` dentro del mismo `INSERT`; si dos personas guardan a la vez, la llave primaria rechaza la segunda.
-- Al cierre de la semana no están en `main` los triggers, las funciones ni los procedimientos, ni las pantallas de selecciones, jugadores, partidos, posiciones, incidencias y reportes. Quedan para la integración del lunes 16.
+- En `VentanaPrincipal.java`, la integración previa de consultas y reportes contenía llamadas a `agregar()` con firma incorrecta (faltaban `colConsultas` y `colReportes`), lo que impedía compilar con `javac`. Se corrigieron los argumentos para restaurar la compilación limpia del proyecto.
+- Se identificó la necesidad de crear físicamente la tabla `tabla_posiciones` requerida para materializar los resultados de los grupos; se añadió el bloque de creación controlada en `procedimientos.sql`.

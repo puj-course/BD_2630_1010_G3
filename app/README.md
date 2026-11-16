@@ -53,10 +53,12 @@ En ese caso el directorio de trabajo de la configuracion de ejecucion debe ser `
 | Catalogos | Ciudades | Listar, crear, editar y borrar |
 | Catalogos | Estadios | Listar, crear, editar y borrar |
 | Catalogos | Selecciones y grupos | Pendiente |
-| Catalogos | Jugadores y cuerpo tecnico | Pendiente |
-| Partidos | Registro de partidos, estadisticas, incidencias | Pendiente |
-| Consultas | Tabla de posiciones, resultados, incidencias | Pendiente |
-| Reportes | Panel de reportes | Pendiente |
+| Catalogos | Jugadores y cuerpo tecnico | Ficha de jugadores, cuerpo técnico por selección y convocatorias con dorsal y capitanía |
+| Partidos | Registro de partidos | Programar encuentros, registrar resultado con `pr_registrar_resultado`, cerrar fase con `pr_cierre_fase` y eliminar |
+| Partidos | Estadísticas | Alineaciones, minutos jugados, goles, asistencias y tarjetas individuales por partido |
+| Partidos | Incidencias | Registrar, modificar y eliminar incidencias por minuto (tarjetas, VAR, lesiones, etc.) |
+| Consultas | Tabla de posiciones, resultados, incidencias | Consultas consolidadas con filtros por edición, grupo y fase |
+| Reportes | Panel de reportes | Goleadores, rendimiento por selección, desglose por fase e incidencias por estadio |
 
 Cuando Oracle rechaza una operacion, la aplicacion muestra el error tal como lo devuelve la base.
 Por ejemplo, borrar una sede que todavia tiene ciudades da `ORA-02292`, y guardar un estadio con

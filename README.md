@@ -210,17 +210,17 @@ en `main` y se prueba completo contra el servidor.
 
 | Entregable | Archivo | Estado |
 |---|---|---|
-| Funciones | `sql/entrega3/funciones/funciones.sql` | ⏳ Pendiente |
-| Procedimientos almacenados | `sql/entrega3/procedimientos/procedimientos.sql` | ⏳ Pendiente |
-| Triggers obligatorios (4) | `sql/entrega3/triggers/triggers.sql` | 🔄 En progreso: rangos, anti-duplicidad y auditoría en la rama `lesmes-triggers`; falta consistencia |
-| Documentación de la programación en BD | `docs/entrega3/documentacion_programacion_bd.md` | ⏳ Pendiente |
+| Funciones | `sql/entrega3/funciones/funciones.sql` | ✅ Hecho |
+| Procedimientos almacenados | `sql/entrega3/procedimientos/procedimientos.sql` | ✅ Hecho |
+| Triggers obligatorios (4) | `sql/entrega3/triggers/triggers.sql` | 🔄 En progreso: en la rama `lesmes-triggers` |
+| Documentación de la programación en BD | `docs/entrega3/documentacion_programacion_bd.md` | ✅ Funciones y Procedimientos documentados |
 | Pruebas de los triggers | `tests/entrega3/pruebas_triggers.md` | ⏳ Pendiente |
-| Aplicación: base y conexión | `app/` | ⏳ Pendiente |
-| Aplicación: catálogos | `app/` | ⏳ Pendiente |
-| Aplicación: partidos, estadísticas, posiciones e incidencias | `app/` | ⏳ Pendiente |
-| Módulo de reportes | `app/` + `docs/entrega3/reportes.md` | ⏳ Pendiente |
-| Instrucciones para levantar la app | `app/README.md` | ⏳ Pendiente |
-| Arquitectura de la aplicación | `docs/entrega3/arquitectura_aplicacion.md` | ⏳ Pendiente |
+| Aplicación: base y conexión | `app/` | ✅ Hecho |
+| Aplicación: catálogos | `app/` | ✅ Ediciones, sedes, ciudades, estadios, jugadores, cuerpo técnico y convocatorias |
+| Aplicación: partidos, estadísticas, posiciones e incidencias | `app/` | ✅ Hecho |
+| Módulo de reportes | `app/` + `docs/entrega3/reportes.md` | ✅ Hecho |
+| Instrucciones para levantar la app | `app/README.md` | ✅ Hecho |
+| Arquitectura de la aplicación | `docs/entrega3/arquitectura_aplicacion.md` | ✅ Hecho |
 
 
 ---
