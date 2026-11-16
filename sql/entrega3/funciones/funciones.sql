@@ -77,8 +77,6 @@ BEGIN
 END fn_posicion_goleador;
 /
 
-
-
 -- ------------------------------------------------------------
 -- 4. Cupos libres en la convocatoria de una seleccion (maximo 26)
 -- ------------------------------------------------------------
