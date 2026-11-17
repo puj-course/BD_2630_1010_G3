@@ -85,4 +85,4 @@ La arquitectura y las decisiones de diseno estan en `docs/entrega3/arquitectura_
 2. Crear `RepositoryXXX` en `datos/` con los metodos de consulta y modificacion. El SQL se arma con
    `StringBuilder` y se ejecuta con `PreparedStatement` dentro de un try-with-resources.
 3. Crear `PanelXXX` en `ui/`. `PanelEstadios` sirve de ejemplo de una tabla que depende de otra.
-4. En `VentanaPrincipal`, cambiar `() -> pendiente("...")` por `PanelXXX::new`.
+4. En `VentanaPrincipal`, agregarla con `agregar(menu, columna, "Titulo", PanelXXX::new)`. Queda en el menu y en la pantalla de inicio.
