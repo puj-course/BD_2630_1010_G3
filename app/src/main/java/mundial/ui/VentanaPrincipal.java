@@ -37,7 +37,6 @@ public class VentanaPrincipal extends JFrame {
         agregar(catalogos, colCatalogos, "Ciudades", PanelCiudades::new);
         agregar(catalogos, colCatalogos, "Estadios", PanelEstadios::new);
         catalogos.addSeparator();
-        // Cada integrante cambia pendiente(...) por su propio panel.
         agregar(catalogos, colCatalogos, "Selecciones y grupos", PanelSelecciones::new);
         agregar(catalogos, colCatalogos, "Jugadores y cuerpo técnico", PanelJugadoresCuerpoTecnico::new);
 
