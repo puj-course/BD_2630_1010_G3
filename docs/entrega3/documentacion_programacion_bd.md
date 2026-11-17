@@ -139,3 +139,134 @@ END;
 EXEC pr_cierre_fase(7, 37);
 ```
 
+
+## Triggers
+
+Archivo: `sql/entrega3/triggers/triggers.sql`. Las pruebas de cada uno están en `tests/entrega3/pruebas_triggers.md`, con su captura.
+
+Responsable: Laura Lesmes (`IS101007`).
+
+Son los cuatro triggers obligatorios del enunciado.
+
+| Trigger | Tabla | Momento | Nivel | Error que lanza |
+|---|---|---|---|---|
+| `trg_rangos_estadistica` | `estadistica_jugador_partido` | BEFORE INSERT o UPDATE | Fila | ORA-20001, ORA-20002 |
+| `trg_antiduplicidad_participacion` | `participacion_partido` | BEFORE INSERT | Fila | ORA-20003 |
+| `trg_auditoria_partido` y `trg_auditoria_estadistica` | `partido` y `estadistica_jugador_partido` | AFTER INSERT, UPDATE o DELETE | Fila | No lanza errores, escribe en `auditoria_evento` |
+| `trg_consistencia_marcador` | `estadistica_jugador_partido` | AFTER INSERT o UPDATE de `goles` | Sentencia | ORA-20004 |
+
+**Cómo ejecutar el archivo.** Se corre completo con "Ejecutar script". Las tablas se deben haber creado antes (DDL ampliado). Ojo: al inicio de la parte de auditoría el script hace `DROP TABLE auditoria_evento`, así que cada vez que se vuelve a correr, el historial de auditoría se reinicia. Si se vuelve a ejecutar el DDL de las 16 tablas, los triggers se borran junto con ellas y hay que volver a correr `triggers.sql`.
+
+### 1. Validación de rangos — `trg_rangos_estadistica`
+
+**Propósito.** Que un jugador no pueda tener goles ni asistencias negativos.
+
+**Cuándo se dispara.** Antes de insertar o actualizar una fila de `estadistica_jugador_partido`.
+
+**Entradas.** Los valores nuevos de `goles` y `asistencias` (`:NEW.goles`, `:NEW.asistencias`).
+
+**Comportamiento.** Si `goles` es menor que cero cancela la operación con `ORA-20001: Los goles no pueden ser negativos`. Si `asistencias` es menor que cero, con `ORA-20002: Las asistencias no pueden ser negativas`. Si los valores son correctos, no hace nada y la fila se guarda.
+
+**Ejemplo de uso:**
+
+```sql
+-- Goles negativos: debe fallar con ORA-20001
+INSERT INTO estadistica_jugador_partido
+  (id_estadistica, id_partido, id_jugador, titular, minutos_jugados, goles, asistencias, tarjetas_amarillas, tarjetas_rojas)
+VALUES (99002, 5, 20, 1, 90, -1, 0, 0, 0);
+ROLLBACK;
+```
+
+**Problemas previstos y cómo se previenen.**
+- *La tabla ya tiene un CHECK para esto (`ck_estadistica_counters`).* Se dejó el trigger porque el enunciado lo pide y porque, al ejecutarse antes que el CHECK, da un mensaje propio y más claro. El CHECK queda como respaldo: si alguien deshabilita el trigger con `ALTER TRIGGER ... DISABLE`, los negativos se siguen rechazando. Además el CHECK cubre las tarjetas, que el trigger no revisa.
+- *Valores nulos.* `goles` y `asistencias` son `NOT NULL` con valor por defecto 0, así que la comparación nunca recibe un nulo.
+
+### 2. Anti-duplicidad — `trg_antiduplicidad_participacion`
+
+**Propósito.** Evitar que una selección quede registrada dos veces en el mismo partido.
+
+**Cuándo se dispara.** Antes de insertar una fila en `participacion_partido`.
+
+**Entradas.** `:NEW.id_partido` y `:NEW.id_seleccion`.
+
+**Comportamiento.** Cuenta cuántas participaciones existen ya con ese partido y esa selección. Si hay alguna, cancela con `ORA-20003: La seleccion ya participa en este partido`. Si no hay ninguna, deja pasar la fila.
+
+**Ejemplo de uso:**
+
+```sql
+-- La seleccion 153 ya participa en el partido 274: debe fallar con ORA-20003
+INSERT INTO participacion_partido
+  (id_participacion, id_partido, id_seleccion, condicion, goles_marcados)
+VALUES (99010, 274, 153, 'VISITANTE', 0);
+ROLLBACK;
+```
+
+**Problemas previstos y cómo se previenen.**
+- *Dos sesiones insertando al mismo tiempo.* Las dos podrían contar cero antes de que cualquiera guarde. La garantía final no es el trigger sino la restricción `uq_participacion_seleccion` (UNIQUE sobre `id_partido, id_seleccion`), que Oracle valida de forma segura entre sesiones y respondería con ORA-00001.
+- *Tabla mutante (ORA-04091).* Un trigger por fila que consulta su propia tabla puede fallar cuando el INSERT afecta varias filas a la vez (visto en clase). En la prueba, con un INSERT de una sola fila, funcionó sin ese error. No se probó con inserciones de varias filas; en una carga masiva, la restricción UNIQUE sigue protegiendo aunque el trigger se deshabilite.
+- *UPDATE.* El trigger solo vigila los INSERT. Si alguien cambia `id_seleccion` de una fila existente a una selección repetida, lo detiene la misma restricción UNIQUE.
+
+### 3. Auditoría — `trg_auditoria_partido` y `trg_auditoria_estadistica`
+
+**Propósito.** Dejar un registro de quién modificó partidos y estadísticas, cuándo y cómo cambió el dato.
+
+**Tabla de apoyo: `auditoria_evento`.** Una fila por cada cambio.
+
+| Columna | Qué guarda |
+|---|---|
+| `id_auditoria` | Número que Oracle asigna solo (llave primaria) |
+| `tabla` | Tabla modificada (`PARTIDO` o `ESTADISTICA_JUGADOR_PARTIDO`) |
+| `operacion` | `INSERT`, `UPDATE` o `DELETE` |
+| `id_registro` | Llave de la fila afectada |
+| `valor_anterior` y `valor_nuevo` | Valor antes y después (en `partido`, `asistencia_registrada`; en estadística, `goles`) |
+| `usuario` | Usuario de Oracle que hizo el cambio (`USER`) |
+| `fecha` | Fecha y hora del cambio (por defecto `SYSDATE`) |
+
+**Cuándo se dispara.** Después de insertar, actualizar o borrar una fila en `partido` o en `estadistica_jugador_partido`.
+
+**Entradas.** Los valores `:OLD` y `:NEW` de la fila y la función `USER`.
+
+**Comportamiento.** Con `IF INSERTING / UPDATING / DELETING` decide qué anotar: en un INSERT no hay valor anterior, en un DELETE no hay valor nuevo. Nadie escribe en `auditoria_evento` a mano: la llenan los triggers.
+
+**Ejemplo de uso:**
+
+```sql
+-- Cambiar la asistencia del partido 274 deja una fila en auditoria_evento
+UPDATE partido SET asistencia_registrada = 12345 WHERE id_partido = 274;
+SELECT tabla, operacion, id_registro, valor_anterior, valor_nuevo, usuario, fecha
+FROM auditoria_evento;
+ROLLBACK;
+```
+
+**Problemas previstos y cómo se previenen.**
+- *Un cambio que se revierte no deja rastro.* El trigger es AFTER, así que solo registra lo que realmente se aplicó. Si una sentencia falla (por ejemplo, por el trigger de consistencia), Oracle la deshace junto con su registro. Es el comportamiento buscado, pero significa que los intentos fallidos no se auditan.
+- *Crecimiento de la tabla y cargas masivas.* Cada fila modificada genera un registro. En una carga masiva conviene deshabilitar los triggers de auditoría y habilitarlos al terminar (`ALTER TRIGGER trg_auditoria_partido DISABLE`), o aceptar que la carga llene la tabla.
+- *Borrado en cascada.* Al borrar un partido, Oracle borra sus estadísticas por `ON DELETE CASCADE`, y cada una de esas filas también queda registrada como `DELETE`.
+- *Usuario de la aplicación.* `USER` devuelve el usuario de Oracle, y la aplicación se conecta siempre con la misma cuenta, así que todos los cambios hechos desde ella aparecerían con el mismo usuario. Una mejora posible es que la aplicación informe quién está usando el sistema.
+- *Alcance.* Solo se audita una columna por tabla (`asistencia_registrada` y `goles`). Se puede ampliar agregando columnas a `auditoria_evento`.
+
+### 4. Consistencia — `trg_consistencia_marcador`
+
+**Propósito.** Que los goles individuales de los jugadores no contradigan el marcador oficial del partido.
+
+**Cuándo se dispara.** Después de insertar una estadística o actualizar la columna `goles` de `estadistica_jugador_partido`. Es un trigger de sentencia (sin `FOR EACH ROW`).
+
+**Entradas.** No usa `:NEW`: consulta las tablas `estadistica_jugador_partido`, `convocatoria_jugador` y `participacion_partido`.
+
+**Comportamiento.** Suma los goles de los jugadores de cada selección en cada partido (uniendo la convocatoria para saber a qué selección pertenece el jugador) y los compara con `goles_marcados`. Si en algún partido la suma supera el marcador oficial, cancela con `ORA-20004: Los goles de los jugadores superan el marcador oficial`.
+
+**Ejemplo de uso:**
+
+```sql
+-- 20 goles superan el marcador oficial: debe fallar con ORA-20004
+UPDATE estadistica_jugador_partido SET goles = 20
+WHERE id_estadistica = (SELECT MIN(id_estadistica) FROM estadistica_jugador_partido);
+ROLLBACK;
+```
+
+**Decisiones y problemas previstos.**
+- *Por qué de sentencia y no de fila.* Un trigger por fila no puede consultar la tabla que lo disparó (tabla mutante, ORA-04091). Al ser de sentencia, puede leer la tabla completa sin ese error.
+- *"No supera" y no "es igual".* Mientras se cargan las estadísticas jugador por jugador, la suma está incompleta. Exigir igualdad bloquearía la carga. La igualdad exacta se verifica con la consulta avanzada 4 y puede revisarse en el procedimiento de cierre de fase.
+- *Autogoles.* Se asume que `goles` cuenta solo los goles a favor del propio equipo. Un autogol suma al marcador del rival y no a los goles individuales del jugador; si se registrara como gol del jugador, el trigger podría dar un falso error.
+- *Rendimiento.* La consulta revisa todos los partidos y no solo los afectados. Con los datos actuales (2048 estadísticas) es inmediata; con muchos más datos habría que limitarla a los partidos tocados por la sentencia, por ejemplo con un trigger compuesto.
+- *Cambios en el marcador.* Si alguien baja `goles_marcados` en `participacion_partido` después de cargar estadísticas, este trigger no lo detecta (solo vigila cambios en estadísticas). Se podría cubrir con un trigger equivalente sobre `participacion_partido`.
