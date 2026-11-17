@@ -1,7 +1,7 @@
 -- ============================================================
 -- Procedimientos Almacenados - Entrega 3
 -- ============================================================
--- Responsable: Harold Santiago Pereira Fuentes (IS101013)
+-- Santiago
 --
 -- Contenido:
 --   1. Tabla TABLA_POSICIONES y tabla RESULTADO_CARGA_TEMPORAL
