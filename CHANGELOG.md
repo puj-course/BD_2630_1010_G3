@@ -343,6 +343,8 @@ No se subió trabajo al repositorio esta semana.
 |---|---|---|---|
 | Los 4 triggers obligatorios | Laura | `lesmes-triggers` | Auditoría (con la tabla `auditoria_evento`), validación de rangos, anti-duplicidad y consistencia del marcador (PR #70) |
 | Corrección de la carga masiva | Nicolás Mamian | `fix/carga-masiva-sqlerrm` | `pr_carga_masiva_resultados` quedaba inválido porque usaba `SQLERRM` dentro de un `UPDATE` (PR #72) |
+| Pruebas y documentación de triggers | Laura | `lesmes-pruebas-doc` | `tests/entrega3/pruebas_triggers.md` con capturas y la sección de triggers en `documentacion_programacion_bd.md` (PR #74) |
+| Pantalla de selecciones y grupos | Laura | `lesmes-selecciones` | Crear, editar y borrar selecciones, con el grupo escogido de la misma edición (PR #75) |
 | Integración y prueba completa | Nicolás Mamian | `docs/cierre-entrega3` | Funciones, procedimientos y triggers ejecutados en `IS101009`, pruebas corridas y estado de la entrega en el README |
 
 ### Cambios principales

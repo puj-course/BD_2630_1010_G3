@@ -52,7 +52,7 @@ En ese caso el directorio de trabajo de la configuracion de ejecucion debe ser `
 | Catalogos | Sedes | Listar, crear, editar y borrar |
 | Catalogos | Ciudades | Listar, crear, editar y borrar |
 | Catalogos | Estadios | Listar, crear, editar y borrar |
-| Catalogos | Selecciones y grupos | Pendiente |
+| Catalogos | Selecciones y grupos | Listar, crear, editar y borrar selecciones, con su grupo de la misma edición |
 | Catalogos | Jugadores y cuerpo tecnico | Ficha de jugadores, cuerpo técnico por selección y convocatorias con dorsal y capitanía |
 | Partidos | Registro de partidos | Programar encuentros, registrar resultado con `pr_registrar_resultado`, cerrar fase con `pr_cierre_fase` y eliminar |
 | Partidos | Estadísticas | Alineaciones, minutos jugados, goles, asistencias y tarjetas individuales por partido |

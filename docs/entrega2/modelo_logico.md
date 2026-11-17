@@ -10,6 +10,8 @@ Con estas tablas se pueden hacer consultas por jugador, partido, selección, gru
 
 ![Modelo lógico](modelo_logico.png)
 
+En la Entrega 3 se agregaron tres tablas más (`tabla_posiciones`, `resultado_carga_temporal` y `auditoria_evento`). No están en este diagrama; se describen en la sección 5 de `modelo_fisico.md`.
+
 ---
 
 # 2. Tablas del modelo
