@@ -212,11 +212,11 @@ en `main` y se prueba completo contra el servidor.
 |---|---|---|
 | Funciones | `sql/entrega3/funciones/funciones.sql` | ✅ Hecho |
 | Procedimientos almacenados | `sql/entrega3/procedimientos/procedimientos.sql` | ✅ Hecho |
-| Triggers obligatorios (4) | `sql/entrega3/triggers/triggers.sql` | 🔄 En progreso: en la rama `lesmes-triggers` |
-| Documentación de la programación en BD | `docs/entrega3/documentacion_programacion_bd.md` | ✅ Funciones y Procedimientos documentados |
+| Triggers obligatorios (4) | `sql/entrega3/triggers/triggers.sql` | ✅ Hecho |
+| Documentación de la programación en BD | `docs/entrega3/documentacion_programacion_bd.md` | 🔄 Funciones y procedimientos documentados. Falta la sección de triggers |
 | Pruebas de los triggers | `tests/entrega3/pruebas_triggers.md` | ⏳ Pendiente |
 | Aplicación: base y conexión | `app/` | ✅ Hecho |
-| Aplicación: catálogos | `app/` | ✅ Ediciones, sedes, ciudades, estadios, jugadores, cuerpo técnico y convocatorias |
+| Aplicación: catálogos | `app/` | 🔄 Ediciones, sedes, ciudades, estadios, jugadores, cuerpo técnico y convocatorias hechos. Falta selecciones y grupos |
 | Aplicación: partidos, estadísticas, posiciones e incidencias | `app/` | ✅ Hecho |
 | Módulo de reportes | `app/` + `docs/entrega3/reportes.md` | ✅ Hecho |
 | Instrucciones para levantar la app | `app/README.md` | ✅ Hecho |
