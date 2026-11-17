@@ -346,12 +346,18 @@ No se subió trabajo al repositorio esta semana.
 | Pruebas y documentación de triggers | Laura | `lesmes-pruebas-doc` | `tests/entrega3/pruebas_triggers.md` con capturas y la sección de triggers en `documentacion_programacion_bd.md` (PR #74) |
 | Pantalla de selecciones y grupos | Laura | `lesmes-selecciones` | Crear, editar y borrar selecciones, con el grupo escogido de la misma edición (PR #75) |
 | Integración y prueba completa | Nicolás Mamian | `docs/cierre-entrega3` | Funciones, procedimientos y triggers ejecutados en `IS101009`, pruebas corridas y estado de la entrega en el README |
+| Filtro por edición y grupos | Daniel | `main` | La pantalla de selecciones filtra por edición y permite crear y borrar grupos. `procedimientos.sql` termina en `ROLLBACK` en vez de `COMMIT` |
+| Estado final de la entrega | Nicolás Mamian | `docs/estado-final-e3` | README y CHANGELOG con lo de Laura (PR #76) |
+| Modelo con 19 tablas | Nicolás Mamian | `docs/modelo-19-tablas`, `docs/imagen-modelo-19` | `modelo_logico.md`, `modelo_fisico.md` y la imagen del modelo incluyen `tabla_posiciones`, `resultado_carga_temporal` y `auditoria_evento` (PR #77 y #78) |
+| Limpieza de la app | Nicolás Mamian | `refactor/comentarios-catalogos` | Comentarios unificados y se quita el aviso de pantalla en construcción, que ya no se usaba (PR #79) |
+| Cómo correr la Entrega 3 | Nicolás Mamian | `docs/como-correr-e3` | Orden de los scripts, pruebas y comando de la app en el README (PR #80) |
 
 ### Cambios principales
 
 - En `IS101009` quedaron válidas las 4 funciones, los 4 procedimientos y los 4 triggers del proyecto.
 - Los triggers se probaron uno por uno: goles negativos dan `ORA-20001`, una selección repetida en un partido da `ORA-20003`, un cambio de asistencia queda en `auditoria_evento` y sumar goles a un jugador por encima del marcador da `ORA-20004`.
 - `tests/entrega3/pruebas_procedimientos.sql` da los resultados esperados, incluida la carga masiva (3 procesados, 1 exitoso, 2 fallidos).
+- La aplicación se probó contra `IS101009`: las 13 pantallas cargan con la edición 2022, y crear, editar y borrar funcionan en catálogos, partidos, estadísticas e incidencias. Los errores de Oracle y de los triggers llegan a la pantalla con su código.
 
 ### Problemas encontrados
 
