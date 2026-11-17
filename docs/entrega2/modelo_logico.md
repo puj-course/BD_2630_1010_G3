@@ -4,13 +4,13 @@
 
 ## 1. Objetivo
 
-El modelo de la Entrega 1 solo tenía cinco tablas: edición, estadio, selección, partido y participación. Para la Entrega 2 se amplió a 16, agregando sedes y ciudades, fases y grupos, jugadores y convocatorias, cuerpo técnico, árbitros, estadísticas por jugador e incidencias.
+El modelo de la Entrega 1 solo tenía cinco tablas: edición, estadio, selección, partido y participación. Para la Entrega 2 se amplió a 16, agregando sedes y ciudades, fases y grupos, jugadores y convocatorias, cuerpo técnico, árbitros, estadísticas por jugador e incidencias. En la Entrega 3 se sumaron tres tablas de apoyo para los procedimientos y triggers (sección 7.2), y el modelo quedó en 19.
 
 Con estas tablas se pueden hacer consultas por jugador, partido, selección, grupo, fase y edición. La normalización de cada tabla se revisa en `normalizacion.md`.
 
 ![Modelo lógico](modelo_logico.png)
 
-En la Entrega 3 se agregaron tres tablas más (`tabla_posiciones`, `resultado_carga_temporal` y `auditoria_evento`). No están en este diagrama; se describen en la sección 5 de `modelo_fisico.md`.
+La imagen es la de la Entrega 2 (16 tablas). El diagrama con las 19 tablas está en la sección 1 de `modelo_fisico.md`.
 
 ---
 
@@ -457,6 +457,60 @@ Registra eventos relevantes ocurridos durante un partido.
 - Un partido puede registrar múltiples incidencias.
 - Cada incidencia pertenece a un único partido.
 
+## 7.2. Tablas agregadas en la Entrega 3
+
+Estas tres tablas no están en el DDL ampliado. Se crean en los scripts de la Entrega 3 porque solo las usan los procedimientos y los triggers.
+
+### TABLA_POSICIONES
+
+Guarda la tabla de cada grupo ya calculada. La llena el procedimiento `pr_actualizar_tabla_posiciones` a partir de los resultados de los partidos.
+
+| Atributo | Descripción | Clave |
+|---|---|---|
+| id_posicion | Identificador de la fila | PK |
+| id_edicion | Edición | FK |
+| id_grupo | Grupo de la selección | FK |
+| id_seleccion | Selección | FK |
+| partidos_jugados, ganados, empatados, perdidos | Partidos según su resultado | |
+| goles_favor, goles_contra, diferencia_gol | Goles de la selección en la fase de grupos | |
+| puntos | 3 por victoria y 1 por empate | |
+| posicion | Puesto dentro del grupo | |
+
+Restricción: `UNIQUE (id_edicion, id_seleccion)`, una selección aparece una sola vez por edición.
+
+Relación: cada fila pertenece a una edición, un grupo y una selección. Una selección tiene como máximo una fila.
+
+### RESULTADO_CARGA_TEMPORAL
+
+Resultados que se van a cargar en bloque con `pr_carga_masiva_resultados`. El procedimiento recorre las filas en estado `PENDIENTE` y las marca como `PROCESADO` o `ERROR`.
+
+| Atributo | Descripción | Clave |
+|---|---|---|
+| id_carga | Identificador de la fila | PK |
+| id_partido | Partido al que corresponde el resultado | |
+| goles_local, goles_visitante | Marcador | |
+| asistencia | Asistencia del partido | |
+| estado | `PENDIENTE`, `PROCESADO` o `ERROR` | |
+| mensaje_error | Motivo del error, si lo hubo | |
+
+No tiene llave foránea a `PARTIDO` a propósito: si llega un partido que no existe, la fila debe quedar marcada con error en vez de ser rechazada.
+
+### AUDITORIA_EVENTO
+
+Historial de cambios en `PARTIDO` y `ESTADISTICA_JUGADOR_PARTIDO`. La llenan los triggers de auditoría.
+
+| Atributo | Descripción | Clave |
+|---|---|---|
+| id_auditoria | Identificador que Oracle asigna solo | PK |
+| tabla | Tabla modificada | |
+| operacion | `INSERT`, `UPDATE` o `DELETE` | |
+| id_registro | Llave de la fila afectada | |
+| valor_anterior, valor_nuevo | Dato antes y después del cambio | |
+| usuario | Usuario de Oracle que hizo el cambio | |
+| fecha | Fecha y hora del cambio | |
+
+No tiene llaves foráneas: el registro debe quedar aunque se borre la fila auditada.
+
 ---
 
 # 8. Resumen de relaciones
@@ -484,6 +538,9 @@ Registra eventos relevantes ocurridos durante un partido.
 | PARTIDO | 1:N | ESTADISTICA_JUGADOR_PARTIDO |
 | PARTIDO | 1:N | INCIDENCIA |
 | PARTIDO | 1:N | PARTIDO (progresión) |
+| EDICION_MUNDIAL | 1:N | TABLA_POSICIONES |
+| GRUPO | 1:N | TABLA_POSICIONES |
+| SELECCION | 1:0..1 | TABLA_POSICIONES |
 
 ---
 
