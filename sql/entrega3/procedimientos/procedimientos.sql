@@ -313,6 +313,7 @@ CREATE OR REPLACE PROCEDURE pr_carga_masiva_resultados (
 )
 IS
     v_existe_edicion NUMBER;
+    v_mensaje        VARCHAR2(300);
     CURSOR c_cargas IS
         SELECT rct.id_carga, rct.id_partido, rct.goles_local, rct.goles_visitante, rct.asistencia
         FROM resultado_carga_temporal rct
@@ -350,8 +351,10 @@ BEGIN
         EXCEPTION
             WHEN OTHERS THEN
                 ROLLBACK TO sp_resultado;
+                -- SQLERRM no se puede usar dentro de un UPDATE, se guarda antes en una variable
+                v_mensaje := SUBSTR(SQLERRM, 1, 300);
                 UPDATE resultado_carga_temporal
-                SET estado = 'ERROR', mensaje_error = SUBSTR(SQLERRM, 1, 300)
+                SET estado = 'ERROR', mensaje_error = v_mensaje
                 WHERE id_carga = r.id_carga;
                 p_fallidos := p_fallidos + 1;
         END;
