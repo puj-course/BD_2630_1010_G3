@@ -222,6 +222,33 @@ en `main` y se prueba completo contra el servidor.
 | Instrucciones para levantar la app | `app/README.md` | ✅ Hecho |
 | Arquitectura de la aplicación | `docs/entrega3/arquitectura_aplicacion.md` | ✅ Hecho |
 
+### Cómo correr la Entrega 3
+
+**Orden de los scripts en un esquema vacío.** Cada uno depende del anterior:
+
+1. `sql/entrega2/ddl/ddl_modelo_ampliado.sql` crea las 16 tablas.
+2. `sql/entrega2/dml/carga_datos_prueba.sql` carga los datos de prueba.
+3. `sql/entrega3/funciones/funciones.sql`
+4. `sql/entrega3/procedimientos/procedimientos.sql` crea también `tabla_posiciones` y `resultado_carga_temporal`.
+5. `sql/entrega3/triggers/triggers.sql` crea también `auditoria_evento`.
+
+Si se vuelve a correr el paso 1, las tablas se borran con sus triggers y hay que repetir los cinco pasos.
+
+**Pruebas.** Ninguna deja cambios en los datos:
+
+- Funciones: las consultas de prueba al final de `funciones.sql`.
+- Procedimientos: `tests/entrega3/pruebas_procedimientos.sql`, que termina en `ROLLBACK`.
+- Triggers: las sentencias de `tests/entrega3/pruebas_triggers.md`, una por una, con `ROLLBACK` al final.
+
+**Aplicación.** Con la VPN de la universidad activa y `app/config.properties` creado (ver `app/README.md`):
+
+```bash
+cd app
+mvn compile exec:java
+```
+
+La edición 2022 es la única con estadísticas e incidencias cargadas, así que es la que conviene usar para revisar las pantallas.
+
 
 ---
 
