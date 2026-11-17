@@ -328,3 +328,30 @@ No se subió trabajo al repositorio esta semana.
 - En `pr_carga_masiva_resultados`, la consulta del cursor utilizaba `INNER JOIN partido`, lo que causaba que resultados con identificadores de partido inexistentes o corruptos fueran omitidos silenciosamente sin marcarse con `'ERROR'` ni contarse como fallidos; se modificó a `LEFT JOIN` para capturar y asentar el error `ORA-20021`.
 - En `RepositoryEstadistica.consultarEstadisticas`, se presentaban filas duplicadas en la tabla de Swing cuando un jugador contaba con convocatorias en más de una edición mundialista; se reemplazó el join por una subconsulta correlacionada por partido y selección.
 - En `Partido.java`, el método `getMarcador()` desplegaba "0 - 0" en partidos futuros programados pendientes de juego; se ajustó para desplegar "vs" mientras la asistencia sea nula.
+
+---
+
+## Semana 13 — Entrega 3 — (16–17 de noviembre de 2026) — cierre de la Entrega 3
+
+### Objetivos
+
+- Integrar en `main` todo lo de la Entrega 3 y probarlo contra el servidor.
+
+### Tareas realizadas
+
+| Tarea | Responsable | Rama utilizada | Descripción |
+|---|---|---|---|
+| Los 4 triggers obligatorios | Laura | `lesmes-triggers` | Auditoría (con la tabla `auditoria_evento`), validación de rangos, anti-duplicidad y consistencia del marcador (PR #70) |
+| Corrección de la carga masiva | Nicolás Mamian | `fix/carga-masiva-sqlerrm` | `pr_carga_masiva_resultados` quedaba inválido porque usaba `SQLERRM` dentro de un `UPDATE` (PR #72) |
+| Integración y prueba completa | Nicolás Mamian | `docs/cierre-entrega3` | Funciones, procedimientos y triggers ejecutados en `IS101009`, pruebas corridas y estado de la entrega en el README |
+
+### Cambios principales
+
+- En `IS101009` quedaron válidas las 4 funciones, los 4 procedimientos y los 4 triggers del proyecto.
+- Los triggers se probaron uno por uno: goles negativos dan `ORA-20001`, una selección repetida en un partido da `ORA-20003`, un cambio de asistencia queda en `auditoria_evento` y sumar goles a un jugador por encima del marcador da `ORA-20004`.
+- `tests/entrega3/pruebas_procedimientos.sql` da los resultados esperados, incluida la carga masiva (3 procesados, 1 exitoso, 2 fallidos).
+
+### Problemas encontrados
+
+- El bloque de pruebas al final de `procedimientos.sql` cambia el resultado del partido 385 y hace `COMMIT`. Para no dañar los datos, en la integración se corrió el script sin ese bloque y las pruebas se hicieron con `pruebas_procedimientos.sql`, que termina en `ROLLBACK`.
+- El trigger de anti-duplicidad consulta su propia tabla. Con un `INSERT ... VALUES` funciona, pero con un `INSERT ... SELECT` Oracle da `ORA-04091` (tabla mutante). La aplicación y los procedimientos insertan participaciones con `VALUES`, así que no se ve en uso normal.
