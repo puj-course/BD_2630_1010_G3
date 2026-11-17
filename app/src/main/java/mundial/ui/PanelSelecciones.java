@@ -19,18 +19,17 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 import mundial.datos.Edicion;
-import mundial.datos.RepositoryEdicion;
 import mundial.datos.RepositorySeleccion;
-import mundial.datos.RepositorySeleccion.OpcionGrupo;
+import mundial.datos.RepositorySeleccion.Opcion;
 import mundial.datos.Seleccion;
 
 public class PanelSelecciones extends JPanel {
 
     private static final String[] CONFEDERACIONES = {"CONMEBOL", "UEFA", "CAF", "AFC", "CONCACAF", "OFC"};
+    private static final String[] LETRAS = {"A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L"};
     private static final String SIN_GRUPO = "Sin grupo";
 
     private final RepositorySeleccion repository = new RepositorySeleccion();
-    private final RepositoryEdicion repositoryEdicion = new RepositoryEdicion();
     private final DefaultTableModel modelo = new DefaultTableModel(
             new String[] {"Id", "País", "Confederación", "Edición", "Grupo"}, 0) {
         @Override
@@ -41,6 +40,7 @@ public class PanelSelecciones extends JPanel {
     private final JTable tabla = new JTable(modelo);
     private final JLabel titulo = new JLabel("Selecciones y grupos");
     private final JLabel estado = new JLabel(" ");
+    private final JComboBox<Edicion> edicion = new JComboBox<>();
     private List<Seleccion> selecciones = new ArrayList<>();
 
     public PanelSelecciones() {
@@ -49,19 +49,30 @@ public class PanelSelecciones extends JPanel {
 
         Estilo.titulo(titulo);
         Estilo.tabla(tabla);
-        JPanel arriba = new JPanel(new GridLayout(2, 1));
+        Tablas.cargarEdiciones(this, edicion);
+        edicion.addActionListener(e -> cargar());
+
+        JPanel filtro = new JPanel(new FlowLayout(FlowLayout.LEFT, 0, 0));
+        filtro.add(new JLabel("Edición: "));
+        filtro.add(edicion);
+        JPanel arriba = new JPanel(new GridLayout(3, 1, 0, 4));
         arriba.add(titulo);
-        arriba.add(new JLabel("Selecciones de cada edición y el grupo al que pertenecen. Doble clic en una fila para editarla."));
+        arriba.add(new JLabel("Selecciones de la edición y el grupo al que pertenecen. Doble clic en una fila para editarla."));
+        arriba.add(filtro);
         add(arriba, BorderLayout.NORTH);
         add(new JScrollPane(tabla), BorderLayout.CENTER);
 
         JButton agregar = new JButton("Agregar");
         JButton editar = new JButton("Editar");
         JButton eliminar = new JButton("Eliminar");
+        JButton agregarGrupo = new JButton("Agregar grupo");
+        JButton eliminarGrupo = new JButton("Eliminar grupo");
         JButton recargar = new JButton("Recargar");
         agregar.addActionListener(e -> agregar());
         editar.addActionListener(e -> editar());
         eliminar.addActionListener(e -> eliminar());
+        agregarGrupo.addActionListener(e -> agregarGrupo());
+        eliminarGrupo.addActionListener(e -> eliminarGrupo());
         recargar.addActionListener(e -> {
             cargar();
             estado.setText("Lista actualizada.");
@@ -79,6 +90,8 @@ public class PanelSelecciones extends JPanel {
         botones.add(agregar);
         botones.add(editar);
         botones.add(eliminar);
+        botones.add(agregarGrupo);
+        botones.add(eliminarGrupo);
         botones.add(recargar);
         JPanel abajo = new JPanel(new BorderLayout(0, 8));
         abajo.add(botones, BorderLayout.NORTH);
@@ -88,25 +101,37 @@ public class PanelSelecciones extends JPanel {
         cargar();
     }
 
+    private Edicion edicionElegida() {
+        return (Edicion) edicion.getSelectedItem();
+    }
+
     private void cargar() {
         modelo.setRowCount(0);
+        selecciones = new ArrayList<>();
+        Edicion actual = edicionElegida();
+        if (actual == null) {
+            estado.setText("Primero cree una edición en Catálogos > Ediciones.");
+            return;
+        }
         try {
-            selecciones = repository.consultarSelecciones();
+            selecciones = repository.consultarSelecciones(actual.getIdEdicion());
             for (Seleccion s : selecciones) {
                 String grupo = s.getGrupo() == null ? SIN_GRUPO : "Grupo " + s.getGrupo();
                 modelo.addRow(new Object[] {s.getIdSeleccion(), s.getPais(), s.getConfederacion(), s.getAnio(), grupo});
             }
             titulo.setText("Selecciones y grupos (" + selecciones.size() + ")");
-            if (selecciones.isEmpty()) {
-                estado.setText("No hay selecciones registradas. Use Agregar para crear la primera.");
-            }
+            estado.setText(selecciones.isEmpty() ? "No hay selecciones en esta edición. Use Agregar para crear la primera." : " ");
         } catch (SQLException ex) {
             Mensajes.error(this, ex);
         }
     }
 
     private void agregar() {
-        Seleccion seleccion = pedirDatos("Agregar selección", new Seleccion(0, 0, 0, null, null, 0, null));
+        Edicion actual = edicionElegida();
+        if (actual == null) {
+            return;
+        }
+        Seleccion seleccion = pedirDatos("Agregar selección", new Seleccion(0, actual.getIdEdicion(), 0, null, null, 0, null));
         if (seleccion == null) {
             return;
         }
@@ -114,8 +139,7 @@ public class PanelSelecciones extends JPanel {
             repository.insertarSeleccion(seleccion);
             cargar();
             for (int i = 0; i < selecciones.size(); i++) {
-                if (selecciones.get(i).getIdEdicion() == seleccion.getIdEdicion()
-                        && selecciones.get(i).getPais().equalsIgnoreCase(seleccion.getPais())) {
+                if (selecciones.get(i).getPais().equalsIgnoreCase(seleccion.getPais())) {
                     seleccionarFila(i);
                 }
             }
@@ -160,7 +184,79 @@ public class PanelSelecciones extends JPanel {
             cargar();
             estado.setText("Se eliminó la selección " + actual.getPais() + ".");
         } catch (SQLException ex) {
-            // Si la seleccion ya tiene partidos o jugadores, Oracle no deja borrarla y Mensajes lo explica.
+            // Si la seleccion ya tiene partidos o jugadores, Oracle no deja borrarla y Mensajes lo explica
+            Mensajes.error(this, ex);
+        }
+    }
+
+    private void agregarGrupo() {
+        Edicion actual = edicionElegida();
+        if (actual == null) {
+            return;
+        }
+        JComboBox<Opcion> fase = new JComboBox<>();
+        try {
+            for (Opcion f : repository.consultarFasesDeGrupos(actual.getIdEdicion())) {
+                fase.addItem(f);
+            }
+        } catch (SQLException ex) {
+            Mensajes.error(this, ex);
+            return;
+        }
+        if (fase.getItemCount() == 0) {
+            Mensajes.aviso(this, "Esta edición no tiene una fase de grupos.");
+            return;
+        }
+        JComboBox<String> letra = new JComboBox<>(LETRAS);
+
+        JPanel formulario = new JPanel(new GridLayout(0, 2, 8, 8));
+        formulario.add(new JLabel("Fase"));
+        formulario.add(fase);
+        formulario.add(new JLabel("Letra del grupo"));
+        formulario.add(letra);
+
+        int respuesta = JOptionPane.showConfirmDialog(this, formulario, "Agregar grupo", JOptionPane.OK_CANCEL_OPTION);
+        if (respuesta != JOptionPane.OK_OPTION) {
+            return;
+        }
+        try {
+            // Si la letra ya existe en esa fase, la restriccion uq_grupo_nombre lo impide
+            repository.insertarGrupo(((Opcion) fase.getSelectedItem()).getId(), (String) letra.getSelectedItem());
+            estado.setText("Se agregó el grupo " + letra.getSelectedItem() + ".");
+        } catch (SQLException ex) {
+            Mensajes.error(this, ex);
+        }
+    }
+
+    private void eliminarGrupo() {
+        Edicion actual = edicionElegida();
+        if (actual == null) {
+            return;
+        }
+        JComboBox<Opcion> grupo = new JComboBox<>();
+        try {
+            for (Opcion g : repository.consultarGrupos(actual.getIdEdicion())) {
+                grupo.addItem(g);
+            }
+        } catch (SQLException ex) {
+            Mensajes.error(this, ex);
+            return;
+        }
+        if (grupo.getItemCount() == 0) {
+            Mensajes.aviso(this, "Esta edición no tiene grupos.");
+            return;
+        }
+        int respuesta = JOptionPane.showConfirmDialog(this, grupo, "Eliminar grupo", JOptionPane.OK_CANCEL_OPTION);
+        if (respuesta != JOptionPane.OK_OPTION) {
+            return;
+        }
+        Opcion elegido = (Opcion) grupo.getSelectedItem();
+        try {
+            // Si el grupo tiene selecciones, Oracle no deja borrarlo y Mensajes lo explica
+            repository.eliminarGrupo(elegido.getId());
+            cargar();
+            estado.setText("Se eliminó el " + elegido + ".");
+        } catch (SQLException ex) {
             Mensajes.error(this, ex);
         }
     }
@@ -187,29 +283,19 @@ public class PanelSelecciones extends JPanel {
         tabla.scrollRectToVisible(tabla.getCellRect(fila, 0, true));
     }
 
+    // La edicion es la del filtro; solo se muestran los grupos de esa edicion
     private Seleccion pedirDatos(String tituloVentana, Seleccion base) {
-        JComboBox<Edicion> edicion = new JComboBox<>();
         JComboBox<Object> grupo = new JComboBox<>();
         grupo.addItem(SIN_GRUPO);
         try {
-            for (Edicion e : repositoryEdicion.consultarEdiciones()) {
-                edicion.addItem(e);
-                if (e.getIdEdicion() == base.getIdEdicion()) {
-                    edicion.setSelectedItem(e);
-                }
-            }
-            for (OpcionGrupo g : repository.consultarGrupos()) {
+            for (Opcion g : repository.consultarGrupos(base.getIdEdicion())) {
                 grupo.addItem(g);
-                if (g.getIdGrupo() == base.getIdGrupo()) {
+                if (g.getId() == base.getIdGrupo()) {
                     grupo.setSelectedItem(g);
                 }
             }
         } catch (SQLException ex) {
             Mensajes.error(this, ex);
-            return null;
-        }
-        if (edicion.getItemCount() == 0) {
-            Mensajes.aviso(this, "Primero cree una edición en Catálogos > Ediciones.");
             return null;
         }
         JComboBox<String> confederacion = new JComboBox<>(CONFEDERACIONES);
@@ -220,7 +306,7 @@ public class PanelSelecciones extends JPanel {
 
         JPanel formulario = new JPanel(new GridLayout(0, 2, 8, 8));
         formulario.add(new JLabel("Edición"));
-        formulario.add(edicion);
+        formulario.add(new JLabel(edicionElegida().toString()));
         formulario.add(new JLabel("País"));
         formulario.add(pais);
         formulario.add(new JLabel("Confederación"));
@@ -236,18 +322,11 @@ public class PanelSelecciones extends JPanel {
             Mensajes.aviso(this, "Escriba el país de la selección.");
             return null;
         }
-        Edicion edicionElegida = (Edicion) edicion.getSelectedItem();
         int idGrupo = 0;
-        if (grupo.getSelectedItem() instanceof OpcionGrupo) {
-            OpcionGrupo grupoElegido = (OpcionGrupo) grupo.getSelectedItem();
-            // El grupo tiene que ser de la misma edicion que la seleccion.
-            if (grupoElegido.getIdEdicion() != edicionElegida.getIdEdicion()) {
-                Mensajes.aviso(this, "El grupo elegido es de otra edición. Escoja un grupo de la misma edición.");
-                return null;
-            }
-            idGrupo = grupoElegido.getIdGrupo();
+        if (grupo.getSelectedItem() instanceof Opcion) {
+            idGrupo = ((Opcion) grupo.getSelectedItem()).getId();
         }
-        return new Seleccion(base.getIdSeleccion(), edicionElegida.getIdEdicion(), idGrupo,
+        return new Seleccion(base.getIdSeleccion(), base.getIdEdicion(), idGrupo,
                 pais.getText().trim(), (String) confederacion.getSelectedItem(), 0, null);
     }
 }
