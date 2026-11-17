@@ -207,3 +207,61 @@ Oracle no indexa las llaves foráneas por sí solo. Se crearon 9 índices sobre 
 | `ix_cuerpo_tecnico_seleccion` | `cuerpo_tecnico` (`id_seleccion`) | Cuerpo técnico de una selección |
 
 Total de índices en el modelo: 16 + 15 + 9 = 40.
+
+---
+
+## 5. Tablas agregadas en la Entrega 3
+
+En la Entrega 3 el modelo pasó de 16 a 19 tablas. Las tres nuevas no se crean en el DDL ampliado sino en los scripts de programación:
+
+| Tabla | Script | Para qué sirve |
+|---|---|---|
+| `tabla_posiciones` | `sql/entrega3/procedimientos/procedimientos.sql` | Puntos, goles y posición de cada selección en su grupo. La llena `pr_actualizar_tabla_posiciones` |
+| `resultado_carga_temporal` | `sql/entrega3/procedimientos/procedimientos.sql` | Resultados pendientes de cargar. `pr_carga_masiva_resultados` los procesa y marca cada fila como exitosa o con error |
+| `auditoria_evento` | `sql/entrega3/triggers/triggers.sql` | Cambios en `partido` y `estadistica_jugador_partido`. La llenan los triggers de auditoría |
+
+```mermaid
+erDiagram
+  EDICION_MUNDIAL ||--o{ TABLA_POSICIONES : tiene
+  GRUPO ||--o{ TABLA_POSICIONES : ordena
+  SELECCION ||--o| TABLA_POSICIONES : ocupa
+
+  TABLA_POSICIONES {
+    NUMBER(10) id_posicion PK
+    NUMBER(10) id_edicion FK
+    NUMBER(10) id_grupo FK
+    NUMBER(10) id_seleccion FK
+    NUMBER(3) partidos_jugados
+    NUMBER(3) ganados
+    NUMBER(3) empatados
+    NUMBER(3) perdidos
+    NUMBER(3) goles_favor
+    NUMBER(3) goles_contra
+    NUMBER(4) diferencia_gol
+    NUMBER(3) puntos
+    NUMBER(2) posicion
+  }
+  RESULTADO_CARGA_TEMPORAL {
+    NUMBER(10) id_carga PK
+    NUMBER(10) id_partido
+    NUMBER(3) goles_local
+    NUMBER(3) goles_visitante
+    NUMBER(10) asistencia
+    VARCHAR2(20) estado
+    VARCHAR2(300) mensaje_error
+  }
+  AUDITORIA_EVENTO {
+    NUMBER id_auditoria PK
+    VARCHAR2(40) tabla
+    VARCHAR2(10) operacion
+    NUMBER(10) id_registro
+    VARCHAR2(100) valor_anterior
+    VARCHAR2(100) valor_nuevo
+    VARCHAR2(30) usuario
+    DATE fecha
+  }
+```
+
+`tabla_posiciones` tiene un UNIQUE `uq_pos_edicion_sel` sobre (`id_edicion`, `id_seleccion`): una selección aparece una sola vez por edición.
+
+`resultado_carga_temporal` y `auditoria_evento` no tienen llaves foráneas a propósito. En la carga temporal puede llegar un partido que no existe, y esa fila debe quedar marcada con error en vez de rechazarse. En la auditoría el registro tiene que sobrevivir aunque se borre la fila auditada.
