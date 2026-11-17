@@ -168,7 +168,7 @@ Son los cuatro triggers obligatorios del enunciado.
 
 **Cómo ejecutar el archivo.** Se corre completo con "Ejecutar script". Las tablas se deben haber creado antes (DDL ampliado). Ojo: al inicio de la parte de auditoría el script hace `DROP TABLE auditoria_evento`, así que cada vez que se vuelve a correr, el historial de auditoría se reinicia. Si se vuelve a ejecutar el DDL de las 16 tablas, los triggers se borran junto con ellas y hay que volver a correr `triggers.sql`.
 
-### 1. Validación de rangos — `trg_rangos_estadistica`
+### 1. Validación de rangos - `trg_rangos_estadistica`
 
 **Propósito.** Que un jugador no pueda tener goles ni asistencias negativos.
 
@@ -192,7 +192,7 @@ ROLLBACK;
 - *La tabla ya tiene un CHECK para esto (`ck_estadistica_counters`).* Se dejó el trigger porque el enunciado lo pide y porque, al ejecutarse antes que el CHECK, da un mensaje propio y más claro. El CHECK queda como respaldo: si alguien deshabilita el trigger con `ALTER TRIGGER ... DISABLE`, los negativos se siguen rechazando. Además el CHECK cubre las tarjetas, que el trigger no revisa.
 - *Valores nulos.* `goles` y `asistencias` son `NOT NULL` con valor por defecto 0, así que la comparación nunca recibe un nulo.
 
-### 2. Anti-duplicidad — `trg_antiduplicidad_participacion`
+### 2. Anti-duplicidad - `trg_antiduplicidad_participacion`
 
 **Propósito.** Evitar que una selección quede registrada dos veces en el mismo partido.
 
@@ -217,7 +217,7 @@ ROLLBACK;
 - *Tabla mutante (ORA-04091).* Un trigger por fila que consulta su propia tabla puede fallar cuando el INSERT afecta varias filas a la vez (visto en clase). En la prueba, con un INSERT de una sola fila, funcionó sin ese error. No se probó con inserciones de varias filas; en una carga masiva, la restricción UNIQUE sigue protegiendo aunque el trigger se deshabilite.
 - *UPDATE.* El trigger solo vigila los INSERT. Si alguien cambia `id_seleccion` de una fila existente a una selección repetida, lo detiene la misma restricción UNIQUE.
 
-### 3. Auditoría — `trg_auditoria_partido` y `trg_auditoria_estadistica`
+### 3. Auditoría - `trg_auditoria_partido` y `trg_auditoria_estadistica`
 
 **Propósito.** Dejar un registro de quién modificó partidos y estadísticas, cuándo y cómo cambió el dato.
 
@@ -256,7 +256,7 @@ ROLLBACK;
 - *Usuario de la aplicación.* `USER` devuelve el usuario de Oracle, y la aplicación se conecta siempre con la misma cuenta, así que todos los cambios hechos desde ella aparecerían con el mismo usuario. Una mejora posible es que la aplicación informe quién está usando el sistema.
 - *Alcance.* Solo se audita una columna por tabla (`asistencia_registrada` y `goles`). Se puede ampliar agregando columnas a `auditoria_evento`.
 
-### 4. Consistencia — `trg_consistencia_marcador`
+### 4. Consistencia - `trg_consistencia_marcador`
 
 **Propósito.** Que los goles individuales de los jugadores no contradigan el marcador oficial del partido.
 
