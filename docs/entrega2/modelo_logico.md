@@ -10,8 +10,6 @@ Con estas tablas se pueden hacer consultas por jugador, partido, selección, gru
 
 ![Modelo lógico](modelo_logico.png)
 
-La imagen es la de la Entrega 2 (16 tablas). El diagrama con las 19 tablas está en la sección 1 de `modelo_fisico.md`.
-
 ---
 
 # 2. Tablas del modelo
