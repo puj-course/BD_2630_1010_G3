@@ -12,7 +12,6 @@ import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
-import javax.swing.SwingConstants;
 
 public class VentanaPrincipal extends JFrame {
 
@@ -37,7 +36,6 @@ public class VentanaPrincipal extends JFrame {
         agregar(catalogos, colCatalogos, "Ciudades", PanelCiudades::new);
         agregar(catalogos, colCatalogos, "Estadios", PanelEstadios::new);
         catalogos.addSeparator();
-        // Cada integrante cambia pendiente(...) por su propio panel.
         agregar(catalogos, colCatalogos, "Selecciones y grupos", PanelSelecciones::new);
         agregar(catalogos, colCatalogos, "Jugadores y cuerpo técnico", PanelJugadoresCuerpoTecnico::new);
 
@@ -133,20 +131,6 @@ public class VentanaPrincipal extends JFrame {
         getContentPane().add(panel, BorderLayout.CENTER);
         revalidate();
         repaint();
-    }
-
-    private JPanel pendiente(String titulo) {
-        JLabel texto = new JLabel(titulo + ": este módulo todavía está en construcción.", SwingConstants.CENTER);
-        texto.setFont(texto.getFont().deriveFont(Font.PLAIN, 16f));
-        JButton volver = new JButton("Volver al inicio");
-        volver.addActionListener(e -> mostrarInicio());
-        JPanel abajo = new JPanel();
-        abajo.add(volver);
-
-        JPanel panel = new JPanel(new BorderLayout());
-        panel.add(texto, BorderLayout.CENTER);
-        panel.add(abajo, BorderLayout.SOUTH);
-        return panel;
     }
 
     @FunctionalInterface

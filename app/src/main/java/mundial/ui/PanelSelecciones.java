@@ -184,7 +184,7 @@ public class PanelSelecciones extends JPanel {
             cargar();
             estado.setText("Se eliminó la selección " + actual.getPais() + ".");
         } catch (SQLException ex) {
-            // Si la seleccion ya tiene partidos o jugadores, Oracle no deja borrarla y Mensajes lo explica
+            // Si la seleccion ya tiene partidos o jugadores, Oracle no deja borrarla y Mensajes lo explica.
             Mensajes.error(this, ex);
         }
     }
@@ -220,7 +220,7 @@ public class PanelSelecciones extends JPanel {
             return;
         }
         try {
-            // Si la letra ya existe en esa fase, la restriccion uq_grupo_nombre lo impide
+            // Si la letra ya existe en esa fase, la restriccion uq_grupo_nombre lo impide.
             repository.insertarGrupo(((Opcion) fase.getSelectedItem()).getId(), (String) letra.getSelectedItem());
             estado.setText("Se agregó el grupo " + letra.getSelectedItem() + ".");
         } catch (SQLException ex) {
@@ -252,7 +252,7 @@ public class PanelSelecciones extends JPanel {
         }
         Opcion elegido = (Opcion) grupo.getSelectedItem();
         try {
-            // Si el grupo tiene selecciones, Oracle no deja borrarlo y Mensajes lo explica
+            // Si el grupo tiene selecciones, Oracle no deja borrarlo y Mensajes lo explica.
             repository.eliminarGrupo(elegido.getId());
             cargar();
             estado.setText("Se eliminó el " + elegido + ".");
@@ -283,7 +283,7 @@ public class PanelSelecciones extends JPanel {
         tabla.scrollRectToVisible(tabla.getCellRect(fila, 0, true));
     }
 
-    // La edicion es la del filtro; solo se muestran los grupos de esa edicion
+    // La edicion es la del filtro; solo se muestran los grupos de esa edicion.
     private Seleccion pedirDatos(String tituloVentana, Seleccion base) {
         JComboBox<Object> grupo = new JComboBox<>();
         grupo.addItem(SIN_GRUPO);

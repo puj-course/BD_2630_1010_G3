@@ -11,7 +11,7 @@ import mundial.Conexion;
 
 public class RepositorySeleccion {
 
-    // Un grupo o una fase para llenar las listas desplegables
+    // Un grupo o una fase para llenar las listas desplegables.
     public static class Opcion {
         private int id;
         private String texto;
@@ -30,7 +30,7 @@ public class RepositorySeleccion {
     }
 
     public List<Seleccion> consultarSelecciones(int idEdicion) throws SQLException {
-        // El grupo puede ser nulo, por eso se une con LEFT JOIN
+        // El grupo puede ser nulo, por eso se une con LEFT JOIN.
         StringBuilder sql = new StringBuilder("SELECT s.id_seleccion, s.id_edicion, s.id_grupo, ");
         sql.append("s.pais, s.confederacion, e.anio, g.nombre AS grupo ");
         sql.append("FROM seleccion s ");
@@ -45,7 +45,7 @@ public class RepositorySeleccion {
             ps.setInt(1, idEdicion);
             try (ResultSet rs = ps.executeQuery()) {
                 while (rs.next()) {
-                    // getInt devuelve 0 cuando el valor es NULL
+                    // getInt devuelve 0 cuando el valor es NULL.
                     selecciones.add(new Seleccion(
                             rs.getInt("ID_SELECCION"),
                             rs.getInt("ID_EDICION"),
@@ -80,7 +80,7 @@ public class RepositorySeleccion {
         return grupos;
     }
 
-    // Fases de tipo GRUPOS de la edicion, que son las que pueden tener grupos
+    // Fases de tipo GRUPOS de la edicion, que son las que pueden tener grupos.
     public List<Opcion> consultarFasesDeGrupos(int idEdicion) throws SQLException {
         StringBuilder sql = new StringBuilder("SELECT id_fase, nombre FROM fase ");
         sql.append("WHERE id_edicion = ? AND tipo = 'GRUPOS' ");
@@ -163,7 +163,7 @@ public class RepositorySeleccion {
         }
     }
 
-    // Si no hay grupo se guarda NULL en lugar de 0
+    // Si no hay grupo se guarda NULL en lugar de 0.
     private void asignarGrupo(PreparedStatement ps, int posicion, int idGrupo) throws SQLException {
         if (idGrupo == 0) {
             ps.setNull(posicion, Types.NUMERIC);
