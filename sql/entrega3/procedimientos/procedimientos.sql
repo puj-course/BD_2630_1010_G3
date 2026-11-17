@@ -524,6 +524,7 @@ EXEC pr_registrar_resultado(385, 0, 2, 60000);
 -- C. Probar cierre de fase de grupos en la edicion 7
 EXEC pr_cierre_fase(7, 37);
 
-COMMIT;
+-- Se deshacen las pruebas para no cambiar los datos de carga
+ROLLBACK;
 
 EXIT;
